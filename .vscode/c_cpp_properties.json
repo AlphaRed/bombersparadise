@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/SDL_Libs/SDL2-devel-2.0.4-mingw/SDL2-2.0.4/i686-w64-mingw32/include/SDL2",
+                "C:/SDL_Libs/SDL2-devel-2.0.4-mingw/SDL2-2.0.4/i686-w64-mingw32/lib",
+                "C:/SDL_Libs/SDL2-devel-2.0.4-mingw/SDL2_image-2.0.1/i686-w64-mingw32/include/SDL2",
+                "C:/SDL_Libs/SDL2-devel-2.0.4-mingw/SDL2_image-2.0.1/i686-w64-mingw32/lib",
+                "C:/SDL_Libs/SDL2-devel-2.0.4-mingw/SDL2_mixer-2.0.4/i686-w64-mingw32/include/SDL2",
+                "C:/SDL_Libs/SDL2-devel-2.0.4-mingw/SDL2_mixer-2.0.4/i686-w64-mingw32/lib"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "C:\\mingw-w64\\i686-8.1.0-posix-dwarf-rt_v6-rev0\\mingw32\\bin\\gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x86"
+        }
+    ],
+    "version": 4
+}
