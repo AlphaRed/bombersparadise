@@ -46,10 +46,6 @@ typedef struct Bomb_t
     struct Bomb_t *next;
 } Bomb_t;
 
-// TO DO MOVE THESE OUT AND USE EXTERN WHERE APPLICABLE
-SDL_Rect fontTiles[FONT_NUM];
-SDL_Rect tileIndex[TILE_NUM];
-
 extern int arena[ARENA_WIDTH][ARENA_HEIGHT];
 extern Bomb_t *bombList;
 

@@ -14,6 +14,9 @@ Bomb_t *bombList = NULL;
 int score;
 int win;
 
+SDL_Rect fontTiles[FONT_NUM];
+SDL_Rect tileIndex[TILE_NUM];
+
 // resources
 SDL_Texture *bg;
 SDL_Texture *tiles;
