@@ -1,4 +1,4 @@
-#include"common.h"
+#include "common.h"
 #include "system.h"
 #include "gfx.h"
 

@@ -12,6 +12,7 @@ SDL_Texture *loadImage(char *filename)
         return NULL;
     }
     t = SDL_CreateTextureFromSurface(renderer, img);
+    SDL_SetTextureScaleMode(t, SDL_SCALEMODE_NEAREST);
     return t;
 }
 
