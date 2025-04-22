@@ -13,7 +13,7 @@ extern SDL_Rect tileIndex[TILE_NUM];
 
 SDL_Texture *loadImage(char *filename);
 void blitImage(SDL_Texture *image, int x, int y, int w, int h, int s);
-void blitTile(SDL_Texture *image, int x, int y, int w, int h, SDL_Rect destRect);
+void blitTile(SDL_Texture *image, int x, int y, int w, int h, SDL_FRect destRect);
 void drawLetter(char c, int x, int y, int s);
 void setupFontTiles(SDL_Rect f[], int num);
 void drawString(char *string, int x, int y);

@@ -5,28 +5,28 @@ int checkGameEvents(SDL_Event e, Player_t *p)
 {
     if(win == 0)
     {
-        if(e.type == SDL_QUIT)
+        if(e.type == SDL_EVENT_QUIT)
             return 0;
-        else if(e.type == SDL_KEYDOWN)
+        else if(e.type == SDL_EVENT_KEY_DOWN)
         {
-            switch(e.key.keysym.sym)
+            switch(e.key.key)
             {
                 case SDLK_ESCAPE:
                     return 0;
                     break;
-                case SDLK_w:
+                case SDLK_W:
                     p->y -= (1 * TILE_SIZE * TILE_SCALE);
                     p->lastDir = 3;
                     break;
-                case SDLK_s:
+                case SDLK_S:
                     p->y += (1 * TILE_SIZE * TILE_SCALE);
                     p->lastDir = 1;
                     break;
-                case SDLK_a:
+                case SDLK_A:
                     p->x -= (1 * TILE_SIZE * TILE_SCALE);
                     p->lastDir = 2;
                     break;
-                case SDLK_d:
+                case SDLK_D:
                     p->x += (1 * TILE_SIZE * TILE_SCALE);
                     p->lastDir = 4;
                     break;
@@ -44,11 +44,11 @@ int checkGameEvents(SDL_Event e, Player_t *p)
     }
     else
     {
-        if(e.type == SDL_QUIT)
+        if(e.type == SDL_EVENT_QUIT)
             return 0;
-        else if(e.type == SDL_KEYDOWN)
+        else if(e.type == SDL_EVENT_KEY_DOWN)
         {
-            switch(e.key.keysym.sym)
+            switch(e.key.key)
             {
                 case SDLK_RETURN:
                     return 2;
@@ -63,11 +63,11 @@ int checkGameEvents(SDL_Event e, Player_t *p)
 
 int checkMenuEvents(SDL_Event e, Cursor_t *c)
 {
-    if(e.type == SDL_QUIT)
+    if(e.type == SDL_EVENT_QUIT)
         return 0;
-    else if(e.type == SDL_KEYDOWN)
+    else if(e.type == SDL_EVENT_KEY_DOWN)
     {
-        switch(e.key.keysym.sym)
+        switch(e.key.key)
         {
             case SDLK_RETURN:
                 if(c->y == 255) // Start

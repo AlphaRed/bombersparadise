@@ -21,7 +21,7 @@ SDL_Rect tileIndex[TILE_NUM];
 SDL_Texture *bg;
 SDL_Texture *tiles;
 SDL_Texture *font;
-Mix_Music   *menuMusic;
+//Mix_Music   *menuMusic;
 
 int main(int argc, char *args[])
 {    
@@ -39,10 +39,10 @@ int main(int argc, char *args[])
     loadMap("arena.txt");
     srand(time(0));
 
-    menuMusic = Mix_LoadMUS("sound/menu.wav");
-    if(menuMusic == NULL)
-        printf("Could not load menu music: %s", Mix_GetError());
-    Mix_PlayMusic(menuMusic, -1);
+    //menuMusic = Mix_LoadMUS("sound/menu.wav");
+    //if(menuMusic == NULL)
+    //    printf("Could not load menu music: %s", Mix_GetError());
+    //Mix_PlayMusic(menuMusic, -1);
 
     Cursor_t menuCursor;
     menuCursor.imgIndex = 4;
@@ -78,7 +78,7 @@ int main(int argc, char *args[])
             {
                 gs = MENU;
                 win = 0;
-                Mix_PlayMusic(menuMusic, -1);
+                //Mix_PlayMusic(menuMusic, -1);
             }
         }
         else if(gs == MENU)
@@ -86,7 +86,7 @@ int main(int argc, char *args[])
             quit = checkMenuEvents(e, &menuCursor);
             if(quit == 2)
             {
-                Mix_HaltMusic();
+                //Mix_HaltMusic();
                 blockTicks = SDL_GetTicks();
                 gs = GAME;
                 addBlocks(40, &player);

@@ -11,13 +11,13 @@ int initWindow()
         return 1;
     }
     else
-        window = SDL_CreateWindow("Bombers Paradise", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+        window = SDL_CreateWindow("Bombers Paradise", SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     return 0;
 }
 
 int initRenderer()
 {
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, NULL);
     if(renderer == NULL)
     {
         printf("Renderer failed to be created: %s\n", SDL_GetError());
@@ -28,21 +28,21 @@ int initRenderer()
 
 int initIMG()
 {
-    if(IMG_Init(IMG_INIT_PNG) < 0)
+    /*if(IMG_Init(IMG_INIT_PNG) < 0)
     {
-        printf("SDL_Image library failed to initialize: %s", IMG_GetError());
+        printf("SDL_Image library failed to initialize: %s", SDL_GetError());
         return 1;
-    }
+    }*/
     return 0;
 }
 
 int initAudio()
 {
-    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+    /*if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
     {
         printf("SDL_mixer library failed to initialize: %s", Mix_GetError());
         return 1;
-    }
+    }*/
     return 0;
 }
 
@@ -76,11 +76,11 @@ int initSDL()
 
 void cleanup()
 {
-    Mix_HaltMusic();
+    //Mix_HaltMusic();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
-    Mix_Quit();
-    IMG_Quit();
+    //Mix_Quit();
+    //IMG_Quit();
     SDL_Quit();
 }
 

@@ -8,7 +8,7 @@ SDL_Texture *loadImage(char *filename)
     SDL_Surface *img = IMG_Load(filename);
     if(!img)
     {
-        printf("Image failed to load: %s\n", IMG_GetError());
+        printf("Image failed to load: %s\n", SDL_GetError());
         return NULL;
     }
     t = SDL_CreateTextureFromSurface(renderer, img);
@@ -17,24 +17,24 @@ SDL_Texture *loadImage(char *filename)
 
 void blitImage(SDL_Texture *image, int x, int y, int w, int h, int s)
 {
-    SDL_Rect destRect;
+    SDL_FRect destRect;
     destRect.x = x;
     destRect.y = y;
     destRect.w = w * s;
     destRect.h = h * s;
 
-    SDL_RenderCopy(renderer, image, NULL, &destRect);
+    SDL_RenderTexture(renderer, image, NULL, &destRect);
 }
 
-void blitTile(SDL_Texture *image, int x, int y, int w, int h, SDL_Rect destRect)
+void blitTile(SDL_Texture *image, int x, int y, int w, int h, SDL_FRect destRect)
 {
-    SDL_Rect srcRect;
+    SDL_FRect srcRect;
     srcRect.x = x;
     srcRect.y = y;
     srcRect.w = w;
     srcRect.h = h;
 
-    SDL_RenderCopy(renderer, image, &srcRect, &destRect);
+    SDL_RenderTexture(renderer, image, &srcRect, &destRect);
 }
 
 
@@ -44,7 +44,7 @@ void drawLetter(char c, int x, int y, int s)
     //int x = ((c - 32) % 8) * 8; // ASCII starts at char = 32, font width = 8px
     //int y = ((c - 32) / 16) * 12; // ASCII starts at char = 32, num of chars in width = 16, font height = 12px
 
-    SDL_Rect destRect;
+    SDL_FRect destRect;
     destRect.x = x;
     destRect.y = y;
     destRect.w = 8 * s;
@@ -112,7 +112,7 @@ void drawFPS(int fps)
 
 void drawTile(SDL_Texture *t, int index, int x, int y, int s)
 {
-    SDL_Rect destRect;
+    SDL_FRect destRect;
     destRect.x = x;
     destRect.y = y;
     destRect.w = TILE_SIZE * s;
