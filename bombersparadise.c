@@ -50,9 +50,7 @@ int main(int argc, char *args[])
     menuCursor.y = 255;
 
     player.imgIndex = 5;
-    player.x = 1 * TILE_SIZE *TILE_SCALE;
-    player.y = 3 * TILE_SIZE * TILE_SCALE;
-    player.lastDir = 0;
+    resetplayer(&player);
 
     int quit = 1;
     SDL_Event e;
@@ -74,17 +72,18 @@ int main(int argc, char *args[])
         if(gs == GAME)
         {
             quit = checkGameEvents(e, &player);
-            if(quit == 2)
+            if(quit == 2)   // Won screen, moving to menu state
             {
                 gs = MENU;
                 win = 0;
                 //Mix_PlayMusic(menuMusic, -1);
+                resetplayer(&player);
             }
         }
         else if(gs == MENU)
         {
             quit = checkMenuEvents(e, &menuCursor);
-            if(quit == 2)
+            if(quit == 2) // menu, moving to game
             {
                 //Mix_HaltMusic();
                 blockTicks = SDL_GetTicks();

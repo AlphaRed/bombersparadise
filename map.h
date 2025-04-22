@@ -5,5 +5,6 @@ void setupTiles(SDL_Rect t[], int num);
 int loadMap(char *filename);
 int pxToTileX(int n);
 int pxToTileY(int n);
+void resetplayer(Player_t *plyr);
 
 #endif
