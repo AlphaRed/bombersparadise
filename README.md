@@ -8,11 +8,10 @@ I never finished it in time and was left on an old computer only to be resurrect
 ## Installation
 So far, no binaries are available but that should change once I get to a more complete state.
 
-You can compile the project for Windows (Linux is untested, and likely doesn't work) and requires the following libraries:
-- SDL2
-- SDL2_image
-- SDL2_mixer
-(Will update to SDL3 in the next little bit)
+You can compile the project for Windows (Linux is untested, and likely doesn't work)
+The following libraries are required:
+- SDL3
+- SDL3_image
 
 ## License
 Public domain.
