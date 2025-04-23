@@ -159,7 +159,7 @@ void addBlocks(int num, Player_t *p)
 
         if(arena[randX][randY] == 0) // if it's an empty square!
         {
-            if(randX != playerX && randY != playerY) // make sure the player isn't there
+            if(!((randX == playerX) && (randY == playerY))) // make sure the player isn't there
             {
                 arena[randX][randY] = 2;
                 num--;
