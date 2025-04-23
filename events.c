@@ -204,9 +204,12 @@ void bombExplode(Bomb_t *b)
 
 void checkDestructible(int x, int y)
 {
+    extern int score;
+
     if(arena[x][y] == 2)
     {
         arena[x][y] = 0;
+        score++;
     }
     // also need to damage the player!
 }

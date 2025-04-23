@@ -99,6 +99,7 @@ int main(int argc, char *args[])
             if((SDL_GetTicks() - blockTicks) > 10000)
             {
                 addBlocks(5, &player);
+                score += 5;
                 blockTicks = SDL_GetTicks();
             }
         }

@@ -225,6 +225,16 @@ void drawBombs(Bomb_t *b, SDL_Texture *t)
 
 void drawScore(int s)
 {
-    drawString("Score", 20, 20);
-    // similar to draw fps?
+    char c;
+    int x;
+
+    drawString("Score", 0, 10);
+    
+    for (int i = 0; i < 8; i++)
+    {
+        c = (s % 10) + 48;
+        s = s / 10;
+        x = 450 - (i * 8 * 4);
+        drawLetter(c, x, 10, 4);
+    }
 }
