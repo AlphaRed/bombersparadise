@@ -59,6 +59,8 @@ int checkGameEvents(SDL_Event e, Player_t *p)
             return 1;
         }
     }
+
+    return 1;
 }
 
 int checkMenuEvents(SDL_Event e, Cursor_t *c)
@@ -86,6 +88,7 @@ int checkMenuEvents(SDL_Event e, Cursor_t *c)
         }
         return 1;    
     }
+    return 1;
 }
 
 void checkMCursorBounds(Cursor_t *c)

@@ -56,7 +56,6 @@ int main(int argc, char *args[])
     SDL_Event e;
     int current_ticks;
     int fps_counter = 0;
-    int renderTicks = 0;
     int blockTicks = 0;
     score = 0;
     win = 0;
@@ -109,8 +108,6 @@ int main(int argc, char *args[])
         }
 
         // Render
-        renderTicks = SDL_GetTicks();
-
         if(gs == GAME)
         {
             blitImage(bg, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 1); // clear bg to black      
