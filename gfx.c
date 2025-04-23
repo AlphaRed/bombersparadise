@@ -93,11 +93,11 @@ void drawFPS(int fps)
     char c;
     int x;
 
-    drawLetter('F', 1000, 0, 1);
-    drawLetter('P', 1008, 0, 1);
-    drawLetter('S', 1016, 0, 1);
-    drawLetter(':', 1024, 0, 1);
-    drawLetter(' ', 1032, 0, 1);
+    drawLetter('F', 400, 0, 1);
+    drawLetter('P', 408, 0, 1);
+    drawLetter('S', 416, 0, 1);
+    drawLetter(':', 424, 0, 1);
+    drawLetter(' ', 432, 0, 1);
 
     if(fps > 1000)
         fps = 1000;
@@ -106,7 +106,7 @@ void drawFPS(int fps)
     {
         c = (fps % 10) + 48; // need 48 to convert to ASCII numbers
         fps = fps / 10;
-        x = 1064 - (i * 8);
+        x = 464 - (i * 8);
         drawLetter(c, x, 0, 1);
     }   
 }
