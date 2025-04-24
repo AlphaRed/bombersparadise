@@ -16,7 +16,7 @@ void blitImage(SDL_Texture *image, int x, int y, int w, int h, int s);
 void blitTile(SDL_Texture *image, int x, int y, int w, int h, SDL_FRect destRect);
 void drawLetter(char c, int x, int y, int s);
 void setupFontTiles(SDL_Rect f[], int num);
-void drawString(char *string, int x, int y);
+void drawString(char *string, int x, int y, int scale);
 void drawFPS(int fps);
 void drawSprite(SDL_Texture *sprite, int index, int x, int y, int scale);
 void drawTile(SDL_Texture *t, int index, int x, int y, int s);

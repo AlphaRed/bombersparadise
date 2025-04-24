@@ -68,7 +68,7 @@ void setupFontTiles(SDL_Rect f[], int num)
 }
 
 // TO DO: move with other text related functions to new file
-void drawString(char *string, int x, int y)
+void drawString(char *string, int x, int y, int scale)
 {
     // only draw a string max length of 40 characters! (1,280 res width / (8 * 4) don't forget the upscale of 4x
     // technically can be drawn closer due to the way I've drawn the pixel art!
@@ -79,11 +79,11 @@ void drawString(char *string, int x, int y)
 
     for(int i = 0; i < len; i++)
     {
-        drawLetter(string[i], x, y, 4);
+        drawLetter(string[i], x, y, scale);
         if(string[i] == 'i')
-            x += ((FONT_WIDTH - 4) * 4); // more for i...maybe l?
+            x += ((FONT_WIDTH - 4) * scale); // more for i...maybe l?
         else
-            x += ((FONT_WIDTH - 2) * 4); // Minus two for distancing...kerning(?)
+            x += ((FONT_WIDTH - 2) * scale); // Minus two for distancing...kerning(?)
     }
 }
 
@@ -93,11 +93,7 @@ void drawFPS(int fps)
     char c;
     int x;
 
-    drawLetter('F', 400, 0, 1);
-    drawLetter('P', 408, 0, 1);
-    drawLetter('S', 416, 0, 1);
-    drawLetter(':', 424, 0, 1);
-    drawLetter(' ', 432, 0, 1);
+    drawString("FPS:", 400, 0, 1);
 
     if(fps > 1000)
         fps = 1000;
@@ -137,23 +133,21 @@ void drawTile(SDL_Texture *t, int index, int x, int y, int s)
 
 void drawArena(SDL_Texture *t)
 {
-    int xOffset = 0;
-    int yOffset = 0;//2;
     for(int i = 0; i < ARENA_HEIGHT; i++)
     {
         for(int j = 0; j < ARENA_WIDTH; j++)
         {
-            drawTile(t, arena[j][i], j + xOffset, i + yOffset, TILE_SCALE);
+            drawTile(t, arena[j][i], j, i, TILE_SCALE);
         }
     }
 }
 
 void drawMenu(SDL_Texture *t)
 {
-    drawString("Bomber's Paradise", 50, 20);
-    drawString("Start", 50, 250);
-    drawString("Exit", 50, 300);
-    drawString("By Isaac", 50, 420);
+    drawString("Bomber's Paradise", 50, 20, 4);
+    drawString("Start", 50, 250, 4);
+    drawString("Exit", 50, 300, 4);
+    drawString("By Isaac", 50, 420, 4);
     drawSprite(t, 12, 192, 160, TILE_SCALE * 2);
     drawSprite(t, 13, 256, 160, TILE_SCALE * 2);
     drawSprite(t, 14, 192, 96, TILE_SCALE * 2);
@@ -169,9 +163,9 @@ void drawWin(int n)
     if(n == 1)
     {
         blitImage(bg, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 1); // clear screen
-        drawString("Good job!", 50, 40);
-        drawString("Press enter to", 50, 150);
-        drawString("continue.", 50, 200);
+        drawString("Good job!", 50, 40, 4);
+        drawString("Press enter to", 50, 150, 4);
+        drawString("continue.", 50, 200, 4);
     }
     else
         return;
@@ -238,7 +232,7 @@ void drawScore(int s)
     char c;
     int x;
 
-    drawString("Score", 0, 10);
+    drawString("Score", 0, 10, 4);
     
     for (int i = 0; i < 8; i++)
     {
