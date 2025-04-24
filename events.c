@@ -110,7 +110,7 @@ void clearArena()
     {
         for(int j = 0; j < ARENA_WIDTH; j++)
         {
-            arena[j][i] = 0;
+            arena[j][i] = TILE_EMPTY;
         }
     }
 }
@@ -120,7 +120,7 @@ void checkCollision(Player_t *p)
     int playerX = p->x / TILE_SIZE / TILE_SCALE;
     int playerY = (p->y - 2 * TILE_SIZE * TILE_SCALE) / TILE_SIZE / TILE_SCALE; // Arena is drawn two tiles down
 
-    if(arena[playerX][playerY] == 1 || arena[playerX][playerY] == 2)
+    if(arena[playerX][playerY] == TILE_WALL || arena[playerX][playerY] == TILE_BLOCK)
     {
         switch (p->lastDir)
         {
@@ -140,7 +140,7 @@ void checkCollision(Player_t *p)
                 break;
         }
     }
-    else if(arena[playerX][playerY] == 3)
+    else if(arena[playerX][playerY] == TILE_EXIT)
     {
         win = 1;
     }
@@ -157,11 +157,11 @@ void addBlocks(int num, Player_t *p)
         randX = rand() % ARENA_WIDTH;
         randY = rand() % ARENA_HEIGHT;
 
-        if(arena[randX][randY] == 0) // if it's an empty square!
+        if(arena[randX][randY] == TILE_EMPTY) // if it's an empty square!
         {
             if(!((randX == playerX) && (randY == playerY))) // make sure the player isn't there
             {
-                arena[randX][randY] = 2;
+                arena[randX][randY] = TILE_BLOCK;
                 num--;
             }   
         }
@@ -206,9 +206,9 @@ void checkDestructible(int x, int y)
 {
     extern int score;
 
-    if(arena[x][y] == 2)
+    if(arena[x][y] == TILE_BLOCK)
     {
-        arena[x][y] = 0;
+        arena[x][y] = TILE_EMPTY;
         score++;
     }
     // also need to damage the player!

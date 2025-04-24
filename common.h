@@ -19,6 +19,12 @@
 #define ARENA_WIDTH     15
 #define ARENA_HEIGHT    13
 
+// map tiles
+#define TILE_EMPTY      0
+#define TILE_WALL       1
+#define TILE_BLOCK      2
+#define TILE_EXIT       3
+
 typedef enum {MENU, GAME} Gamestate;
 
 typedef struct Cursor_t // could maybe make this a generic sprite/obj struct?

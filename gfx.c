@@ -196,22 +196,22 @@ void drawBombs(Bomb_t *b, SDL_Texture *t)
                 int tileX = p->x / TILE_SIZE / TILE_SCALE;
                 int tileY = (p->y - 2 * TILE_SIZE * TILE_SCALE) / TILE_SIZE / TILE_SCALE;
                 int yOffset = TILE_SIZE * TILE_SCALE * 2;
-                if(arena[tileX][tileY - 1] != 1) // above
+                if(arena[tileX][tileY - 1] != TILE_WALL) // above
                 {
                     drawTile(t, 11, tileX * TILE_SIZE * TILE_SCALE, (tileY - 1) * TILE_SIZE * TILE_SCALE + yOffset, TILE_SCALE);
                     checkDestructible(tileX, tileY - 1);
                 }
-                if(arena[tileX][tileY + 1] != 1) // below
+                if(arena[tileX][tileY + 1] != TILE_WALL) // below
                 {
                     drawTile(t, 11, tileX * TILE_SIZE * TILE_SCALE, (tileY + 1) * TILE_SIZE * TILE_SCALE + yOffset, TILE_SCALE);
                     checkDestructible(tileX, tileY + 1);
                 }
-                if(arena[tileX - 1][tileY] != 1) // left
+                if(arena[tileX - 1][tileY] != TILE_WALL) // left
                 {
                     drawTile(t, 10, (tileX - 1) * TILE_SIZE * TILE_SCALE, tileY * TILE_SIZE * TILE_SCALE + yOffset, TILE_SCALE);
                     checkDestructible(tileX - 1, tileY);
                 }
-                if(arena[tileX + 1][tileY] != 1) // right
+                if(arena[tileX + 1][tileY] != TILE_WALL) // right
                 {
                     drawTile(t, 10, (tileX + 1) * TILE_SIZE * TILE_SCALE, tileY * TILE_SIZE * TILE_SCALE + yOffset, TILE_SCALE);
                     checkDestructible(tileX + 1, tileY);
