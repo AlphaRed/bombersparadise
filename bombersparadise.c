@@ -109,9 +109,9 @@ int main(int argc, char *args[])
         }
 
         // Render
+        SDL_RenderClear(renderer);
         if(gs == GAME)
         {
-            blitImage(bg, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 1); // clear bg to black      
             drawArena(tiles);
             drawPlayer(player, tiles);
             drawBombs(bombList, tiles);
@@ -120,7 +120,6 @@ int main(int argc, char *args[])
         }
         else if(gs == MENU)
         {
-            blitImage(bg, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 1); // clear bg to black
             drawMenu(tiles);
             drawCursor(menuCursor, tiles);
         }
