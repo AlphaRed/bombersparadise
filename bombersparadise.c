@@ -77,6 +77,7 @@ int main(int argc, char *args[])
                 win = 0;
                 //Mix_PlayMusic(menuMusic, -1);
                 resetplayer(&player);
+                loadMap("arena.txt");
             }
         }
         else if(gs == MENU)
