@@ -111,11 +111,24 @@ void drawFPS(int fps)
     }   
 }
 
-void drawTile(SDL_Texture *t, int index, int x, int y, int s)
+// For drawing single tiles as sprites, freely on the screen using screen coordinates
+void drawSprite(SDL_Texture *sprite, int index, int x, int y, int scale)
 {
     SDL_FRect destRect;
     destRect.x = x;
     destRect.y = y;
+    destRect.w = TILE_SIZE * scale;
+    destRect.h = TILE_SIZE * scale;
+
+    blitTile(sprite, tileIndex[index].x, tileIndex[index].y, tileIndex[index].w, tileIndex[index].h, destRect);
+}
+
+// For drawing single tiles on the arena using arena coordinates
+void drawTile(SDL_Texture *t, int index, int x, int y, int s)
+{
+    SDL_FRect destRect;
+    destRect.x = x * TILE_SCALE * TILE_SIZE;
+    destRect.y = (y+2) * TILE_SCALE * TILE_SIZE;
     destRect.w = TILE_SIZE * s;
     destRect.h = TILE_SIZE * s;
     
@@ -125,12 +138,12 @@ void drawTile(SDL_Texture *t, int index, int x, int y, int s)
 void drawArena(SDL_Texture *t)
 {
     int xOffset = 0;
-    int yOffset = TILE_SIZE * TILE_SCALE * 2;
+    int yOffset = 0;//2;
     for(int i = 0; i < ARENA_HEIGHT; i++)
     {
         for(int j = 0; j < ARENA_WIDTH; j++)
         {
-            drawTile(t, arena[j][i], (j * TILE_SIZE * TILE_SCALE) + xOffset, (i * TILE_SIZE * TILE_SCALE) + yOffset, TILE_SCALE);
+            drawTile(t, arena[j][i], j + xOffset, i + yOffset, TILE_SCALE);
         }
     }
 }
@@ -141,14 +154,14 @@ void drawMenu(SDL_Texture *t)
     drawString("Start", 50, 250);
     drawString("Exit", 50, 300);
     drawString("By Isaac", 50, 420);
-    drawTile(t, 12, 192, 160, TILE_SCALE * 2);
-    drawTile(t, 13, 256, 160, TILE_SCALE * 2);
-    drawTile(t, 14, 192, 96, TILE_SCALE * 2);
+    drawSprite(t, 12, 192, 160, TILE_SCALE * 2);
+    drawSprite(t, 13, 256, 160, TILE_SCALE * 2);
+    drawSprite(t, 14, 192, 96, TILE_SCALE * 2);
 }
 
 void drawCursor(Cursor_t c, SDL_Texture *t)
 {
-    drawTile(t, c.imgIndex, c.x, c.y, TILE_SCALE);
+    drawSprite(t, c.imgIndex, c.x, c.y, TILE_SCALE);
 }
 
 void drawWin(int n)
@@ -193,28 +206,25 @@ void drawBombs(Bomb_t *b, SDL_Texture *t)
             {
                 drawTile(t, 9, p->x, p->y, TILE_SCALE);
                 // probably a better way to do this...
-                int tileX = p->x / TILE_SIZE / TILE_SCALE;
-                int tileY = (p->y - 2 * TILE_SIZE * TILE_SCALE) / TILE_SIZE / TILE_SCALE;
-                int yOffset = TILE_SIZE * TILE_SCALE * 2;
-                if(arena[tileX][tileY - 1] != TILE_WALL) // above
+                if(arena[p->x][p->y - 1] != TILE_WALL) // above
                 {
-                    drawTile(t, 11, tileX * TILE_SIZE * TILE_SCALE, (tileY - 1) * TILE_SIZE * TILE_SCALE + yOffset, TILE_SCALE);
-                    checkDestructible(tileX, tileY - 1);
+                    drawTile(t, 11, p->x, p->y - 1, TILE_SCALE);
+                    checkDestructible(p->x, p->y - 1);
                 }
-                if(arena[tileX][tileY + 1] != TILE_WALL) // below
+                if(arena[p->x][p->y + 1] != TILE_WALL) // below
                 {
-                    drawTile(t, 11, tileX * TILE_SIZE * TILE_SCALE, (tileY + 1) * TILE_SIZE * TILE_SCALE + yOffset, TILE_SCALE);
-                    checkDestructible(tileX, tileY + 1);
+                    drawTile(t, 11, p->x, p->y + 1, TILE_SCALE);
+                    checkDestructible(p->x, p->y + 1);
                 }
-                if(arena[tileX - 1][tileY] != TILE_WALL) // left
+                if(arena[p->x - 1][p->y] != TILE_WALL) // left
                 {
-                    drawTile(t, 10, (tileX - 1) * TILE_SIZE * TILE_SCALE, tileY * TILE_SIZE * TILE_SCALE + yOffset, TILE_SCALE);
-                    checkDestructible(tileX - 1, tileY);
+                    drawTile(t, 10, p->x - 1, p->y, TILE_SCALE);
+                    checkDestructible(p->x - 1, p->y);
                 }
-                if(arena[tileX + 1][tileY] != TILE_WALL) // right
+                if(arena[p->x + 1][p->y] != TILE_WALL) // right
                 {
-                    drawTile(t, 10, (tileX + 1) * TILE_SIZE * TILE_SCALE, tileY * TILE_SIZE * TILE_SCALE + yOffset, TILE_SCALE);
-                    checkDestructible(tileX + 1, tileY);
+                    drawTile(t, 10, p->x + 1, p->y, TILE_SCALE);
+                    checkDestructible(p->x + 1, p->y);
                 }
             }
             else if((currentTime - p->timer) < 5000)

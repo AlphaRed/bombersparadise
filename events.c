@@ -15,19 +15,19 @@ int checkGameEvents(SDL_Event e, Player_t *p)
                     return 0;
                     break;
                 case SDLK_W:
-                    p->y -= (1 * TILE_SIZE * TILE_SCALE);
+                    p->y -= 1;
                     p->lastDir = 3;
                     break;
                 case SDLK_S:
-                    p->y += (1 * TILE_SIZE * TILE_SCALE);
+                    p->y += 1;
                     p->lastDir = 1;
                     break;
                 case SDLK_A:
-                    p->x -= (1 * TILE_SIZE * TILE_SCALE);
+                    p->x -= 1;
                     p->lastDir = 2;
                     break;
                 case SDLK_D:
-                    p->x += (1 * TILE_SIZE * TILE_SCALE);
+                    p->x += 1;
                     p->lastDir = 4;
                     break;
                 case SDLK_SPACE:
@@ -117,24 +117,24 @@ void clearArena()
 
 void checkCollision(Player_t *p)
 {
-    int playerX = p->x / TILE_SIZE / TILE_SCALE;
-    int playerY = (p->y - 2 * TILE_SIZE * TILE_SCALE) / TILE_SIZE / TILE_SCALE; // Arena is drawn two tiles down
+    int playerX = p->x;
+    int playerY = p->y;
 
     if(arena[playerX][playerY] == TILE_WALL || arena[playerX][playerY] == TILE_BLOCK)
     {
         switch (p->lastDir)
         {
             case 1:
-                p->y -= 1 * TILE_SIZE * TILE_SCALE;
+                p->y -= 1;
                 break;
             case 2:
-                p->x += 1 * TILE_SIZE * TILE_SCALE;
+                p->x += 1;
                 break;
             case 3:
-                p->y += 1 * TILE_SIZE * TILE_SCALE;
+                p->y += 1;
                 break;
             case 4:
-                p->x -= 1 * TILE_SIZE * TILE_SCALE;
+                p->x -= 1;
                 break;
             default:
                 break;
@@ -149,8 +149,8 @@ void checkCollision(Player_t *p)
 void addBlocks(int num, Player_t *p)
 {
     int randX, randY;
-    int playerX = p->x / TILE_SIZE / TILE_SCALE;
-    int playerY = (p->y - 2 * TILE_SIZE * TILE_SCALE) / TILE_SIZE / TILE_SCALE;
+    int playerX = p->x;
+    int playerY = p->y;
 
     while(num > 0)
     {

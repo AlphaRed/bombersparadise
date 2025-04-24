@@ -46,7 +46,7 @@ int pxToTileY(int n)
 
 void resetplayer(Player_t *plyr)
 {
-    plyr->x = 1 * TILE_SIZE * TILE_SCALE;
-    plyr->y = 3 * TILE_SIZE * TILE_SCALE;
+    plyr->x = 1;
+    plyr->y = 1;
     plyr->lastDir = 0;
 }

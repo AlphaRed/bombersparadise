@@ -18,6 +18,7 @@ void drawLetter(char c, int x, int y, int s);
 void setupFontTiles(SDL_Rect f[], int num);
 void drawString(char *string, int x, int y);
 void drawFPS(int fps);
+void drawSprite(SDL_Texture *sprite, int index, int x, int y, int scale);
 void drawTile(SDL_Texture *t, int index, int x, int y, int s);
 void drawArena(SDL_Texture *t);
 void drawMenu(SDL_Texture *t);
