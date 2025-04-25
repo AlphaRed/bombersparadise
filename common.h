@@ -40,6 +40,7 @@ typedef struct Player_t
     int x;
     int y;
     int moveDir; // clockwise compass: 1 (N), 2 (E), 3 (S), 4 (W)
+    int lives;
 } Player_t;
 
 typedef struct Bomb_t

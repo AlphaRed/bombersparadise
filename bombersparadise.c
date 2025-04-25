@@ -12,7 +12,6 @@ int arena[ARENA_WIDTH][ARENA_HEIGHT];
 Player_t player;
 Bomb_t *bombList = NULL;
 int score;
-int lives;
 int win;
 
 SDL_Rect fontTiles[FONT_NUM];
@@ -59,7 +58,7 @@ int main(int argc, char *args[])
     int fps_counter = 0;
     int blockTicks = 0;
     score = 0;
-    lives = 3;
+    player.lives = 3;
     win = 0;
 
     // Game loop
@@ -119,7 +118,7 @@ int main(int argc, char *args[])
             drawPlayer(player, tiles);
             drawBombs(bombList, tiles);
             drawScore(score);
-            drawLives(lives);
+            drawLives(player.lives);
             drawWin(win);
         }
         else if(gs == MENU)
