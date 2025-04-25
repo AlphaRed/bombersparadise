@@ -187,10 +187,10 @@ void drawBombs(Bomb_t *b, SDL_Texture *t)
                 drawTile(t, p->imgIndex + 1, p->x, p->y, TILE_SCALE);
             else if((currentTime - p->timer) > 2000 && (currentTime - p->timer) < 2200)
                 drawTile(t, p->imgIndex + 1, p->x, p->y, TILE_SCALE);
-            else if((currentTime - p->timer) > 3000 && (currentTime - p->timer) < 3200)
-                drawTile(t, p->imgIndex + 1, p->x, p->y, TILE_SCALE);
+            else if((currentTime - p->timer) > 3000 && (currentTime - p->timer) < 3500)
+                drawTile(t, 8, p->x, p->y, TILE_SCALE);
             else
-                drawTile(t, p->imgIndex, p->x, p->y, TILE_SCALE);
+                drawTile(t, p->imgIndex, p->x, p->y, TILE_SCALE); // fail-safe (shouldn't happen)
         }
         else if(p->exploded == 1)
         {
@@ -198,28 +198,16 @@ void drawBombs(Bomb_t *b, SDL_Texture *t)
                 drawTile(t, 8, p->x, p->y, TILE_SCALE);
             else if((currentTime - p->timer) < 4500)
             {
-                drawTile(t, 9, p->x, p->y, TILE_SCALE);
+                drawTile(t, 9, p->x, p->y, TILE_SCALE); // center
                 // probably a better way to do this...
                 if(arena[p->x][p->y - 1] != TILE_WALL) // above
-                {
                     drawTile(t, 11, p->x, p->y - 1, TILE_SCALE);
-                    checkDestructible(p->x, p->y - 1);
-                }
                 if(arena[p->x][p->y + 1] != TILE_WALL) // below
-                {
                     drawTile(t, 11, p->x, p->y + 1, TILE_SCALE);
-                    checkDestructible(p->x, p->y + 1);
-                }
                 if(arena[p->x - 1][p->y] != TILE_WALL) // left
-                {
                     drawTile(t, 10, p->x - 1, p->y, TILE_SCALE);
-                    checkDestructible(p->x - 1, p->y);
-                }
                 if(arena[p->x + 1][p->y] != TILE_WALL) // right
-                {
                     drawTile(t, 10, p->x + 1, p->y, TILE_SCALE);
-                    checkDestructible(p->x + 1, p->y);
-                }
             }
             else if((currentTime - p->timer) < 5000)
                 drawTile(t, 8, p->x, p->y, TILE_SCALE);
@@ -246,7 +234,6 @@ void drawScore(int s)
 void drawLives(int lives)
 {
     char c;
-    int x;
 
     // lives should really only be one digit
     c = (lives % 10) + 48;

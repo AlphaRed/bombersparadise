@@ -10,7 +10,7 @@ void clearArena();
 void checkCollision(Player_t *p);
 void addBlocks(int num, Player_t *p);
 Bomb_t *placeBomb(Player_t *p, Bomb_t *b);
-void bombTimers(Bomb_t *b);
+void bombTimers(Bomb_t *bombList);
 void bombExplode(Bomb_t *b);
 void checkDestructible(int x, int y);
 
