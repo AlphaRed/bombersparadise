@@ -238,7 +238,17 @@ void drawScore(int s)
     {
         c = (s % 10) + 48;
         s = s / 10;
-        x = 450 - (i * 8 * 4);
+        x = 386 - (i * 8 * 4);
         drawLetter(c, x, 10, 4);
     }
+}
+
+void drawLives(int lives)
+{
+    char c;
+    int x;
+
+    // lives should really only be one digit
+    c = (lives % 10) + 48;
+    drawLetter(c, 458, 10, 4);
 }

@@ -27,5 +27,6 @@ void drawWin(int n);
 void drawPlayer(Player_t p, SDL_Texture *t);
 void drawBombs(Bomb_t *b, SDL_Texture *t);
 void drawScore(int s);
+void drawLives(int lives);
 
 #endif
