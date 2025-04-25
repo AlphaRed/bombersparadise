@@ -1,6 +1,10 @@
 /.vscode
 /bin
+/.vs
+/bombersparadise
 
 *.o
 *.exe
 *.out
+*.sln
+*.vcxproj*
