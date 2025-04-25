@@ -74,9 +74,11 @@ int checkMenuEvents(SDL_Event e, Cursor_t *c)
                     return 0;
                 break;
             case SDLK_DOWN:
+            case SDLK_S:
                 c->y += 50;
                 break;
             case SDLK_UP:
+            case SDLK_W:
                 c->y -= 50;
                 break;
             default:
