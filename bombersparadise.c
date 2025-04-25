@@ -97,7 +97,7 @@ int main(int argc, char *args[])
         // Logic
         if(gs == GAME)
         {
-            checkCollision(&player);
+            movePlayer(&player);
             bombTimers(bombList);
             if((SDL_GetTicks() - blockTicks) > 10000)
             {

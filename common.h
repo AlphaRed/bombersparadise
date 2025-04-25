@@ -39,7 +39,7 @@ typedef struct Player_t
     int imgIndex;
     int x;
     int y;
-    int lastDir; // clockwise compass: 1 (N), 2 (E), 3 (S), 4 (W)
+    int moveDir; // clockwise compass: 1 (N), 2 (E), 3 (S), 4 (W)
 } Player_t;
 
 typedef struct Bomb_t

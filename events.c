@@ -15,20 +15,16 @@ int checkGameEvents(SDL_Event e, Player_t *p)
                     return 0;
                     break;
                 case SDLK_W:
-                    p->y -= 1;
-                    p->lastDir = 3;
+                    p->moveDir = 1;
                     break;
                 case SDLK_S:
-                    p->y += 1;
-                    p->lastDir = 1;
+                    p->moveDir = 3;
                     break;
                 case SDLK_A:
-                    p->x -= 1;
-                    p->lastDir = 2;
+                    p->moveDir = 4;
                     break;
                 case SDLK_D:
-                    p->x += 1;
-                    p->lastDir = 4;
+                    p->moveDir = 2;
                     break;
                 case SDLK_SPACE:
                     bombList = placeBomb(p, bombList);
@@ -115,35 +111,58 @@ void clearArena()
     }
 }
 
-void checkCollision(Player_t *p)
+void movePlayer(Player_t *player)
 {
-    int playerX = p->x;
-    int playerY = p->y;
+    int destX, destY;
 
-    if(arena[playerX][playerY] == TILE_WALL || arena[playerX][playerY] == TILE_BLOCK)
+    destX = player->x;
+    destY = player->y;
+
+    switch (player->moveDir)
     {
-        switch (p->lastDir)
-        {
-            case 1:
-                p->y -= 1;
-                break;
-            case 2:
-                p->x += 1;
-                break;
-            case 3:
-                p->y += 1;
-                break;
-            case 4:
-                p->x -= 1;
-                break;
-            default:
-                break;
-        }
+        case 1:     // moving up
+            destY--;
+            break;
+        case 2:     // moving right
+            destX++;
+            break;
+        case 3:     // moving down
+            destY++;
+            break;
+        case 4:     // moving left
+            destX--;
+            break;
+        default:
+            break;
     }
-    else if(arena[playerX][playerY] == TILE_EXIT)
+
+    // check for collision
+    if (checkCollision(player, destX, destY) == 0)
     {
+        player->x = destX;
+        player->y = destY;
+        player->moveDir = 0;    // we've handled the movement
+    }
+
+    // check for win
+    if (arena[player->x][player->y] == TILE_EXIT)
         win = 1;
-    }
+}
+
+int checkCollision(Player_t *player, int destX, int destY)
+{
+    int destTile = arena[destX][destY];
+    // check for unpassable blocks
+    if (destTile == TILE_BLOCK)
+        return 1;
+    if (destTile == TILE_WALL)
+        return 1;
+    
+    // check for bombs
+    //if (isBombPresent(bombList, destX, destY))
+    //    return 1;
+
+    return 0;   // no collisions found
 }
 
 void addBlocks(int num, Player_t *p)
@@ -226,4 +245,15 @@ void checkDestructible(int x, int y)
         score++;
     }
     // also need to damage the player!
+}
+
+int isBombPresent(Bomb_t *bombList, int x, int y)
+{
+    for (Bomb_t *thisBomb = bombList; thisBomb != NULL; thisBomb = thisBomb->next)
+    {
+        if ((thisBomb->x == x) && (thisBomb->y == y))
+            return 1;
+    }
+
+    return 0;
 }

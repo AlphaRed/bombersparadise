@@ -48,5 +48,5 @@ void resetplayer(Player_t *plyr)
 {
     plyr->x = 1;
     plyr->y = 1;
-    plyr->lastDir = 0;
+    plyr->moveDir = 0;
 }
