@@ -229,6 +229,7 @@ void bombTimers(Bomb_t *bombList)
         else if (currentTime - thisBomb->timer >= 5000)
         {
             // TODO destroy bomb entry in linked list
+            thisBomb->exploded = 2;
         }
 
     }

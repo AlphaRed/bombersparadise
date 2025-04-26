@@ -23,6 +23,38 @@ SDL_Texture *tiles;
 SDL_Texture *font;
 //Mix_Music   *menuMusic;
 
+Bomb_t *clearBombs(Bomb_t *list) {
+    Bomb_t *current = list;
+    Bomb_t *previous = NULL;
+
+    while (current != NULL) {
+        if (current->exploded == 2) {
+            if (previous == NULL) {
+                free(current);
+                return previous;
+            }
+            else {
+                previous->next = current->next;
+                free(current);
+                current = previous->next;
+            }
+        }
+        else {
+            previous = current;
+            current = current->next;
+        }
+    }
+    return list;
+}
+
+void printBombs(Bomb_t *list) {
+    int num = 0;
+    for (; list != NULL; list = list->next) {
+        num++;
+    }
+    printf("There are %d bombs placed\n", num);
+}
+
 int main(int argc, char *args[])
 {    
     // SDL setup
@@ -98,6 +130,8 @@ int main(int argc, char *args[])
         {
             movePlayer(&player);
             bombTimers(bombList);
+            bombList = clearBombs(bombList);
+            //printBombs(bombList);
             if((SDL_GetTicks() - blockTicks) > 10000)
             {
                 addBlocks(5, &player);
