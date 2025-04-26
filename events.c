@@ -192,8 +192,11 @@ void addBlocks(int num, Player_t *p)
 Bomb_t *placeBomb(Player_t *p, Bomb_t *b)
 {
     Bomb_t *newBomb = malloc(sizeof(struct Bomb_t));
-    if(newBomb == NULL)
+    if (newBomb == NULL)
+    {
         printf("Error, malloc failed to create new bomb!\n");
+        return NULL;
+    }
     
     newBomb->imgIndex = 6;
     newBomb->x = p->x;
