@@ -26,6 +26,7 @@
 #define TILE_EXIT       3
 
 typedef enum {MENU, GAME} Gamestate;
+typedef enum {TICKING, EXPLODED, DEAD} Bombstate;
 
 typedef struct Cursor_t // could maybe make this a generic sprite/obj struct?
 {
@@ -49,7 +50,7 @@ typedef struct Bomb_t
     int x;
     int y;
     int timer;
-    int exploded;
+    Bombstate state;
     struct Bomb_t *next;
 } Bomb_t;
 

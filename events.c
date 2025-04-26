@@ -202,7 +202,7 @@ Bomb_t *placeBomb(Player_t *p, Bomb_t *b)
     newBomb->x = p->x;
     newBomb->y = p->y;
     newBomb->timer = SDL_GetTicks();
-    newBomb->exploded = 0;
+    newBomb->state = TICKING;
     newBomb->next = b;
     return newBomb;
 }
@@ -212,9 +212,9 @@ void bombTimers(Bomb_t *bombList)
     int currentTime = SDL_GetTicks();
     for(Bomb_t *thisBomb = bombList; thisBomb != NULL; thisBomb = thisBomb->next)
     {
-        if((!thisBomb->exploded) && (currentTime - thisBomb->timer > 3500)) // 3.5? seconds for now
+        if((thisBomb->state != EXPLODED) && (currentTime - thisBomb->timer > 3500)) // 3.5? seconds for now
         {
-            thisBomb->exploded = 1;
+            thisBomb->state = EXPLODED;
 
             // destroy bricks around bomb
             if (arena[thisBomb->x][thisBomb->y - 1] != TILE_WALL) // above
@@ -229,7 +229,7 @@ void bombTimers(Bomb_t *bombList)
         else if (currentTime - thisBomb->timer >= 5000)
         {
             // TODO destroy bomb entry in linked list
-            thisBomb->exploded = 2;
+            thisBomb->state = DEAD;
         }
 
     }
@@ -237,7 +237,7 @@ void bombTimers(Bomb_t *bombList)
 
 void bombExplode(Bomb_t *b)
 {
-    b->exploded = 1;
+    b->state = EXPLODED;
     b->imgIndex = 8;
 }
 

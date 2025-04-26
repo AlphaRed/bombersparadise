@@ -28,7 +28,7 @@ Bomb_t *clearBombs(Bomb_t *list) {
     Bomb_t *previous = NULL;
 
     while (current != NULL) {
-        if (current->exploded == 2) {
+        if (current->state == DEAD) {
             if (previous == NULL) {
                 free(current);
                 return previous;

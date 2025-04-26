@@ -181,7 +181,7 @@ void drawBombs(Bomb_t *b, SDL_Texture *t)
     int currentTime = SDL_GetTicks();
     for(Bomb_t *p = b; p != NULL; p = p->next)
     {
-        if(p->exploded == 0)
+        if(p->state == TICKING)
         {
              if((currentTime - p->timer) > 1000 && (currentTime - p->timer) < 1200) // 200 ms delay seems to work alright
                 drawTile(t, p->imgIndex + 1, p->x, p->y, TILE_SCALE);
@@ -192,7 +192,7 @@ void drawBombs(Bomb_t *b, SDL_Texture *t)
             else
                 drawTile(t, p->imgIndex, p->x, p->y, TILE_SCALE); // fail-safe (shouldn't happen)
         }
-        else if(p->exploded == 1)
+        else if(p->state == EXPLODED)
         {
             if((currentTime - p->timer) < 3500)
                 drawTile(t, 8, p->x, p->y, TILE_SCALE);
