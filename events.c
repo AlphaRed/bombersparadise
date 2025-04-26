@@ -161,8 +161,8 @@ int checkCollision(Player_t *player, int destX, int destY)
         return 1;
     
     // check for bombs
-    //if (isBombPresent(bombList, destX, destY))
-    //    return 1;
+    if (isBombPresent(bombList, destX, destY))
+        return 1;
 
     return 0;   // no collisions found
 }
@@ -253,11 +253,12 @@ void checkDestructible(int x, int y)
     // also need to damage the player!
 }
 
+// Check if an unexploded bomb is present in arena tile
 int isBombPresent(Bomb_t *bombList, int x, int y)
 {
     for (Bomb_t *thisBomb = bombList; thisBomb != NULL; thisBomb = thisBomb->next)
     {
-        if ((thisBomb->x == x) && (thisBomb->y == y))
+        if ((thisBomb->x == x) && (thisBomb->y == y) && (thisBomb->state == TICKING))
             return 1;
     }
 
