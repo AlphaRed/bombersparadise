@@ -223,19 +223,18 @@ void bombTimers(Bomb_t *bombList)
         {
             thisBomb->state = EXPLODED;
 
-            // destroy bricks around bomb
+            // destroy bricks and other bombs around bomb
             if (arena[thisBomb->x][thisBomb->y - 1] != TILE_WALL) // above
-                checkDestructible(thisBomb->x, thisBomb->y - 1);
+                checkDestructible(thisBomb->x, thisBomb->y - 1, bombList);
             if (arena[thisBomb->x][thisBomb->y + 1] != TILE_WALL) // below
-                checkDestructible(thisBomb->x, thisBomb->y + 1);
+                checkDestructible(thisBomb->x, thisBomb->y + 1, bombList);
             if (arena[thisBomb->x - 1][thisBomb->y] != TILE_WALL) // left
-                checkDestructible(thisBomb->x - 1, thisBomb->y);
+                checkDestructible(thisBomb->x - 1, thisBomb->y, bombList);
             if (arena[thisBomb->x + 1][thisBomb->y] != TILE_WALL) // right
-                checkDestructible(thisBomb->x + 1, thisBomb->y);
+                checkDestructible(thisBomb->x + 1, thisBomb->y, bombList);
         }
         else if (currentTime - thisBomb->timer >= 5000)
         {
-            // TODO destroy bomb entry in linked list
             thisBomb->state = DEAD;
         }
 
@@ -248,7 +247,7 @@ void bombExplode(Bomb_t *b)
     b->imgIndex = 8;
 }
 
-void checkDestructible(int x, int y)
+void checkDestructible(int x, int y, Bomb_t *bombList)
 {
     extern int score;
 
@@ -257,6 +256,16 @@ void checkDestructible(int x, int y)
         arena[x][y] = TILE_EMPTY;
         score++;
     }
+    else {
+        for (Bomb_t* thisBomb = bombList; thisBomb != NULL; thisBomb = thisBomb->next)
+        {
+            if ((thisBomb->x == x) && (thisBomb->y == y) && (thisBomb->state == TICKING)) {
+                thisBomb->state = EXPLODED;
+                thisBomb->timer -= 3500 - (SDL_GetTicks() - thisBomb->timer);
+            }
+        }
+    }
+
     // also need to damage the player!
 }
 

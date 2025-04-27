@@ -99,7 +99,6 @@ int main(int argc, char *args[])
         current_ticks = SDL_GetTicks();
 
         // Input
-        //SDL_WaitEvent(&e); // seems to work better than PollEvent
         SDL_PollEvent(&e);
         if(gs == GAME)
         {

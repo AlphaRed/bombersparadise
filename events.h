@@ -13,7 +13,7 @@ void addBlocks(int num, Player_t *p);
 Bomb_t *placeBomb(Player_t *p, Bomb_t *b);
 void bombTimers(Bomb_t *bombList);
 void bombExplode(Bomb_t *b);
-void checkDestructible(int x, int y);
+void checkDestructible(int x, int y, Bomb_t *bombList);
 int isBombPresent(Bomb_t *bombList, int x, int y);
 
 #endif
