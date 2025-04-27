@@ -1,4 +1,5 @@
-#include"common.h"
+#include "common.h"
+#include "events.h"
 
 // Setup map tiles to tile array
 void setupTiles(SDL_Rect t[], int num)
@@ -49,4 +50,29 @@ void resetplayer(Player_t *plyr)
     plyr->x = 1;
     plyr->y = 1;
     plyr->moveDir = 0;
+}
+
+int emptyTiles(Player_t player, Bomb_t *bombList)
+{
+    int count = 0;
+
+    for (int y = 0; y < ARENA_HEIGHT; y++)
+    {
+        for (int x = 0; x < ARENA_WIDTH; x++)
+        {
+            // check if tile is empty
+            if (arena[x][y] == TILE_EMPTY)
+            {
+                // check if player is present
+                if ((player.x != x) && (player.y != y))
+                {
+                    // check if bomb present
+                    if (isBombPresent(bombList, x, y) == 0)
+                        count++;
+                }
+            }
+        }
+    }
+
+    return count;
 }

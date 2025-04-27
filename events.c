@@ -1,5 +1,6 @@
-#include"common.h"
+#include "common.h"
 #include "events.h"
+#include "map.h"
 
 int checkGameEvents(SDL_Event e, Player_t *p)
 {
@@ -169,9 +170,15 @@ int checkCollision(Player_t *player, int destX, int destY)
 
 void addBlocks(int num, Player_t *p)
 {
+    int freetiles = emptyTiles(*p, bombList);
+    
     int randX, randY;
     int playerX = p->x;
     int playerY = p->y;
+
+    // check for empty tiles
+    if (freetiles < num)
+        num = freetiles;
 
     while(num > 0)
     {
