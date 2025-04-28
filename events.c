@@ -280,3 +280,71 @@ int isBombPresent(Bomb_t *bombList, int x, int y)
 
     return 0;
 }
+
+void moveMobs(Mob_t* mob)
+{
+    int destX = mob->x;
+    int destY = mob->y;
+    int deltaTime = SDL_GetTicks() - mob->lastMove;
+
+    if (deltaTime > 2000) {
+        switch (mob->dir)
+        {
+        case 1:     // moving north
+            destY--;
+            break;
+        case 2:     // moving east
+            destX++;
+            break;
+        case 3:     // moving south
+            destY++;
+            break;
+        case 4:     // moving west
+            destX--;
+            break;
+        default:
+            break;
+        }
+
+        if (checkCollision(mob, destX, destY) == 0)
+        {
+            mob->x = destX;
+            mob->y = destY;
+            mob->lastMove = SDL_GetTicks();
+        }
+        else
+        {
+            switch (mob->dir) {
+            case 1:
+                mob->dir = 3;
+                break;
+            case 2:
+                mob->dir = 4;
+                break;
+            case 3:
+                mob->dir = 1;
+                break;
+            case 4:
+                mob->dir = 2;
+                break;
+            default:
+                break;
+            }
+        }
+    }
+}
+
+int checkCollisionMob(Mob_t* mob, int destX, int destY)
+{
+    int destTile = arena[destX][destY];
+    // check for unpassable blocks
+    if (destTile == TILE_BLOCK)
+        return 1;
+    if (destTile == TILE_WALL)
+        return 1;
+    // check for bombs
+    if (isBombPresent(bombList, destX, destY))
+        return 1;
+
+    return 0;   // no collisions found
+}

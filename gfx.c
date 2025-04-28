@@ -239,3 +239,8 @@ void drawLives(int lives)
     c = (lives % 10) + 48;
     drawLetter(c, 458, 10, 4);
 }
+
+void drawMobs(Mob_t mob, SDL_Texture* tex)
+{
+    drawTile(tex, mob.imgIndex, mob.x, mob.y, TILE_SCALE);
+}

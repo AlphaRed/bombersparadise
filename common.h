@@ -54,6 +54,14 @@ typedef struct Bomb_t
     struct Bomb_t *next;
 } Bomb_t;
 
+typedef struct Mob_t {
+    int imgIndex;
+    int x;
+    int y;
+    int dir;
+    int lastMove;
+} Mob_t;
+
 extern int arena[ARENA_WIDTH][ARENA_HEIGHT];
 extern Bomb_t *bombList;
 

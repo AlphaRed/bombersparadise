@@ -93,6 +93,14 @@ int main(int argc, char *args[])
     player.lives = 3;
     win = 0;
 
+    // For mob testing
+    Mob_t testMob;
+    testMob.imgIndex = 4; // for now
+    testMob.x = 5;
+    testMob.y = 5;
+    testMob.dir = 1;
+    testMob.lastMove = SDL_GetTicks();
+
     // Game loop
     while(quit)
     {
@@ -128,6 +136,7 @@ int main(int argc, char *args[])
         if(gs == GAME)
         {
             movePlayer(&player);
+            moveMobs(&testMob);
             bombTimers(bombList);
             bombList = clearBombs(bombList);
             //printBombs(bombList);
@@ -149,6 +158,7 @@ int main(int argc, char *args[])
         {
             drawArena(tiles);
             drawPlayer(player, tiles);
+            drawMobs(testMob, tiles);
             drawBombs(bombList, tiles);
             drawScore(score);
             drawLives(player.lives);
