@@ -306,7 +306,7 @@ void moveMobs(Mob_t* mob)
             break;
         }
 
-        if (checkCollision(mob, destX, destY) == 0)
+        if (checkCollisionMob(mob, destX, destY) == 0)
         {
             mob->x = destX;
             mob->y = destY;
