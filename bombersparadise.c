@@ -1,8 +1,9 @@
 #include "common.h"
 #include "events.h"
+#include "game.h"
 #include "gfx.h"
-#include "system.h"
 #include "map.h"
+#include "system.h"
 
 // some things were meant to be global
 SDL_Window *window;
@@ -22,38 +23,6 @@ SDL_Texture *bg;
 SDL_Texture *tiles;
 SDL_Texture *font;
 //Mix_Music   *menuMusic;
-
-Bomb_t *clearBombs(Bomb_t *list) {
-    Bomb_t *current = list;
-    Bomb_t *previous = NULL;
-
-    while (current != NULL) {
-        if (current->state == DEAD) {
-            if (previous == NULL) {
-                free(current);
-                return previous;
-            }
-            else {
-                previous->next = current->next;
-                free(current);
-                current = previous->next;
-            }
-        }
-        else {
-            previous = current;
-            current = current->next;
-        }
-    }
-    return list;
-}
-
-void printBombs(Bomb_t *list) {
-    int num = 0;
-    for (; list != NULL; list = list->next) {
-        num++;
-    }
-    printf("There are %d bombs placed\n", num);
-}
 
 int main(int argc, char *args[])
 {    

@@ -1,5 +1,6 @@
 #include "common.h"
 #include "events.h"
+#include "game.h"
 #include "map.h"
 
 int checkGameEvents(SDL_Event e, Player_t *p)
@@ -103,17 +104,6 @@ void checkMCursorBounds(Cursor_t *c)
     }
 }
 
-void clearArena()
-{
-    for(int i = 0; i < ARENA_HEIGHT; i++) // clear board it for good measure
-    {
-        for(int j = 0; j < ARENA_WIDTH; j++)
-        {
-            arena[j][i] = TILE_EMPTY;
-        }
-    }
-}
-
 void movePlayer(Player_t *player)
 {
     int destX, destY;
@@ -168,34 +158,6 @@ int checkCollision(Player_t *player, int destX, int destY)
     return 0;   // no collisions found
 }
 
-void addBlocks(int num, Player_t *p)
-{
-    int freetiles = emptyTiles(*p, bombList);
-    
-    int randX, randY;
-    int playerX = p->x;
-    int playerY = p->y;
-
-    // check for empty tiles
-    if (freetiles < num)
-        num = freetiles;
-
-    while(num > 0)
-    {
-        randX = rand() % ARENA_WIDTH;
-        randY = rand() % ARENA_HEIGHT;
-
-        if(arena[randX][randY] == TILE_EMPTY) // if it's an empty square!
-        {
-            if(!((randX == playerX) && (randY == playerY))) // make sure the player isn't there
-            {
-                arena[randX][randY] = TILE_BLOCK;
-                num--;
-            }   
-        }
-    }
-}
-
 Bomb_t *placeBomb(Player_t *p, Bomb_t *b)
 {
     Bomb_t *newBomb = malloc(sizeof(struct Bomb_t));
@@ -212,139 +174,4 @@ Bomb_t *placeBomb(Player_t *p, Bomb_t *b)
     newBomb->state = TICKING;
     newBomb->next = b;
     return newBomb;
-}
-
-void bombTimers(Bomb_t *bombList)
-{
-    int currentTime = SDL_GetTicks();
-    for(Bomb_t *thisBomb = bombList; thisBomb != NULL; thisBomb = thisBomb->next)
-    {
-        if((thisBomb->state != EXPLODED) && (currentTime - thisBomb->timer > 3500)) // 3.5? seconds for now
-        {
-            thisBomb->state = EXPLODED;
-
-            // destroy bricks and other bombs around bomb
-            if (arena[thisBomb->x][thisBomb->y - 1] != TILE_WALL) // above
-                checkDestructible(thisBomb->x, thisBomb->y - 1, bombList);
-            if (arena[thisBomb->x][thisBomb->y + 1] != TILE_WALL) // below
-                checkDestructible(thisBomb->x, thisBomb->y + 1, bombList);
-            if (arena[thisBomb->x - 1][thisBomb->y] != TILE_WALL) // left
-                checkDestructible(thisBomb->x - 1, thisBomb->y, bombList);
-            if (arena[thisBomb->x + 1][thisBomb->y] != TILE_WALL) // right
-                checkDestructible(thisBomb->x + 1, thisBomb->y, bombList);
-        }
-        else if (currentTime - thisBomb->timer >= 5000)
-        {
-            thisBomb->state = DEAD;
-        }
-
-    }
-}
-
-void bombExplode(Bomb_t *b)
-{
-    b->state = EXPLODED;
-    b->imgIndex = 8;
-}
-
-void checkDestructible(int x, int y, Bomb_t *bombList)
-{
-    extern int score;
-
-    if(arena[x][y] == TILE_BLOCK)
-    {
-        arena[x][y] = TILE_EMPTY;
-        score++;
-    }
-    else {
-        for (Bomb_t* thisBomb = bombList; thisBomb != NULL; thisBomb = thisBomb->next)
-        {
-            if ((thisBomb->x == x) && (thisBomb->y == y) && (thisBomb->state == TICKING)) {
-                thisBomb->state = EXPLODED;
-                thisBomb->timer -= 3500 - (SDL_GetTicks() - thisBomb->timer);
-            }
-        }
-    }
-
-    // also need to damage the player!
-}
-
-// Check if an unexploded bomb is present in arena tile
-int isBombPresent(Bomb_t *bombList, int x, int y)
-{
-    for (Bomb_t *thisBomb = bombList; thisBomb != NULL; thisBomb = thisBomb->next)
-    {
-        if ((thisBomb->x == x) && (thisBomb->y == y) && (thisBomb->state == TICKING))
-            return 1;
-    }
-
-    return 0;
-}
-
-void moveMobs(Mob_t* mob)
-{
-    int destX = mob->x;
-    int destY = mob->y;
-    int deltaTime = SDL_GetTicks() - mob->lastMove;
-
-    if (deltaTime > 2000) {
-        switch (mob->dir)
-        {
-        case 1:     // moving north
-            destY--;
-            break;
-        case 2:     // moving east
-            destX++;
-            break;
-        case 3:     // moving south
-            destY++;
-            break;
-        case 4:     // moving west
-            destX--;
-            break;
-        default:
-            break;
-        }
-
-        if (checkCollisionMob(mob, destX, destY) == 0)
-        {
-            mob->x = destX;
-            mob->y = destY;
-            mob->lastMove = SDL_GetTicks();
-        }
-        else
-        {
-            switch (mob->dir) {
-            case 1:
-                mob->dir = 3;
-                break;
-            case 2:
-                mob->dir = 4;
-                break;
-            case 3:
-                mob->dir = 1;
-                break;
-            case 4:
-                mob->dir = 2;
-                break;
-            default:
-                break;
-            }
-        }
-    }
-}
-
-int checkCollisionMob(Mob_t* mob, int destX, int destY)
-{
-    int destTile = arena[destX][destY];
-    // check for unpassable blocks
-    if (destTile == TILE_BLOCK)
-        return 1;
-    if (destTile == TILE_WALL)
-        return 1;
-    // check for bombs
-    if (isBombPresent(bombList, destX, destY))
-        return 1;
-
-    return 0;   // no collisions found
 }
