@@ -47,7 +47,7 @@ int main(int argc, char *args[])
     //Mix_PlayMusic(menuMusic, -1);
 
     Cursor_t menuCursor;
-    menuCursor.imgIndex = 4;
+    menuCursor.imgIndex = 15;
     menuCursor.x = 5;
     menuCursor.y = 255;
 
