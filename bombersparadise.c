@@ -96,6 +96,7 @@ int main(int argc, char *args[])
                 arena[1][1] = TILE_EMPTY;
                 arena[2][1] = TILE_EMPTY;
                 arena[1][2] = TILE_EMPTY;
+                player.invulnerable = INVULNERABLE_TIME;
             }     
         }
 
@@ -113,6 +114,8 @@ int main(int argc, char *args[])
                 score += 5;
                 blockTicks = SDL_GetTicks();
             }
+            if (player.invulnerable > 0)
+                player.invulnerable = player.invulnerable - 1;
         }
         else if(gs == MENU)
         {

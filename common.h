@@ -25,6 +25,8 @@
 #define TILE_BLOCK      2
 #define TILE_EXIT       3
 
+#define INVULNERABLE_TIME   1000 // ms of invulnerability (at start and when hit)
+
 typedef enum {MENU, GAME} Gamestate;
 typedef enum {TICKING, EXPLODED, DEAD} Bombstate;
 
@@ -42,6 +44,7 @@ typedef struct Player_t
     int y;
     int moveDir; // clockwise compass: 1 (N), 2 (E), 3 (S), 4 (W)
     int lives;
+    int invulnerable;
 } Player_t;
 
 typedef struct Bomb_t

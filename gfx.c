@@ -173,7 +173,13 @@ void drawWin(int n)
 
 void drawPlayer(Player_t p, SDL_Texture *t)
 {
-    drawTile(t, p.imgIndex, p.x, p.y, TILE_SCALE);
+    int tile = p.imgIndex;
+
+    // change tile for invulnerability
+    if ((p.invulnerable > 1) && (p.invulnerable/100 & 1))
+        tile = tile - 1;
+
+    drawTile(t, tile, p.x, p.y, TILE_SCALE);
 }
 
 void drawBombs(Bomb_t *b, SDL_Texture *t)
