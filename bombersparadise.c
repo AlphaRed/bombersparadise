@@ -92,6 +92,10 @@ int main(int argc, char *args[])
                 blockTicks = SDL_GetTicks();
                 gs = GAME;
                 addBlocks(40, &player);
+                // give player some room at spawn to use a bomb
+                arena[1][1] = TILE_EMPTY;
+                arena[2][1] = TILE_EMPTY;
+                arena[1][2] = TILE_EMPTY;
             }     
         }
 
