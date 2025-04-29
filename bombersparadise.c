@@ -12,6 +12,7 @@ Gamestate gs = MENU;
 int arena[ARENA_WIDTH][ARENA_HEIGHT];
 Player_t player;
 Bomb_t *bombList = NULL;
+Mob_t *mobList = NULL;
 int score;
 int win;
 
@@ -61,14 +62,7 @@ int main(int argc, char *args[])
     score = 0;
     player.lives = 3;
     win = 0;
-
-    // For mob testing
-    Mob_t testMob;
-    testMob.imgIndex = 4; // for now
-    testMob.x = 5;
-    testMob.y = 5;
-    testMob.dir = 1;
-    testMob.lastMove = SDL_GetTicks();
+    loadMobs(1);
 
     // Game loop
     while(quit)
@@ -105,7 +99,7 @@ int main(int argc, char *args[])
         if(gs == GAME)
         {
             movePlayer(&player);
-            moveMobs(&testMob);
+            moveMobs(mobList);
             bombTimers(bombList);
             bombList = clearBombs(bombList);
             //printBombs(bombList);
@@ -127,7 +121,7 @@ int main(int argc, char *args[])
         {
             drawArena(tiles);
             drawPlayer(player, tiles);
-            drawMobs(testMob, tiles);
+            drawMobs(mobList, tiles);
             drawBombs(bombList, tiles);
             drawScore(score);
             drawLives(player.lives);

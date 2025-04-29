@@ -60,9 +60,11 @@ typedef struct Mob_t {
     int y;
     int dir;
     int lastMove;
+    struct Mob_t *next;
 } Mob_t;
 
 extern int arena[ARENA_WIDTH][ARENA_HEIGHT];
 extern Bomb_t *bombList;
+extern Mob_t *mobList;
 
 #endif

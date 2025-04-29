@@ -9,7 +9,9 @@ int isBombPresent(Bomb_t *bombList, int x, int y);
 void printBombs(Bomb_t *list);
 
 // Mob Functions
-void moveMobs(Mob_t* mob);
+void moveMobs(Mob_t *list);
 int checkCollisionMob(Mob_t* mob, int destX, int destY);
+Mob_t* addMob(Mob_t* list, int x, int y, int direction);
+void loadMobs(int lvlNum);
 
 #endif

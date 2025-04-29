@@ -87,54 +87,56 @@ void printBombs(Bomb_t *list) {
 
 // Mob Functions
 
-void moveMobs(Mob_t* mob)
+void moveMobs(Mob_t *list)
 {
-    int destX = mob->x;
-    int destY = mob->y;
-    int deltaTime = SDL_GetTicks() - mob->lastMove;
+    for (Mob_t *thisMob = list; thisMob != NULL; thisMob = thisMob->next) {
+        int destX = thisMob->x;
+        int destY = thisMob->y;
+        int deltaTime = SDL_GetTicks() - thisMob->lastMove;
 
-    if (deltaTime > 2000) {
-        switch (mob->dir)
-        {
-        case 1:     // moving north
-            destY--;
-            break;
-        case 2:     // moving east
-            destX++;
-            break;
-        case 3:     // moving south
-            destY++;
-            break;
-        case 4:     // moving west
-            destX--;
-            break;
-        default:
-            break;
-        }
-
-        if (checkCollisionMob(mob, destX, destY) == 0)
-        {
-            mob->x = destX;
-            mob->y = destY;
-            mob->lastMove = SDL_GetTicks();
-        }
-        else
-        {
-            switch (mob->dir) {
-            case 1:
-                mob->dir = 3;
+        if (deltaTime > 2000) {
+            switch (thisMob->dir)
+            {
+            case 1:     // moving north
+                destY--;
                 break;
-            case 2:
-                mob->dir = 4;
+            case 2:     // moving east
+                destX++;
                 break;
-            case 3:
-                mob->dir = 1;
+            case 3:     // moving south
+                destY++;
                 break;
-            case 4:
-                mob->dir = 2;
+            case 4:     // moving west
+                destX--;
                 break;
             default:
                 break;
+            }
+
+            if (checkCollisionMob(thisMob, destX, destY) == 0)
+            {
+                thisMob->x = destX;
+                thisMob->y = destY;
+                thisMob->lastMove = SDL_GetTicks();
+            }
+            else
+            {
+                switch (thisMob->dir) {
+                case 1:
+                    thisMob->dir = 3;
+                    break;
+                case 2:
+                    thisMob->dir = 4;
+                    break;
+                case 3:
+                    thisMob->dir = 1;
+                    break;
+                case 4:
+                    thisMob->dir = 2;
+                    break;
+                default:
+                    break;
+                }
             }
         }
     }
@@ -153,4 +155,33 @@ int checkCollisionMob(Mob_t* mob, int destX, int destY)
         return 1;
 
     return 0;   // no collisions found
+}
+
+Mob_t* addMob(Mob_t* list, int x, int y, int direction) {
+    Mob_t* newMob = malloc(sizeof(struct Mob_t));
+    if (newMob == NULL)
+    {
+        printf("Error, malloc failed to create new mob!\n");
+        return NULL;
+    }
+
+    newMob->imgIndex = 4;
+    newMob->x = x;
+    newMob->y = y;
+    newMob->dir = direction;
+    newMob->lastMove = SDL_GetTicks();
+    newMob->next = list;
+
+    return newMob;
+}
+
+void loadMobs(int lvlNum) {
+    switch (lvlNum) {
+    case 1:
+        mobList = addMob(mobList, 5, 5, 1);
+        mobList = addMob(mobList, 9, 3, 2);
+        break;
+    default:
+        break;
+    }
 }

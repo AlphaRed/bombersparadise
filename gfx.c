@@ -240,7 +240,9 @@ void drawLives(int lives)
     drawLetter(c, 458, 10, 4);
 }
 
-void drawMobs(Mob_t mob, SDL_Texture* tex)
+void drawMobs(Mob_t *list, SDL_Texture* tex)
 {
-    drawTile(tex, mob.imgIndex, mob.x, mob.y, TILE_SCALE);
+    for (Mob_t* thisMob = list; thisMob != NULL; thisMob = thisMob->next) {
+        drawTile(tex, thisMob->imgIndex, thisMob->x, thisMob->y, TILE_SCALE);
+    }
 }
