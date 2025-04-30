@@ -3,7 +3,8 @@
 
 // Bomb Functions
 void bombExplode(Bomb_t *b);
-void bombTimers(Bomb_t *bombList);
+void bombTimers(Bomb_t *list);
+void checkExplosions(Bomb_t* list);
 Bomb_t *clearBombs(Bomb_t *list);
 int isBombPresent(Bomb_t *bombList, int x, int y);
 void printBombs(Bomb_t *list);

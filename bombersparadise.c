@@ -106,6 +106,7 @@ int main(int argc, char *args[])
             movePlayer(&player);
             moveMobs(mobList);
             bombTimers(bombList);
+            checkExplosions(bombList);
             bombList = clearBombs(bombList);
             //printBombs(bombList);
             if((SDL_GetTicks() - blockTicks) > 10000)

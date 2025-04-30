@@ -13,30 +13,39 @@ void bombExplode(Bomb_t *b)
     b->imgIndex = 8;
 }
 
-void bombTimers(Bomb_t *bombList)
+void bombTimers(Bomb_t *list)
 {
     int currentTime = SDL_GetTicks();
-    for(Bomb_t *thisBomb = bombList; thisBomb != NULL; thisBomb = thisBomb->next)
+    for(Bomb_t *thisBomb = list; thisBomb != NULL; thisBomb = thisBomb->next)
     {
         if((thisBomb->state != EXPLODED) && (currentTime - thisBomb->timer > 3500)) // 3.5? seconds for now
         {
             thisBomb->state = EXPLODED;
-
-            // destroy bricks and other bombs around bomb
-            if (arena[thisBomb->x][thisBomb->y - 1] != TILE_WALL) // above
-                checkDestructible(thisBomb->x, thisBomb->y - 1, bombList);
-            if (arena[thisBomb->x][thisBomb->y + 1] != TILE_WALL) // below
-                checkDestructible(thisBomb->x, thisBomb->y + 1, bombList);
-            if (arena[thisBomb->x - 1][thisBomb->y] != TILE_WALL) // left
-                checkDestructible(thisBomb->x - 1, thisBomb->y, bombList);
-            if (arena[thisBomb->x + 1][thisBomb->y] != TILE_WALL) // right
-                checkDestructible(thisBomb->x + 1, thisBomb->y, bombList);
         }
         else if (currentTime - thisBomb->timer >= 5000)
         {
             thisBomb->state = DEAD;
         }
 
+    }
+}
+
+void checkExplosions(Bomb_t *list)
+{
+    for (Bomb_t* thisBomb = list; thisBomb != NULL; thisBomb = thisBomb->next)
+    {
+        if (thisBomb->state == EXPLODED)
+        {
+            // destroy bricks and other bombs around bomb
+            if (arena[thisBomb->x][thisBomb->y - 1] != TILE_WALL) // above
+                checkDestructible(thisBomb->x, thisBomb->y - 1, list);
+            if (arena[thisBomb->x][thisBomb->y + 1] != TILE_WALL) // below
+                checkDestructible(thisBomb->x, thisBomb->y + 1, list);
+            if (arena[thisBomb->x - 1][thisBomb->y] != TILE_WALL) // left
+                checkDestructible(thisBomb->x - 1, thisBomb->y, list);
+            if (arena[thisBomb->x + 1][thisBomb->y] != TILE_WALL) // right
+                checkDestructible(thisBomb->x + 1, thisBomb->y, list);
+        }
     }
 }
 
