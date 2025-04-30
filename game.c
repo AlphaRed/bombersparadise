@@ -174,7 +174,7 @@ Mob_t* addMob(Mob_t* list, int x, int y, int direction) {
         return NULL;
     }
 
-    newMob->imgIndex = 4;
+    newMob->imgIndex = 16;
     newMob->x = x;
     newMob->y = y;
     newMob->dir = direction;

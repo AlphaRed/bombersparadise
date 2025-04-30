@@ -15,7 +15,7 @@
 #define FONT_NUM        200
 #define MAX_FPS         60
 #define MAX_CHARS       30
-#define TILE_NUM        4 * 4
+#define TILE_NUM        8 * 8
 #define ARENA_WIDTH     15
 #define ARENA_HEIGHT    13
 
