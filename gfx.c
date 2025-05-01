@@ -160,15 +160,15 @@ void drawCursor(Cursor_t c, SDL_Texture *t)
 
 void drawWin(int n)
 {
-    if(n == 1)
-    {
-        blitImage(bg, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 1); // clear screen
-        drawString("Good job!", 50, 40, 4);
-        drawString("Press enter to", 50, 150, 4);
-        drawString("continue.", 50, 200, 4);
-    }
-    else
-        return;
+    drawString("Good job!", 50, 40, 4);
+    drawString("Press enter to", 50, 150, 4);
+    drawString("continue.", 50, 200, 4);
+}
+
+void drawGameOver()
+{
+    drawString("Game Over!", 50, 40, 4);
+    drawString("Press enter.", 50, 150, 4);
 }
 
 void drawPlayer(Player_t p, SDL_Texture *t)

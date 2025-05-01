@@ -27,7 +27,7 @@
 
 #define INVULNERABLE_TIME   1000 // ms of invulnerability (at start and when hit)
 
-typedef enum {MENU, GAME} Gamestate;
+typedef enum {MENU, GAME, WIN, GAMEOVER} Gamestate;
 typedef enum {TICKING, EXPLODED, DEAD} Bombstate;
 
 typedef struct Cursor_t // could maybe make this a generic sprite/obj struct?
@@ -66,6 +66,7 @@ typedef struct Mob_t {
     struct Mob_t *next;
 } Mob_t;
 
+extern Gamestate gs;
 extern int arena[ARENA_WIDTH][ARENA_HEIGHT];
 extern Bomb_t *bombList;
 extern Mob_t *mobList;

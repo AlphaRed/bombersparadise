@@ -5,8 +5,6 @@
 
 int checkGameEvents(SDL_Event e, Player_t *p)
 {
-    if(win == 0)
-    {
         if(e.type == SDL_EVENT_QUIT)
             return 0;
         else if(e.type == SDL_EVENT_KEY_DOWN)
@@ -39,24 +37,6 @@ int checkGameEvents(SDL_Event e, Player_t *p)
             }
             return 1;    
         }
-    }
-    else
-    {
-        if(e.type == SDL_EVENT_QUIT)
-            return 0;
-        else if(e.type == SDL_EVENT_KEY_DOWN)
-        {
-            switch(e.key.key)
-            {
-                case SDLK_RETURN:
-                    return 2;
-                    break;
-                default:
-                    break;
-            }
-            return 1;
-        }
-    }
 
     return 1;
 }
@@ -87,6 +67,44 @@ int checkMenuEvents(SDL_Event e, Cursor_t *c)
                 break;
         }
         return 1;    
+    }
+    return 1;
+}
+
+int checkWinEvents(SDL_Event e)
+{
+    if(e.type == SDL_EVENT_QUIT)
+        return 0;
+    else if(e.type == SDL_EVENT_KEY_DOWN)
+    {
+        switch(e.key.key)
+        {
+            case SDLK_RETURN:
+                return 2;
+                break;
+            default:
+                break;
+        }
+        return 1;
+    }
+    return 1;
+}
+
+int checkGameOverEvents(SDL_Event e)
+{
+    if(e.type == SDL_EVENT_QUIT)
+        return 0;
+    else if(e.type == SDL_EVENT_KEY_DOWN)
+    {
+        switch(e.key.key)
+        {
+            case SDLK_RETURN:
+                return 2;
+                break;
+            default:
+                break;
+        }
+        return 1;
     }
     return 1;
 }
@@ -139,7 +157,7 @@ void movePlayer(Player_t *player)
 
     // check for win
     if (arena[player->x][player->y] == TILE_EXIT)
-        win = 1;
+        gs = WIN;
 }
 
 int checkCollision(Player_t *player, int destX, int destY)

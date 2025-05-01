@@ -120,6 +120,7 @@ void addBlocks(int num, Player_t *p)
 
 void checkDestructible(int x, int y, Bomb_t *bombList)
 {
+    extern Player_t player;
     extern int score;
 
     if(arena[x][y] == TILE_BLOCK)
@@ -138,4 +139,18 @@ void checkDestructible(int x, int y, Bomb_t *bombList)
     }
 
     // also need to damage the player!
+    if ((player.invulnerable == 0) && (player.x == x) && (player.y == y))
+    {
+        if (player.lives == 0)
+        {
+            //win = 1;    // TODO: gameover screen instead of win
+            gs = GAMEOVER;
+        }
+        else
+        {
+            player.lives--;
+            player.invulnerable = INVULNERABLE_TIME;
+    
+        }
+    }
 }

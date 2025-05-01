@@ -14,7 +14,6 @@ Player_t player;
 Bomb_t *bombList = NULL;
 Mob_t *mobList = NULL;
 int score;
-int win;
 
 SDL_Rect fontTiles[FONT_NUM];
 SDL_Rect tileIndex[TILE_NUM];
@@ -61,7 +60,6 @@ int main(int argc, char *args[])
     int blockTicks = 0;
     score = 0;
     player.lives = 3;
-    win = 0;
     loadMobs(1);
 
     // Game loop
@@ -74,14 +72,6 @@ int main(int argc, char *args[])
         if(gs == GAME)
         {
             quit = checkGameEvents(e, &player);
-            if(quit == 2)   // Won screen, moving to menu state
-            {
-                gs = MENU;
-                win = 0;
-                //Mix_PlayMusic(menuMusic, -1);
-                resetplayer(&player);
-                loadMap("arena.txt");
-            }
         }
         else if(gs == MENU)
         {
@@ -98,6 +88,27 @@ int main(int argc, char *args[])
                 arena[1][2] = TILE_EMPTY;
                 player.invulnerable = INVULNERABLE_TIME;
             }     
+        }
+        else if (gs == WIN)
+        {
+            quit = checkWinEvents(e);
+            if (quit == 2) // win, moving to next round
+            {
+                gs = MENU;
+                //Mix_PlayMusic(menuMusic, -1);
+                resetplayer(&player);
+                loadMap("arena.txt");
+            }
+        }
+        else if (gs == GAMEOVER)
+        {
+            quit = checkGameOverEvents(e);
+            if (quit == 2) // gameover, moving to start screen
+            {
+                gs = MENU;
+                resetplayer(&player);
+                loadMap("arena.txt");
+            }
         }
 
         // Logic
@@ -133,12 +144,19 @@ int main(int argc, char *args[])
             drawBombs(bombList, tiles);
             drawScore(score);
             drawLives(player.lives);
-            drawWin(win);
         }
         else if(gs == MENU)
         {
             drawMenu(tiles);
             drawCursor(menuCursor, tiles);
+        }
+        else if(gs == WIN)
+        {
+            drawWin();
+        }
+        else if(gs == GAMEOVER)
+        {
+            drawGameOver();
         }
 
         drawFPS(fps_counter);
