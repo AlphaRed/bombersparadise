@@ -102,21 +102,27 @@ void moveMobs(Mob_t *list)
         int destX = thisMob->x;
         int destY = thisMob->y;
         int deltaTime = SDL_GetTicks() - thisMob->lastMove;
+        int revX = thisMob->x;
+        int revY = thisMob->y;
 
         if (deltaTime > 2000) {
             switch (thisMob->dir)
             {
             case 1:     // moving north
                 destY--;
+                revY++;
                 break;
             case 2:     // moving east
                 destX++;
+                revX--;
                 break;
             case 3:     // moving south
                 destY++;
+                revY--;
                 break;
             case 4:     // moving west
                 destX--;
+                revX++;
                 break;
             default:
                 break;
@@ -127,6 +133,25 @@ void moveMobs(Mob_t *list)
                 thisMob->x = destX;
                 thisMob->y = destY;
                 thisMob->lastMove = SDL_GetTicks();
+            }
+            else if (checkCollision(thisMob, revX, revY) == 1)
+            {
+                switch (thisMob->dir) {
+                case 1:
+                    thisMob->dir = 2;
+                    break;
+                case 2:
+                    thisMob->dir = 3;
+                    break;
+                case 3:
+                    thisMob->dir = 4;
+                    break;
+                case 4:
+                    thisMob->dir = 1;
+                    break;
+                default:
+                    break;
+                }
             }
             else
             {
