@@ -134,7 +134,7 @@ void moveMobs(Mob_t *list)
                 thisMob->y = destY;
                 thisMob->lastMove = SDL_GetTicks();
             }
-            else if (checkCollision(thisMob, revX, revY) == 1)
+            else if (checkCollisionMob(thisMob, revX, revY) == 1)
             {
                 switch (thisMob->dir) {
                 case 1:

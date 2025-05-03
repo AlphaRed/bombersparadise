@@ -86,6 +86,7 @@ int main(int argc, char *args[])
                 arena[1][1] = TILE_EMPTY;
                 arena[2][1] = TILE_EMPTY;
                 arena[1][2] = TILE_EMPTY;
+                player.lives = 3;
                 player.invulnerable = INVULNERABLE_TIME;
             }     
         }
@@ -94,10 +95,16 @@ int main(int argc, char *args[])
             quit = checkWinEvents(e);
             if (quit == 2) // win, moving to next round
             {
-                gs = MENU;
-                //Mix_PlayMusic(menuMusic, -1);
+                gs = GAME;
+                blockTicks = SDL_GetTicks();
                 resetplayer(&player);
                 loadMap("arena.txt");
+                addBlocks(40, &player);
+                // give player some room at spawn to use a bomb
+                arena[1][1] = TILE_EMPTY;
+                arena[2][1] = TILE_EMPTY;
+                arena[1][2] = TILE_EMPTY;
+                player.invulnerable = INVULNERABLE_TIME;
             }
         }
         else if (gs == GAMEOVER)
