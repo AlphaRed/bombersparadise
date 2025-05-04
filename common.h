@@ -70,6 +70,7 @@ typedef struct Mob_t {
 
 typedef struct Game_t {
     Gamestate state;
+    int level;
 } Game_t;
 
 extern Game_t game;

@@ -2,7 +2,7 @@
 #define MAP_H
 
 void setupTiles(SDL_Rect t[], int num);
-int loadMap(char *filename);
+int loadMap(int levelNum);
 int pxToTileX(int n);
 int pxToTileY(int n);
 void resetplayer(Player_t *plyr);

@@ -15,9 +15,21 @@ void setupTiles(SDL_Rect t[], int num)
     }
 }
 
-int loadMap(char *filename)
+int loadMap(int levelNum)
 {
-    FILE *file = fopen(filename, "r");
+    FILE* file = NULL;
+
+    switch (levelNum)
+    {
+    case 1:
+        file = fopen("levels/level1.txt", "r");
+        break;
+    case 2:
+        file = fopen("levels/level2.txt", "r");
+        break;
+    default:
+        break;
+    }
 
     if(file == NULL)
     {

@@ -36,12 +36,13 @@ int main(int argc, char *args[])
 
     // Honestly need to clean up everything here, set up some initialization functions for game and player...
     game.state = MENU;
+    game.level = 1;
 
     // Load in images and tiles
     loadResources();
     setupFontTiles(fontTiles, FONT_NUM); // move this?
     setupTiles(tileIndex, TILE_NUM);
-    loadMap("arena.txt");
+    loadMap(game.level);
     srand(time(0));
 
     //menuMusic = Mix_LoadMUS("sound/menu.wav");
@@ -100,9 +101,10 @@ int main(int argc, char *args[])
             if (quit == 2) // win, moving to next round
             {
                 game.state = GAME;
+                game.level++;
                 blockTicks = SDL_GetTicks();
                 resetplayer(&player);
-                loadMap("arena.txt");
+                loadMap(game.level);
                 addBlocks(40, &player);
                 // give player some room at spawn to use a bomb
                 arena[1][1] = TILE_EMPTY;
@@ -117,8 +119,9 @@ int main(int argc, char *args[])
             if (quit == 2) // gameover, moving to start screen
             {
                 game.state = MENU;
+                game.level = 1;
                 resetplayer(&player);
-                loadMap("arena.txt");
+                loadMap(game.level);
             }
         }
 
