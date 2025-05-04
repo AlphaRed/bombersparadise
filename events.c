@@ -157,7 +157,7 @@ void movePlayer(Player_t *player)
 
     // check for win
     if (arena[player->x][player->y] == TILE_EXIT)
-        gs = WIN;
+        game.state = WIN;
 }
 
 int checkCollision(Player_t *player, int destX, int destY)
@@ -181,7 +181,7 @@ int checkCollision(Player_t *player, int destX, int destY)
             if (player->lives == 0)
             {
                 //win = 1;    // TODO: gameover screen instead of win
-                gs = GAMEOVER;
+                game.state = GAMEOVER;
             }
             else
             {

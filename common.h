@@ -68,7 +68,11 @@ typedef struct Mob_t {
     struct Mob_t *next;
 } Mob_t;
 
-extern Gamestate gs;
+typedef struct Game_t {
+    Gamestate state;
+} Game_t;
+
+extern Game_t game;
 extern int arena[ARENA_WIDTH][ARENA_HEIGHT];
 extern Bomb_t *bombList;
 extern Mob_t *mobList;

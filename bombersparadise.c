@@ -8,7 +8,7 @@
 // some things were meant to be global
 SDL_Window *window;
 SDL_Renderer *renderer;
-Gamestate gs = MENU;
+Game_t game;
 int arena[ARENA_WIDTH][ARENA_HEIGHT];
 Player_t player;
 Bomb_t *bombList = NULL;
@@ -32,6 +32,10 @@ int main(int argc, char *args[])
         printf("initSDL failed.\n");
         return 1;
     }
+
+
+    // Honestly need to clean up everything here, set up some initialization functions for game and player...
+    game.state = MENU;
 
     // Load in images and tiles
     loadResources();
@@ -69,18 +73,18 @@ int main(int argc, char *args[])
 
         // Input
         SDL_PollEvent(&e);
-        if(gs == GAME)
+        if(game.state == GAME)
         {
             quit = checkGameEvents(e, &player);
         }
-        else if(gs == MENU)
+        else if(game.state == MENU)
         {
             quit = checkMenuEvents(e, &menuCursor);
             if(quit == 2) // menu, moving to game
             {
                 //Mix_HaltMusic();
                 blockTicks = SDL_GetTicks();
-                gs = GAME;
+                game.state = GAME;
                 addBlocks(40, &player);
                 // give player some room at spawn to use a bomb
                 arena[1][1] = TILE_EMPTY;
@@ -90,12 +94,12 @@ int main(int argc, char *args[])
                 player.invulnerable = INVULNERABLE_TIME;
             }     
         }
-        else if (gs == WIN)
+        else if (game.state == WIN)
         {
             quit = checkWinEvents(e);
             if (quit == 2) // win, moving to next round
             {
-                gs = GAME;
+                game.state = GAME;
                 blockTicks = SDL_GetTicks();
                 resetplayer(&player);
                 loadMap("arena.txt");
@@ -107,19 +111,19 @@ int main(int argc, char *args[])
                 player.invulnerable = INVULNERABLE_TIME;
             }
         }
-        else if (gs == GAMEOVER)
+        else if (game.state == GAMEOVER)
         {
             quit = checkGameOverEvents(e);
             if (quit == 2) // gameover, moving to start screen
             {
-                gs = MENU;
+                game.state = MENU;
                 resetplayer(&player);
                 loadMap("arena.txt");
             }
         }
 
         // Logic
-        if(gs == GAME)
+        if(game.state == GAME)
         {
             movePlayer(&player);
             moveMobs(mobList);
@@ -137,14 +141,14 @@ int main(int argc, char *args[])
             if (player.invulnerable > 0)
                 player.invulnerable = player.invulnerable - 1;
         }
-        else if(gs == MENU)
+        else if(game.state == MENU)
         {
             checkMCursorBounds(&menuCursor);
         }
 
         // Render
         SDL_RenderClear(renderer);
-        if(gs == GAME)
+        if(game.state == GAME)
         {
             drawArena(tiles);
             drawPlayer(player, tiles);
@@ -153,16 +157,16 @@ int main(int argc, char *args[])
             drawScore(score);
             drawLives(player.lives);
         }
-        else if(gs == MENU)
+        else if(game.state == MENU)
         {
             drawMenu(tiles);
             drawCursor(menuCursor, tiles);
         }
-        else if(gs == WIN)
+        else if(game.state == WIN)
         {
             drawWin();
         }
-        else if(gs == GAMEOVER)
+        else if(game.state == GAMEOVER)
         {
             drawGameOver();
         }

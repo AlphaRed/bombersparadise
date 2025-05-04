@@ -151,7 +151,7 @@ void checkDestructible(int x, int y, Bomb_t *bombList)
         if (player.lives == 0)
         {
             //win = 1;    // TODO: gameover screen instead of win
-            gs = GAMEOVER;
+            game.state = GAMEOVER;
         }
         else
         {
