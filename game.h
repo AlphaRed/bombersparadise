@@ -14,5 +14,6 @@ void moveMobs(Mob_t *list);
 int checkCollisionMob(Mob_t* mob, int destX, int destY);
 Mob_t* addMob(Mob_t* list, int x, int y, int direction);
 void loadMobs(int lvlNum);
+Mob_t* clearMobs(Mob_t* list);
 
 #endif

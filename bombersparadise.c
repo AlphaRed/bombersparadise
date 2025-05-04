@@ -126,6 +126,7 @@ int main(int argc, char *args[])
             bombTimers(bombList);
             checkExplosions(bombList);
             bombList = clearBombs(bombList);
+            mobList = clearMobs(mobList);
             //printBombs(bombList);
             if((SDL_GetTicks() - blockTicks) > 10000)
             {

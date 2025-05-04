@@ -29,6 +29,7 @@
 
 typedef enum {MENU, GAME, WIN, GAMEOVER} Gamestate;
 typedef enum {TICKING, EXPLODED, DEAD} Bombstate;
+typedef enum {ALIVE, KILLED} Mobstate;
 
 typedef struct Cursor_t // could maybe make this a generic sprite/obj struct?
 {
@@ -63,6 +64,7 @@ typedef struct Mob_t {
     int y;
     int dir;
     int lastMove;
+    Mobstate state;
     struct Mob_t *next;
 } Mob_t;
 

@@ -138,6 +138,13 @@ void checkDestructible(int x, int y, Bomb_t *bombList)
         }
     }
 
+    // check mobs
+    for (Mob_t* thisMob = mobList; thisMob != NULL; thisMob = thisMob->next)
+    {
+        if ((thisMob->x == x) && (thisMob->y == y))
+            thisMob->state = KILLED;
+    }
+
     // also need to damage the player!
     if ((player.invulnerable == 0) && (player.x == x) && (player.y == y))
     {

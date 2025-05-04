@@ -204,6 +204,7 @@ Mob_t* addMob(Mob_t* list, int x, int y, int direction) {
     newMob->y = y;
     newMob->dir = direction;
     newMob->lastMove = SDL_GetTicks();
+    newMob->state = ALIVE;
     newMob->next = list;
 
     return newMob;
@@ -218,4 +219,28 @@ void loadMobs(int lvlNum) {
     default:
         break;
     }
+}
+
+Mob_t* clearMobs(Mob_t* list) {
+    Mob_t* current = list;
+    Mob_t* previous = NULL;
+
+    while (current != NULL) {
+        if (current->state == KILLED) {
+            if (previous == NULL) {
+                free(current);
+                return previous;
+            }
+            else {
+                previous->next = current->next;
+                free(current);
+                current = previous->next;
+            }
+        }
+        else {
+            previous = current;
+            current = current->next;
+        }
+    }
+    return list;
 }
