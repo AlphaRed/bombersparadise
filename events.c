@@ -172,6 +172,24 @@ int checkCollision(Player_t *player, int destX, int destY)
     // check for bombs
     if (isBombPresent(bombList, destX, destY))
         return 1;
+    // check for mobs
+    if (isMobPresent(mobList, destX, destY))
+    {
+        // also need to damage the player!
+        if ((player->invulnerable == 0) && (player->x == destX) && (player->y == destY))
+        {
+            if (player->lives == 0)
+            {
+                //win = 1;    // TODO: gameover screen instead of win
+                gs = GAMEOVER;
+            }
+            else
+            {
+                player->lives--;
+                player->invulnerable = INVULNERABLE_TIME;
+            }
+        }
+    }
 
     return 0;   // no collisions found
 }

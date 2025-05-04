@@ -244,3 +244,14 @@ Mob_t* clearMobs(Mob_t* list) {
     }
     return list;
 }
+
+int isMobPresent(Mob_t* list, int x, int y)
+{
+    for (Mob_t* thisMob = list; thisMob != NULL; thisMob = thisMob->next)
+    {
+        if ((thisMob->x == x) && (thisMob->y == y))
+            return 1;
+    }
+
+    return 0;
+}
