@@ -39,6 +39,7 @@ int main(int argc, char *args[])
     game.level = 1;
 
     // Load in images and tiles
+    SDL_SetRenderDrawColor(renderer, 5, 26, 48, 255);
     loadResources();
     setupFontTiles(fontTiles, FONT_NUM); // move this?
     setupTiles(tileIndex, TILE_NUM);

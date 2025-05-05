@@ -10,8 +10,8 @@
 
 #define SCREEN_WIDTH    256 * 2
 #define SCREEN_HEIGHT   240 * 2
-#define TILE_SIZE       8       // in px
-#define TILE_SCALE      4
+#define TILE_SIZE       16       // in px
+#define TILE_SCALE      2
 #define FONT_NUM        200
 #define MAX_FPS         60
 #define MAX_CHARS       30
