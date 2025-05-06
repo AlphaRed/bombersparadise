@@ -196,18 +196,24 @@ int checkCollision(Player_t *player, int destX, int destY)
 
 Bomb_t *placeBomb(Player_t *p, Bomb_t *b)
 {
-    Bomb_t *newBomb = malloc(sizeof(struct Bomb_t));
-    if (newBomb == NULL)
+    if (p->numBombs < p->maxBombs)
     {
-        printf("Error, malloc failed to create new bomb!\n");
-        return NULL;
+        Bomb_t* newBomb = malloc(sizeof(struct Bomb_t));
+        if (newBomb == NULL)
+        {
+            printf("Error, malloc failed to create new bomb!\n");
+            return NULL;
+        }
+
+        newBomb->imgIndex = 6;
+        newBomb->x = p->x;
+        newBomb->y = p->y;
+        newBomb->timer = SDL_GetTicks();
+        newBomb->state = TICKING;
+        newBomb->next = b;
+        p->numBombs++;
+        return newBomb;
     }
-    
-    newBomb->imgIndex = 6;
-    newBomb->x = p->x;
-    newBomb->y = p->y;
-    newBomb->timer = SDL_GetTicks();
-    newBomb->state = TICKING;
-    newBomb->next = b;
-    return newBomb;
+    else
+        return b;
 }

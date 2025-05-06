@@ -56,11 +56,13 @@ Bomb_t *clearBombs(Bomb_t *list) {
     while (current != NULL) {
         if (current->state == DEAD) {
             if (previous == NULL) {
+                player.numBombs--;
                 free(current);
                 return previous;
             }
             else {
                 previous->next = current->next;
+                player.numBombs--;
                 free(current);
                 current = previous->next;
             }

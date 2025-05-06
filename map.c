@@ -64,6 +64,8 @@ void resetplayer(Player_t *plyr)
     plyr->x = 1;
     plyr->y = 1;
     plyr->moveDir = 0;
+    plyr->maxBombs = 1;
+    plyr->numBombs = 0;
 }
 
 int emptyTiles(Player_t player, Bomb_t *bombList)
