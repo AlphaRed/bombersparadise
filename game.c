@@ -257,3 +257,29 @@ int isMobPresent(Mob_t* list, int x, int y)
 
     return 0;
 }
+
+void initPlayer(Player_t *p)
+{
+    p->imgIndex = 5;
+    p->x = 1;
+    p->y = 1;
+    p->moveDir = 0;
+    p->lives = 3;
+    p->invulnerable = 0;
+    p->maxBombs = 1;
+    p->numBombs = 0;
+}
+
+void initCursor(Cursor_t* c)
+{
+    c->imgIndex = 15;
+    c->x = 5;
+    c->y = 255;
+}
+
+void initGame(Game_t* g)
+{
+    g->state = MENU;
+    g->level = 1;
+    g->titleCardTimer = SDL_GetTicks();
+}

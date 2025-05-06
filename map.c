@@ -64,8 +64,8 @@ void resetplayer(Player_t *plyr)
     plyr->x = 1;
     plyr->y = 1;
     plyr->moveDir = 0;
-    plyr->maxBombs = 1;
     plyr->numBombs = 0;
+    plyr->invulnerable = INVULNERABLE_TIME;
 }
 
 int emptyTiles(Player_t player, Bomb_t *bombList)
@@ -187,4 +187,11 @@ int checkMobLoc(Mob_t* list, int x, int y)
             return 1;
     }
     return 0;
+}
+
+void clearSpawn()
+{
+    arena[1][1] = TILE_EMPTY;
+    arena[2][1] = TILE_EMPTY;
+    arena[1][2] = TILE_EMPTY;
 }

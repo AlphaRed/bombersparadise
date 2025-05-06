@@ -9,6 +9,7 @@
 SDL_Window *window;
 SDL_Renderer *renderer;
 Game_t game;
+Cursor_t menuCursor;
 int arena[ARENA_WIDTH][ARENA_HEIGHT];
 Player_t player;
 Bomb_t *bombList = NULL;
@@ -33,18 +34,16 @@ int main(int argc, char *args[])
         return 1;
     }
 
-
-    // Honestly need to clean up everything here, set up some initialization functions for game and player...
-    game.state = MENU;
-    game.level = 1;
-    game.titleCardTimer = SDL_GetTicks();
+    initGame(&game);
+    initPlayer(&player);
+    initCursor(&menuCursor);
 
     // Load in images and tiles
-    SDL_SetRenderDrawColor(renderer, 5, 26, 48, 255);
     loadResources();
     setupFontTiles(fontTiles, FONT_NUM); // move this?
     setupTiles(tileIndex, TILE_NUM);
     loadMap(game.level);
+    loadMobs(game.level);
     srand(time(0));
 
     //menuMusic = Mix_LoadMUS("sound/menu.wav");
@@ -52,22 +51,12 @@ int main(int argc, char *args[])
     //    printf("Could not load menu music: %s", Mix_GetError());
     //Mix_PlayMusic(menuMusic, -1);
 
-    Cursor_t menuCursor;
-    menuCursor.imgIndex = 15;
-    menuCursor.x = 5;
-    menuCursor.y = 255;
-
-    player.imgIndex = 5;
-    resetplayer(&player);
-
     int quit = 1;
     SDL_Event e;
     int current_ticks;
     int fps_counter = 0;
     int blockTicks = 0;
     score = 0;
-    player.lives = 3;
-    loadMobs(1);
 
     // Game loop
     while(quit)
@@ -88,15 +77,10 @@ int main(int argc, char *args[])
                 game.state = TITLECARD;
                 game.titleCardTimer = SDL_GetTicks();
                 //Mix_HaltMusic();
-                blockTicks = SDL_GetTicks();
-                //game.state = GAME;
+                resetplayer(&player);
                 addBlocks(40, &player);
-                // give player some room at spawn to use a bomb
-                arena[1][1] = TILE_EMPTY;
-                arena[2][1] = TILE_EMPTY;
-                arena[1][2] = TILE_EMPTY;
-                player.lives = 3;
-                player.invulnerable = INVULNERABLE_TIME;
+                blockTicks = SDL_GetTicks();
+                clearSpawn(); // give player some room at spawn to use a bomb
             }     
         }
         else if (game.state == WIN)
@@ -104,17 +88,15 @@ int main(int argc, char *args[])
             quit = checkWinEvents(e);
             if (quit == 2) // win, moving to next round
             {
-                game.state = GAME;
                 game.level++;
-                blockTicks = SDL_GetTicks();
-                resetplayer(&player);
+                game.state = TITLECARD;
+                game.titleCardTimer = SDL_GetTicks();
                 loadMap(game.level);
+                loadMobs(game.level);
+                resetplayer(&player);
                 addBlocks(40, &player);
-                // give player some room at spawn to use a bomb
-                arena[1][1] = TILE_EMPTY;
-                arena[2][1] = TILE_EMPTY;
-                arena[1][2] = TILE_EMPTY;
-                player.invulnerable = INVULNERABLE_TIME;
+                blockTicks = SDL_GetTicks();
+                clearSpawn();
             }
         }
         else if (game.state == GAMEOVER)
@@ -126,6 +108,7 @@ int main(int argc, char *args[])
                 game.level = 1;
                 resetplayer(&player);
                 loadMap(game.level);
+                loadMobs(game.level);
             }
         }
 

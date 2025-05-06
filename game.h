@@ -17,4 +17,9 @@ void loadMobs(int lvlNum);
 Mob_t* clearMobs(Mob_t* list);
 int isMobPresent(Mob_t* list, int x, int y);
 
+// Initialization Functions
+void initPlayer(Player_t* p);
+void initCursor(Cursor_t* c);
+void initGame(Game_t* g);
+
 #endif

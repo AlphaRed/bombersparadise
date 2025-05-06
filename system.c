@@ -23,16 +23,7 @@ int initRenderer()
         printf("Renderer failed to be created: %s\n", SDL_GetError());
         return 1;
     }
-    return 0;
-}
-
-int initIMG()
-{
-    /*if(IMG_Init(IMG_INIT_PNG) < 0)
-    {
-        printf("SDL_Image library failed to initialize: %s", SDL_GetError());
-        return 1;
-    }*/
+    SDL_SetRenderDrawColor(renderer, 5, 26, 48, 255);
     return 0;
 }
 
@@ -60,12 +51,6 @@ int initSDL()
         return 1;
     }
 
-    if(initIMG())
-    {
-        printf("initIMG failed.\n");
-        return 1;
-    }
-
     if(initAudio())
     {
         printf("initAudio failed.\n");
@@ -80,7 +65,6 @@ void cleanup()
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     //Mix_Quit();
-    //IMG_Quit();
     SDL_Quit();
 }
 
