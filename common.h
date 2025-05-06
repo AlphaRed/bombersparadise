@@ -27,7 +27,7 @@
 
 #define INVULNERABLE_TIME   1000 // ms of invulnerability (at start and when hit)
 
-typedef enum {MENU, GAME, WIN, GAMEOVER} Gamestate;
+typedef enum {MENU, GAME, WIN, GAMEOVER, TITLECARD} Gamestate;
 typedef enum {TICKING, EXPLODED, DEAD} Bombstate;
 typedef enum {ALIVE, KILLED} Mobstate;
 
@@ -73,6 +73,7 @@ typedef struct Mob_t {
 typedef struct Game_t {
     Gamestate state;
     int level;
+    int titleCardTimer;
 } Game_t;
 
 extern Game_t game;

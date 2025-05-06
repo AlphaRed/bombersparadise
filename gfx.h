@@ -30,5 +30,6 @@ void drawBombs(Bomb_t *b, SDL_Texture *t);
 void drawScore(int s);
 void drawLives(int lives);
 void drawMobs(Mob_t *list, SDL_Texture* tex);
+void drawLevelTitleCard(int levelNum);
 
 #endif

@@ -37,6 +37,7 @@ int main(int argc, char *args[])
     // Honestly need to clean up everything here, set up some initialization functions for game and player...
     game.state = MENU;
     game.level = 1;
+    game.titleCardTimer = SDL_GetTicks();
 
     // Load in images and tiles
     SDL_SetRenderDrawColor(renderer, 5, 26, 48, 255);
@@ -84,9 +85,11 @@ int main(int argc, char *args[])
             quit = checkMenuEvents(e, &menuCursor);
             if(quit == 2) // menu, moving to game
             {
+                game.state = TITLECARD;
+                game.titleCardTimer = SDL_GetTicks();
                 //Mix_HaltMusic();
                 blockTicks = SDL_GetTicks();
-                game.state = GAME;
+                //game.state = GAME;
                 addBlocks(40, &player);
                 // give player some room at spawn to use a bomb
                 arena[1][1] = TILE_EMPTY;
@@ -149,6 +152,11 @@ int main(int argc, char *args[])
         {
             checkMCursorBounds(&menuCursor);
         }
+        else if (game.state == TITLECARD)
+        {
+            if (SDL_GetTicks() - game.titleCardTimer > 1000)
+                game.state = GAME;
+        }
 
         // Render
         SDL_RenderClear(renderer);
@@ -173,6 +181,10 @@ int main(int argc, char *args[])
         else if(game.state == GAMEOVER)
         {
             drawGameOver();
+        }
+        else if (game.state == TITLECARD)
+        {
+            drawLevelTitleCard(game.level);
         }
 
         drawFPS(fps_counter);

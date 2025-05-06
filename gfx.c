@@ -252,3 +252,20 @@ void drawMobs(Mob_t *list, SDL_Texture* tex)
         drawTile(tex, thisMob->imgIndex, thisMob->x, thisMob->y, TILE_SCALE);
     }
 }
+
+void drawLevelTitleCard(int levelNum)
+{
+    switch (levelNum)
+    {
+    case 1:
+        SDL_RenderClear(renderer);
+        drawString("Level One", 150, 200, 4);
+        break;
+    case 2:
+        SDL_RenderClear(renderer);
+        drawString("Level Two", 150, 200, 4);
+        break;
+    default:
+        break;
+    }
+}
