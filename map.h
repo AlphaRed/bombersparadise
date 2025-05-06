@@ -10,5 +10,6 @@ int emptyTiles(Player_t player, Bomb_t *bombList);
 void clearArena();
 void addBlocks(int num, Player_t *p);
 void checkDestructible(int x, int y, Bomb_t *bombList);
+int checkMobLoc(Mob_t* list, int x, int y);
 
 #endif
