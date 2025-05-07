@@ -160,6 +160,7 @@ int main(int argc, char *args[])
         else if(game.state == WIN)
         {
             drawWin();
+            killMobs(mobList);
         }
         else if(game.state == GAMEOVER)
         {

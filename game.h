@@ -16,6 +16,7 @@ Mob_t* addMob(Mob_t* list, int x, int y, int direction);
 void loadMobs(int lvlNum);
 Mob_t* clearMobs(Mob_t* list);
 int isMobPresent(Mob_t* list, int x, int y);
+void killMobs(Mob_t* list);
 
 // Initialization Functions
 void initPlayer(Player_t* p);

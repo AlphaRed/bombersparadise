@@ -215,9 +215,13 @@ Mob_t* addMob(Mob_t* list, int x, int y, int direction) {
 void loadMobs(int lvlNum) {
     switch (lvlNum) {
     case 1:
-        mobList = addMob(mobList, 5, 5, 1);
-        mobList = addMob(mobList, 9, 3, 2);
+        mobList = addMob(mobList, 11, 3, 1);
+        mobList = addMob(mobList, 5, 9, 2);
         break;
+    case 2:
+        mobList = addMob(mobList, 5, 2, 3);
+        mobList = addMob(mobList, 1, 6, 1);
+        mobList = addMob(mobList, 9, 7, 2);
     default:
         break;
     }
@@ -256,6 +260,14 @@ int isMobPresent(Mob_t* list, int x, int y)
     }
 
     return 0;
+}
+
+void killMobs(Mob_t* list)
+{
+    for (Mob_t* thisMob = list; thisMob != NULL; thisMob = thisMob->next)
+    {
+        thisMob->state = KILLED;
+    }
 }
 
 void initPlayer(Player_t *p)
