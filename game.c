@@ -224,13 +224,56 @@ void loadMobs(int lvlNum) {
         mobList = addMob(mobList, 9, 7, 2);
         break;
     case 3:
+        mobList = addMob(mobList, 10, 1, 4);
+        mobList = addMob(mobList, 4, 9, 2);
+        mobList = addMob(mobList, 7, 5, 2);
+        mobList = addMob(mobList, 1, 6, 1);
+        break;
     case 4:
+        mobList = addMob(mobList, 5, 1, 4);
+        mobList = addMob(mobList, 13, 5, 4);
+        mobList = addMob(mobList, 5, 10, 1);
+        mobList = addMob(mobList, 9, 6, 3);
+        break;
     case 5:
+        mobList = addMob(mobList, 9, 1, 4);
+        mobList = addMob(mobList, 5, 8, 1);
+        mobList = addMob(mobList, 2, 5, 2);
+        mobList = addMob(mobList, 13, 4, 3);
+        break;
     case 6:
+        mobList = addMob(mobList, 4, 4, 4);
+        mobList = addMob(mobList, 1, 11, 2);
+        mobList = addMob(mobList, 9, 9, 4);
+        mobList = addMob(mobList, 7, 2, 3);
+        mobList = addMob(mobList, 10, 2, 3);
+        break;
     case 7:
+        mobList = addMob(mobList, 1, 8, 1);
+        mobList = addMob(mobList, 5, 2, 3);
+        mobList = addMob(mobList, 5, 5, 2);
+        mobList = addMob(mobList, 7, 11, 4);
     case 8:
+        mobList = addMob(mobList, 5, 1, 4);
+        mobList = addMob(mobList, 5, 5, 2);
+        mobList = addMob(mobList, 1, 11, 2);
+        mobList = addMob(mobList, 9, 6, 1);
+        mobList = addMob(mobList, 13, 1, 3);
     case 9:
+        mobList = addMob(mobList, 13, 1, 4);
+        mobList = addMob(mobList, 2, 5, 2);
+        mobList = addMob(mobList, 13, 7, 4);
+        mobList = addMob(mobList, 3, 11, 2);
+        mobList = addMob(mobList, 1, 6, 1);
+        mobList = addMob(mobList, 5, 2, 3);
+        mobList = addMob(mobList, 9, 11, 1);
+        mobList = addMob(mobList, 13, 11, 1);
     case 10:
+        mobList = addMob(mobList, 1, 3, 2);
+        mobList = addMob(mobList, 7, 7, 2);
+        mobList = addMob(mobList, 1, 5, 3);
+        mobList = addMob(mobList, 7, 11, 1);
+        mobList = addMob(mobList, 9, 11, 1);
         break;
     default:
         break;
