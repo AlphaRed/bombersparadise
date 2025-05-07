@@ -27,6 +27,30 @@ int loadMap(int levelNum)
     case 2:
         file = fopen("levels/level2.txt", "r");
         break;
+    case 3:
+        file = fopen("levels/level3.txt", "r");
+        break;
+    case 4:
+        file = fopen("levels/level4.txt", "r");
+        break;
+    case 5:
+        file = fopen("levels/level5.txt", "r");
+        break;
+    case 6:
+        file = fopen("levels/level6.txt", "r");
+        break;
+    case 7:
+        file = fopen("levels/level7.txt", "r");
+        break;
+    case 8:
+        file = fopen("levels/level8.txt", "r");
+        break;
+    case 9:
+        file = fopen("levels/level9.txt", "r");
+        break;
+    case 10:
+        file = fopen("levels/level10.txt", "r");
+        break;
     default:
         break;
     }

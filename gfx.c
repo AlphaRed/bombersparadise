@@ -265,6 +265,38 @@ void drawLevelTitleCard(int levelNum)
         SDL_RenderClear(renderer);
         drawString("Level Two", 150, 200, 4);
         break;
+    case 3:
+        SDL_RenderClear(renderer);
+        drawString("Level Three", 150, 200, 4);
+        break;
+    case 4:
+        SDL_RenderClear(renderer);
+        drawString("Level Four", 150, 200, 4);
+        break;
+    case 5:
+        SDL_RenderClear(renderer);
+        drawString("Level Five", 150, 200, 4);
+        break;
+    case 6:
+        SDL_RenderClear(renderer);
+        drawString("Level Six", 150, 200, 4);
+        break;
+    case 7:
+        SDL_RenderClear(renderer);
+        drawString("Level Seven", 150, 200, 4);
+        break;
+    case 8:
+        SDL_RenderClear(renderer);
+        drawString("Level Eight", 150, 200, 4);
+        break;
+    case 9:
+        SDL_RenderClear(renderer);
+        drawString("Level Nine", 150, 200, 4);
+        break;
+    case 10:
+        SDL_RenderClear(renderer);
+        drawString("Level Ten", 150, 200, 4);
+        break;
     default:
         break;
     }

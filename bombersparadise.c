@@ -78,7 +78,7 @@ int main(int argc, char *args[])
                 game.titleCardTimer = SDL_GetTicks();
                 //Mix_HaltMusic();
                 resetplayer(&player);
-                addBlocks(40, &player);
+                addBlocks(30, &player);
                 blockTicks = SDL_GetTicks();
                 clearSpawn(); // give player some room at spawn to use a bomb
             }     
@@ -94,7 +94,7 @@ int main(int argc, char *args[])
                 loadMap(game.level);
                 loadMobs(game.level);
                 resetplayer(&player);
-                addBlocks(40, &player);
+                addBlocks(30, &player);
                 blockTicks = SDL_GetTicks();
                 clearSpawn();
             }
