@@ -30,6 +30,7 @@
 typedef enum {MENU, GAME, WIN, GAMEOVER, TITLECARD} Gamestate;
 typedef enum {TICKING, EXPLODED, DEAD} Bombstate;
 typedef enum {ALIVE, KILLED} Mobstate;
+typedef enum {NOTYPE, BOMB, RANGE} Poweruptype;
 
 typedef struct Cursor_t // could maybe make this a generic sprite/obj struct?
 {
@@ -48,6 +49,7 @@ typedef struct Player_t
     int invulnerable;
     int maxBombs;
     int numBombs;
+    int range;
 } Player_t;
 
 typedef struct Bomb_t
@@ -70,6 +72,13 @@ typedef struct Mob_t {
     struct Mob_t *next;
 } Mob_t;
 
+typedef struct Powerup_t {
+    int x;
+    int y;
+    Poweruptype type;
+    struct Powerup_t *next;
+} Powerup_t;
+
 typedef struct Game_t {
     Gamestate state;
     int level;
@@ -81,5 +90,6 @@ extern int arena[ARENA_WIDTH][ARENA_HEIGHT];
 extern Player_t player;
 extern Bomb_t *bombList;
 extern Mob_t *mobList;
+extern Powerup_t *powerupList;
 
 #endif

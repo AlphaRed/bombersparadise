@@ -1,6 +1,7 @@
 #include "common.h"
 #include "events.h"
 #include "game.h"
+#include "map.h"
 
 
 // Setup map tiles to tile array
@@ -175,6 +176,7 @@ void checkDestructible(int x, int y, Bomb_t *bombList)
             if ((thisBomb->x == x) && (thisBomb->y == y) && (thisBomb->state == TICKING)) {
                 thisBomb->state = EXPLODED;
                 thisBomb->timer -= 3500 - (SDL_GetTicks() - thisBomb->timer);
+                player.numBombs--;
             }
         }
     }

@@ -14,6 +14,7 @@ int arena[ARENA_WIDTH][ARENA_HEIGHT];
 Player_t player;
 Bomb_t *bombList = NULL;
 Mob_t *mobList = NULL;
+Powerup_t *powerupList = NULL;
 int score;
 
 SDL_Rect fontTiles[FONT_NUM];
@@ -57,6 +58,11 @@ int main(int argc, char *args[])
     int fps_counter = 0;
     int blockTicks = 0;
     score = 0;
+
+    powerupList = addPowerup(powerupList, 3, 1, BOMB);
+    powerupList = addPowerup(powerupList, 4, 1, BOMB);
+    powerupList = addPowerup(powerupList, 5, 1, RANGE);
+    powerupList = addPowerup(powerupList, 6, 1, BOMB);
 
     // Game loop
     while(quit)
@@ -147,6 +153,7 @@ int main(int argc, char *args[])
         {
             drawArena(tiles);
             drawPlayer(player, tiles);
+            drawPowerups(powerupList, tiles);
             drawMobs(mobList, tiles);
             drawBombs(bombList, tiles);
             drawScore(score);

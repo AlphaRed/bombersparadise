@@ -75,7 +75,7 @@ Bomb_t *clearBombs(Bomb_t *list) {
     return list;
 }
 
-// Check if an unexploded bomb is present in arena tile
+// Check if an unexploded bomb is present on arena tile
 int isBombPresent(Bomb_t *bombList, int x, int y)
 {
     for (Bomb_t *thisBomb = bombList; thisBomb != NULL; thisBomb = thisBomb->next)
@@ -323,6 +323,62 @@ void killMobs(Mob_t* list)
     }
 }
 
+
+// Powerup Functions
+
+Powerup_t* addPowerup(Powerup_t* list, int x, int y, Poweruptype type) {
+    Powerup_t* newPowerup = malloc(sizeof(struct Powerup_t));
+    if (newPowerup == NULL) {
+        printf("Error, malloc failed to create new powerup!\n");
+        return NULL;
+    }
+
+    newPowerup->type = type;
+    newPowerup->x = x;
+    newPowerup->y = y;
+    newPowerup->next = list;
+
+    return newPowerup;
+}
+
+// remove power up at specific x, y
+Powerup_t *removePowerup(Powerup_t *list, int x, int y) {
+    Powerup_t *previous = NULL;
+    Powerup_t *current = list;
+
+    while (current != NULL) {
+        if ((current->x == x) && (current->y == y)) {
+            if (previous == NULL) {
+                free(current);
+                return previous;
+            }
+            else {
+                previous->next = current->next;
+                free(current);
+                current = previous->next;
+            }
+        }
+        else {
+            previous = current;
+            current = current->next;
+        }
+    }
+
+    return list;
+}
+
+// Check if a powerup is present on arena tile
+int isPowerupPresent(Powerup_t *list, int x, int y)
+{
+    for (Powerup_t *thisPowerup = list; thisPowerup != NULL; thisPowerup = thisPowerup->next)
+    {
+        if ((thisPowerup->x == x) && (thisPowerup->y == y))
+            return thisPowerup->type;
+    }
+
+    return 0;
+}
+
 void initPlayer(Player_t *p)
 {
     p->imgIndex = 5;
@@ -333,6 +389,7 @@ void initPlayer(Player_t *p)
     p->invulnerable = 0;
     p->maxBombs = 1;
     p->numBombs = 0;
+    p->range = 1;
 }
 
 void initCursor(Cursor_t* c)

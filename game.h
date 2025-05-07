@@ -18,6 +18,11 @@ Mob_t* clearMobs(Mob_t* list);
 int isMobPresent(Mob_t* list, int x, int y);
 void killMobs(Mob_t* list);
 
+// Powerup Functions
+Powerup_t* addPowerup(Powerup_t* list, int x, int y, Poweruptype type);
+Powerup_t *removePowerup(Powerup_t *list, int x, int y);
+int isPowerupPresent(Powerup_t *list, int x, int y);
+
 // Initialization Functions
 void initPlayer(Player_t* p);
 void initCursor(Cursor_t* c);

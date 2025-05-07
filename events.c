@@ -125,6 +125,7 @@ void checkMCursorBounds(Cursor_t *c)
 void movePlayer(Player_t *player)
 {
     int destX, destY;
+    int type;   // for powerup type if exists
 
     destX = player->x;
     destY = player->y;
@@ -158,6 +159,18 @@ void movePlayer(Player_t *player)
     // check for win
     if (arena[player->x][player->y] == TILE_EXIT)
         game.state = WIN;
+
+    // check for powerup
+    type = isPowerupPresent(powerupList, player->x, player->y);
+    if (type) {
+        if (type == BOMB) {
+            player->maxBombs++;
+        }
+        else if (type == RANGE){
+            player->range++;
+        }
+        powerupList = removePowerup(powerupList, player->x, player->y);
+    }
 }
 
 int checkCollision(Player_t *player, int destX, int destY)

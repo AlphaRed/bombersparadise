@@ -253,6 +253,21 @@ void drawMobs(Mob_t *list, SDL_Texture* tex)
     }
 }
 
+void drawPowerups(Powerup_t *list, SDL_Texture* tex)
+{
+    int tile;
+
+    for (Powerup_t* thisPowerup = list; thisPowerup != NULL; thisPowerup = thisPowerup->next)
+    {
+        if (thisPowerup->type == BOMB)
+            tile = 24;
+        else if (thisPowerup->type == RANGE)
+            tile = 25;
+
+        drawTile(tex, tile, thisPowerup->x, thisPowerup->y, TILE_SCALE);
+    }
+}
+
 void drawLevelTitleCard(int levelNum)
 {
     switch (levelNum)
