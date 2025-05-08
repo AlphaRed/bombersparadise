@@ -150,10 +150,13 @@ void addBlocks(int num, Player_t *p)
         {
             if(!((randX == playerX) && (randY == playerY))) // make sure the player isn't there
             {
-                if (checkMobLoc(mobList, randX, randY) == 0) // make sure mobs aren't there
+                if (isMobPresent(mobList, randX, randY) == 0) // make sure mobs aren't there
                 {
-                    arena[randX][randY] = TILE_BLOCK;
-                    num--;
+                    if (isBombPresent(bombList, randX, randY) == 0) // make sure bombs aren't there
+                    {
+                        arena[randX][randY] = TILE_BLOCK;
+                        num--;
+                    }
                 }
             }   
         }
@@ -203,16 +206,6 @@ void checkDestructible(int x, int y, Bomb_t *bombList)
     
         }
     }
-}
-
-int checkMobLoc(Mob_t* list, int x, int y)
-{
-    for (Mob_t* thisMob = list; thisMob != NULL; thisMob = thisMob->next)
-    {
-        if (thisMob->x == x && thisMob->y == y)
-            return 1;
-    }
-    return 0;
 }
 
 void clearSpawn()
