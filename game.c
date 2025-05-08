@@ -189,6 +189,9 @@ int checkCollisionMob(Mob_t* mob, int destX, int destY)
     // check for bombs
     if (isBombPresent(bombList, destX, destY))
         return 1;
+    //check for other mobs
+    if (isMobPresent(mobList, destX, destY))
+        return 1;
 
     return 0;   // no collisions found
 }
