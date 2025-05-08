@@ -36,6 +36,8 @@ void checkExplosions(Bomb_t *list)
     {
         if (thisBomb->state == EXPLODED)
         {
+            // destroy the centre block
+            checkDestructible(thisBomb->x, thisBomb->y, list);
             // destroy bricks and other bombs around bomb
             if (arena[thisBomb->x][thisBomb->y - 1] != TILE_WALL) // above
                 checkDestructible(thisBomb->x, thisBomb->y - 1, list);
@@ -44,7 +46,7 @@ void checkExplosions(Bomb_t *list)
             if (arena[thisBomb->x - 1][thisBomb->y] != TILE_WALL) // left
                 checkDestructible(thisBomb->x - 1, thisBomb->y, list);
             if (arena[thisBomb->x + 1][thisBomb->y] != TILE_WALL) // right
-                checkDestructible(thisBomb->x + 1, thisBomb->y, list);
+                checkDestructible(thisBomb->x + 1, thisBomb->y, list);               
         }
     }
 }
