@@ -214,6 +214,18 @@ void drawBombs(Bomb_t *b, SDL_Texture *t)
                     drawTile(t, 10, p->x - 1, p->y, TILE_SCALE);
                 if(arena[p->x + 1][p->y] != TILE_WALL) // right
                     drawTile(t, 10, p->x + 1, p->y, TILE_SCALE);
+
+                if (player.range > 1)
+                {
+                    if (arena[p->x][p->y - 2] != TILE_WALL) // above
+                        drawTile(t, 11, p->x, p->y - 2, TILE_SCALE);
+                    if (arena[p->x][p->y + 2] != TILE_WALL) // below
+                        drawTile(t, 11, p->x, p->y + 2, TILE_SCALE);
+                    if (arena[p->x - 2][p->y] != TILE_WALL) // left
+                        drawTile(t, 10, p->x - 2, p->y, TILE_SCALE);
+                    if (arena[p->x + 2][p->y] != TILE_WALL) // right
+                        drawTile(t, 10, p->x + 2, p->y, TILE_SCALE);
+                }
             }
             else if((currentTime - p->timer) < 5000)
                 drawTile(t, 8, p->x, p->y, TILE_SCALE);

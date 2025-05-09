@@ -46,7 +46,18 @@ void checkExplosions(Bomb_t *list)
             if (arena[thisBomb->x - 1][thisBomb->y] != TILE_WALL) // left
                 checkDestructible(thisBomb->x - 1, thisBomb->y, list);
             if (arena[thisBomb->x + 1][thisBomb->y] != TILE_WALL) // right
-                checkDestructible(thisBomb->x + 1, thisBomb->y, list);               
+                checkDestructible(thisBomb->x + 1, thisBomb->y, list);
+
+            if (player.range > 1) {
+                if (arena[thisBomb->x][thisBomb->y - 2] != TILE_WALL) // above
+                    checkDestructible(thisBomb->x, thisBomb->y - 2, list);
+                if (arena[thisBomb->x][thisBomb->y + 2] != TILE_WALL) // below
+                    checkDestructible(thisBomb->x, thisBomb->y + 2, list);
+                if (arena[thisBomb->x - 2][thisBomb->y] != TILE_WALL) // left
+                    checkDestructible(thisBomb->x - 2, thisBomb->y, list);
+                if (arena[thisBomb->x + 2][thisBomb->y] != TILE_WALL) // right
+                    checkDestructible(thisBomb->x + 2, thisBomb->y, list);
+            }
         }
     }
 }
