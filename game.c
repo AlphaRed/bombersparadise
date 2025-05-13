@@ -62,6 +62,21 @@ void checkExplosions(Bomb_t *list)
     }
 }
 
+Bomb_t *deleteBombs(Bomb_t *list) {
+    Bomb_t *temp;
+
+    // check if list is already empty
+    if (list == NULL)
+        return list;
+    
+    while (list != NULL) {
+        temp = list->next;
+        free(list);
+        list = temp;
+    }
+    return list; // should be NULL
+ }
+
 Bomb_t *clearBombs(Bomb_t *list) {
     Bomb_t *current = list;
     Bomb_t *previous = NULL;

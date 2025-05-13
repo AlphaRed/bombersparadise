@@ -100,6 +100,7 @@ int main(int argc, char *args[])
                 loadMap(game.level);
                 loadMobs(game.level);
                 resetplayer(&player);
+                bombList = deleteBombs(bombList);
                 addBlocks(30, &player);
                 blockTicks = SDL_GetTicks();
                 clearSpawn();
@@ -113,6 +114,7 @@ int main(int argc, char *args[])
                 game.state = MENU;
                 game.level = 1;
                 resetplayer(&player);
+                bombList = deleteBombs(bombList);
                 loadMap(game.level);
                 loadMobs(game.level);
             }
