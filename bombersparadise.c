@@ -101,6 +101,7 @@ int main(int argc, char *args[])
                 loadMobs(game.level);
                 resetplayer(&player);
                 bombList = deleteBombs(bombList);
+                powerupList = deletePowerups(powerupList);
                 addBlocks(30, &player);
                 blockTicks = SDL_GetTicks();
                 clearSpawn();
@@ -115,6 +116,7 @@ int main(int argc, char *args[])
                 game.level = 1;
                 resetplayer(&player);
                 bombList = deleteBombs(bombList);
+                powerupList = deletePowerups(powerupList);
                 loadMap(game.level);
                 loadMobs(game.level);
             }

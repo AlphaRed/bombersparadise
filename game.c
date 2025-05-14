@@ -398,6 +398,21 @@ Powerup_t *removePowerup(Powerup_t *list, int x, int y) {
     return list;
 }
 
+Powerup_t *deletePowerups(Powerup_t *list) {
+    Powerup_t *temp;
+
+    // check if list is already empty
+    if (list == NULL)
+        return list;
+    
+    while (list != NULL) {
+        temp = list->next;
+        free(list);
+        list = temp;
+    }
+    return list; // should be NULL
+ }
+
 // Check if a powerup is present on arena tile
 int isPowerupPresent(Powerup_t *list, int x, int y)
 {

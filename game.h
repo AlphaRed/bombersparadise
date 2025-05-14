@@ -22,6 +22,7 @@ void killMobs(Mob_t* list);
 // Powerup Functions
 Powerup_t* addPowerup(Powerup_t* list, int x, int y, Poweruptype type);
 Powerup_t *removePowerup(Powerup_t *list, int x, int y);
+Powerup_t *deletePowerups(Powerup_t *list);
 int isPowerupPresent(Powerup_t *list, int x, int y);
 
 // Initialization Functions
