@@ -318,6 +318,7 @@ Mob_t* clearMobs(Mob_t* list) {
     while (current != NULL) {
         if (current->state == KILLED) {
             if (previous == NULL) {
+                previous = current->next;
                 free(current);
                 return previous;
             }
@@ -380,6 +381,7 @@ Powerup_t *removePowerup(Powerup_t *list, int x, int y) {
     while (current != NULL) {
         if ((current->x == x) && (current->y == y)) {
             if (previous == NULL) {
+                previous = current->next;
                 free(current);
                 return previous;
             }
