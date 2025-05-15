@@ -152,6 +152,7 @@ int main(int argc, char *args[])
         }
 
         // Render
+        SDL_SetRenderDrawColor(renderer, 5, 26, 48, 255);
         SDL_RenderClear(renderer);
         if(game.state == GAME)
         {
@@ -160,6 +161,7 @@ int main(int argc, char *args[])
             drawPowerups(powerupList, tiles);
             drawMobs(mobList, tiles);
             drawBombs(bombList, tiles);
+            drawTimerBar(blockTicks);
             drawScore(score);
             drawLives(player.lives);
         }

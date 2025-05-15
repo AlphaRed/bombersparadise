@@ -233,6 +233,21 @@ void drawBombs(Bomb_t *b, SDL_Texture *t)
     }
 }
 
+void drawTimerBar(int lastSpawn) {
+    SDL_FRect bar;
+
+    float width = ((float)SDL_GetTicks() - (float)lastSpawn) / 10000.0 * (SCREEN_WIDTH);
+
+    SDL_SetRenderDrawColor(renderer, 95, 177, 78, 255);
+
+    bar.x = 0;
+    bar.y = 0;
+    bar.h = 8;
+    bar.w = width;
+
+    SDL_RenderFillRect(renderer, &bar);
+}
+
 void drawScore(int s)
 {
     char c;
