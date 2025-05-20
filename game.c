@@ -32,33 +32,66 @@ void bombTimers(Bomb_t *list)
 
 void checkExplosions(Bomb_t *list)
 {
-    for (Bomb_t* thisBomb = list; thisBomb != NULL; thisBomb = thisBomb->next)
-    {
-        if (thisBomb->state == EXPLODED)
-        {
-            // destroy the centre block
+    for (Bomb_t* thisBomb = list; thisBomb != NULL; thisBomb = thisBomb->next) {
+        if (thisBomb->state == EXPLODED) {
             checkDestructible(thisBomb->x, thisBomb->y, list);
-            // destroy bricks and other bombs around bomb
-            if (arena[thisBomb->x][thisBomb->y - 1] != TILE_WALL) // above
-                checkDestructible(thisBomb->x, thisBomb->y - 1, list);
-            if (arena[thisBomb->x][thisBomb->y + 1] != TILE_WALL) // below
-                checkDestructible(thisBomb->x, thisBomb->y + 1, list);
-            if (arena[thisBomb->x - 1][thisBomb->y] != TILE_WALL) // left
-                checkDestructible(thisBomb->x - 1, thisBomb->y, list);
-            if (arena[thisBomb->x + 1][thisBomb->y] != TILE_WALL) // right
-                checkDestructible(thisBomb->x + 1, thisBomb->y, list);
+            bombShockwave(thisBomb->x, thisBomb->y, 1, 0);
+            bombShockwave(thisBomb->x, thisBomb->y, 0, 1);
+            bombShockwave(thisBomb->x, thisBomb->y, -1, 0);
+            bombShockwave(thisBomb->x, thisBomb->y, 0, -1);
+        }
+    }
+}
 
-            if (player.range > 1) {
-                if (arena[thisBomb->x][thisBomb->y - 2] != TILE_WALL) // above
-                    checkDestructible(thisBomb->x, thisBomb->y - 2, list);
-                if (arena[thisBomb->x][thisBomb->y + 2] != TILE_WALL) // below
-                    checkDestructible(thisBomb->x, thisBomb->y + 2, list);
-                if (arena[thisBomb->x - 2][thisBomb->y] != TILE_WALL) // left
-                    checkDestructible(thisBomb->x - 2, thisBomb->y, list);
-                if (arena[thisBomb->x + 2][thisBomb->y] != TILE_WALL) // right
-                    checkDestructible(thisBomb->x + 2, thisBomb->y, list);
+// Handles logic for a single shockwave from the bomb in a single direction
+void bombShockwave(int startx, int starty, int dx, int dy) {
+    int x = startx + dx;
+    int y = starty + dy;
+
+    for (int length = player.range; length > 0; length--) {
+        // is tile a wall?
+        if (arena[x][y] == TILE_WALL)
+            return; // dealing with shockwave ends
+
+        // is tile a destructable block?
+        if (arena[x][y] == TILE_BLOCK) {
+            arena[x][y] = TILE_EMPTY;
+            score++;
+            return; // dealing with shockwave ends
+        }
+
+        // is the player on it?
+        if ((player.invulnerable == 0) && (player.x == x) && (player.y == y)) {
+            if (player.lives == 0)
+                game.state = GAMEOVER;
+            else {
+                player.lives--;
+                player.invulnerable = INVULNERABLE_TIME;
             }
         }
+
+        // is an enemy on it?
+        for (Mob_t *thisMob = mobList; thisMob != NULL; thisMob = thisMob->next) {
+            if ((thisMob->x == x) && (thisMob->y == y)) {
+                thisMob->state = KILLED;
+                score += 2;
+            }
+        }
+
+        // is there a bomb on it?
+        for (Bomb_t *thisBomb = bombList; thisBomb != NULL; thisBomb = thisBomb->next) {
+            if ((thisBomb->x == x) && (thisBomb->y == y) && (thisBomb->state == TICKING)) {
+                thisBomb->state = EXPLODED;
+                thisBomb->timer -= 3500 - (SDL_GetTicks() - thisBomb->timer);
+                player.numBombs--;
+            }
+        }
+
+        // remove powerup if one exists on tile
+        powerupList = removePowerup(powerupList, x, y);
+
+        x += dx;
+        y += dy;
     }
 }
 

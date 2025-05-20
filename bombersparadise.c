@@ -60,7 +60,7 @@ int main(int argc, char *args[])
     score = 0;
 
     powerupList = addPowerup(powerupList, 3, 1, BOMB);
-    powerupList = addPowerup(powerupList, 4, 1, BOMB);
+    powerupList = addPowerup(powerupList, 4, 1, RANGE);
     powerupList = addPowerup(powerupList, 5, 1, RANGE);
     powerupList = addPowerup(powerupList, 6, 1, BOMB);
 

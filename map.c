@@ -165,8 +165,6 @@ void addBlocks(int num, Player_t *p)
 
 void checkDestructible(int x, int y, Bomb_t *bombList)
 {
-    extern Player_t player;
-    extern int score;
 
     if(arena[x][y] == TILE_BLOCK)
     {
