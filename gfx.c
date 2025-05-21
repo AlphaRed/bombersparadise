@@ -1,6 +1,7 @@
 #include "common.h"
 #include "events.h"
 #include "gfx.h"
+#include "game.h"
 
 SDL_Texture *loadImage(char *filename)
 {
@@ -204,32 +205,45 @@ void drawBombs(Bomb_t *b, SDL_Texture *t)
                 drawTile(t, 8, p->x, p->y, TILE_SCALE);
             else if((currentTime - p->timer) < 4500)
             {
-                drawTile(t, 9, p->x, p->y, TILE_SCALE); // center
-                // probably a better way to do this...
-                if(arena[p->x][p->y - 1] != TILE_WALL) // above
-                    drawTile(t, 11, p->x, p->y - 1, TILE_SCALE);
-                if(arena[p->x][p->y + 1] != TILE_WALL) // below
-                    drawTile(t, 11, p->x, p->y + 1, TILE_SCALE);
-                if(arena[p->x - 1][p->y] != TILE_WALL) // left
-                    drawTile(t, 10, p->x - 1, p->y, TILE_SCALE);
-                if(arena[p->x + 1][p->y] != TILE_WALL) // right
-                    drawTile(t, 10, p->x + 1, p->y, TILE_SCALE);
-
-                if (player.range > 1)
-                {
-                    if (arena[p->x][p->y - 2] != TILE_WALL) // above
-                        drawTile(t, 11, p->x, p->y - 2, TILE_SCALE);
-                    if (arena[p->x][p->y + 2] != TILE_WALL) // below
-                        drawTile(t, 11, p->x, p->y + 2, TILE_SCALE);
-                    if (arena[p->x - 2][p->y] != TILE_WALL) // left
-                        drawTile(t, 10, p->x - 2, p->y, TILE_SCALE);
-                    if (arena[p->x + 2][p->y] != TILE_WALL) // right
-                        drawTile(t, 10, p->x + 2, p->y, TILE_SCALE);
-                }
+                drawTile(t, 9, p->x, p->y, TILE_SCALE);
+                drawShockwave(t, 11, p->x, p->y, 0, -1);    // above
+                drawShockwave(t, 11, p->x, p->y, 0, 1);     // below
+                drawShockwave(t, 10, p->x, p->y, -1, 0);    // left
+                drawShockwave(t, 10, p->x, p->y, 1, 0);     // right
             }
             else if((currentTime - p->timer) < 5000)
                 drawTile(t, 8, p->x, p->y, TILE_SCALE);
         }
+    }
+}
+
+void drawShockwave(SDL_Texture *tiles, int tileid, int startx, int starty, int dx, int dy) {
+    int x = startx + dx;
+    int y = starty + dy;
+
+    for (int length = player.range; length > 0; length--) {
+        // is this a wall?
+        if (arena[x][y] == TILE_WALL)
+            return; // finished drawing the explosion
+
+        // is this a block?
+        else if (arena[x][y] == TILE_BLOCK) {
+            drawTile(tiles, tileid, x, y, TILE_SCALE);
+            return; // this is the last tile to draw in the shockwave
+        }
+
+        for (Bomb_t *thisBomb = bombList; thisBomb != NULL; thisBomb = thisBomb->next) {
+            if ((thisBomb->x == x) && (thisBomb->y == y) && (thisBomb->state == EXPLODED)) {
+                drawTile(tiles, 9, x, y, TILE_SCALE); // draw a center tile if it's another bomb
+                return;
+            }
+        }
+
+        // draw an explosion
+        drawTile(tiles, tileid, x, y, TILE_SCALE);
+
+        x += dx;
+        y += dy;
     }
 }
 
