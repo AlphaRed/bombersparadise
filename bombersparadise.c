@@ -157,10 +157,10 @@ int main(int argc, char *args[])
         if(game.state == GAME)
         {
             drawArena(tiles);
-            drawPlayer(player, tiles);
             drawPowerups(powerupList, tiles);
             drawMobs(mobList, tiles);
             drawBombs(bombList, tiles);
+            drawPlayer(player, tiles);
             drawTimerBar(blockTicks);
             drawScore(score);
             drawLives(player.lives);
