@@ -153,8 +153,8 @@ void movePlayer(Player_t *player)
     {
         player->x = destX;
         player->y = destY;
-        player->moveDir = 0;    // we've handled the movement
     }
+    player->moveDir = 0;    // we've handled the movement
 
     // check for win
     if (arena[player->x][player->y] == TILE_EXIT)
