@@ -26,6 +26,12 @@ Powerup_t *removePowerup(Powerup_t *list, int x, int y);
 Powerup_t *deletePowerups(Powerup_t *list);
 int isPowerupPresent(Powerup_t *list, int x, int y);
 
+// Wreck Functions
+Wreck_t *addWreck(Wreck_t *list, int x, int y, int timer);
+Wreck_t *removeWreck(Wreck_t *list, int x, int y);
+Wreck_t *deleteWrecks(Wreck_t *list);
+Wreck_t *checkWrecks(Wreck_t *list);
+
 // Initialization Functions
 void initPlayer(Player_t* p);
 void initCursor(Cursor_t* c);

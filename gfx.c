@@ -227,8 +227,7 @@ void drawShockwave(SDL_Texture *tiles, int tileid, int startx, int starty, int d
             return; // finished drawing the explosion
 
         // is this a block?
-        else if (arena[x][y] == TILE_BLOCK) {
-            drawTile(tiles, tileid, x, y, TILE_SCALE);
+        else if ((arena[x][y] == TILE_BLOCK) || (arena[x][y] == TILE_WRECK)) {
             return; // this is the last tile to draw in the shockwave
         }
 

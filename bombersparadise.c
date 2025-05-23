@@ -15,6 +15,7 @@ Player_t player;
 Bomb_t *bombList = NULL;
 Mob_t *mobList = NULL;
 Powerup_t *powerupList = NULL;
+Wreck_t *wreckingList = NULL;
 int score;
 
 SDL_Rect fontTiles[FONT_NUM];
@@ -117,6 +118,7 @@ int main(int argc, char *args[])
                 resetplayer(&player);
                 bombList = deleteBombs(bombList);
                 powerupList = deletePowerups(powerupList);
+                wreckingList = deleteWrecks(wreckingList);
                 loadMap(game.level);
                 loadMobs(game.level);
             }
@@ -131,7 +133,9 @@ int main(int argc, char *args[])
             checkExplosions(bombList);
             bombList = clearBombs(bombList);
             mobList = clearMobs(mobList);
+            wreckingList = checkWrecks(wreckingList);
             //printBombs(bombList);
+            
             if((SDL_GetTicks() - blockTicks) > 10000)
             {
                 addBlocks(5, &player);

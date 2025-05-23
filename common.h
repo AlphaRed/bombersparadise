@@ -24,6 +24,7 @@
 #define TILE_WALL       1
 #define TILE_BLOCK      2
 #define TILE_EXIT       3
+#define TILE_WRECK      32
 
 #define INVULNERABLE_TIME   1000 // ms of invulnerability (at start and when hit)
 
@@ -79,6 +80,13 @@ typedef struct Powerup_t {
     struct Powerup_t *next;
 } Powerup_t;
 
+typedef struct Wreck_t {
+    int x;
+    int y;
+    int timer;
+    struct Wreck_t *next;
+} Wreck_t;
+
 typedef struct Game_t {
     Gamestate state;
     int level;
@@ -92,5 +100,6 @@ extern int score;
 extern Bomb_t *bombList;
 extern Mob_t *mobList;
 extern Powerup_t *powerupList;
+extern Wreck_t *wreckingList;
 
 #endif

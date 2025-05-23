@@ -32,8 +32,10 @@ void bombTimers(Bomb_t *list)
 
 void checkExplosions(Bomb_t *list)
 {
+    int ticks = SDL_GetTicks();
+
     for (Bomb_t* thisBomb = list; thisBomb != NULL; thisBomb = thisBomb->next) {
-        if (thisBomb->state == EXPLODED) {
+        if ((thisBomb->state == EXPLODED) && (ticks - thisBomb->timer < 4500)) {
             checkDestructible(thisBomb->x, thisBomb->y, list);
             bombShockwave(thisBomb->x, thisBomb->y, 1, 0);
             bombShockwave(thisBomb->x, thisBomb->y, 0, 1);
@@ -55,10 +57,15 @@ void bombShockwave(int startx, int starty, int dx, int dy) {
 
         // is tile a destructable block?
         if (arena[x][y] == TILE_BLOCK) {
-            arena[x][y] = TILE_EMPTY;
+            arena[x][y] = TILE_WRECK;
+            wreckingList = addWreck(wreckingList, x, y, SDL_GetTicks());
             score++;
             return; // dealing with shockwave ends
         }
+
+        // is tile a breaking block?
+        if (arena[x][y] == TILE_WRECK)
+            return;
 
         // is the player on it?
         if ((player.invulnerable == 0) && (player.x == x) && (player.y == y)) {
@@ -458,6 +465,98 @@ int isPowerupPresent(Powerup_t *list, int x, int y)
     }
 
     return 0;
+}
+
+
+// Wreck Functions
+
+Wreck_t *addWreck(Wreck_t *list, int x, int y, int timer) {
+    Wreck_t *newWreck = malloc(sizeof(struct Wreck_t));
+    if (newWreck == NULL) {
+        printf("Error, malloc failed to create new wreck!\n");
+        return NULL;
+    }
+
+    newWreck->x = x;
+    newWreck->y = y;
+    newWreck->timer = timer;
+    newWreck->next = list;
+
+    return newWreck;
+}
+
+// remove wreck up at specific x, y
+Wreck_t *removeWreck(Wreck_t *list, int x, int y) {
+    Wreck_t *previous = NULL;
+    Wreck_t *current = list;
+
+    while (current != NULL) {
+        if ((current->x == x) && (current->y == y)) {
+            if (previous == NULL) {
+                previous = current->next;
+                free(current);
+                return previous;
+            }
+            else {
+                previous->next = current->next;
+                free(current);
+                current = previous->next;
+            }
+        }
+        else {
+            previous = current;
+            current = current->next;
+        }
+    }
+
+    return list;
+}
+
+// Delete all entries in the wrecking list
+Wreck_t *deleteWrecks(Wreck_t *list) {
+    Wreck_t *temp;
+
+    // check if list is already empty
+    if (list == NULL)
+        return list;
+    
+    while (list != NULL) {
+        temp = list->next;
+        free(list);
+        list = temp;
+    }
+    return list; // should be NULL
+ }
+
+// checks if wrecks need to be removed entirely
+Wreck_t *checkWrecks(Wreck_t *list) {
+    int ticks = SDL_GetTicks();
+
+    Wreck_t* current = list;
+    Wreck_t* previous = NULL;
+
+    while (current != NULL) {
+        if (ticks - current->timer > 1000) {
+            arena[current->x][current->y] = TILE_EMPTY;
+
+            if (previous == NULL) {
+                previous = current->next;
+                free(current);
+                return previous;
+            }
+            else {
+                previous->next = current->next;
+                free(current);
+                current = previous->next;
+            }
+        }
+        else {
+            previous = current;
+            current = current->next;
+        }
+    }
+
+    return list;
 }
 
 void initPlayer(Player_t *p)

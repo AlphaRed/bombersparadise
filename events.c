@@ -181,6 +181,8 @@ int checkCollision(Player_t *player, int destX, int destY)
         return 1;
     if (destTile == TILE_WALL)
         return 1;
+    if (destTile == TILE_WRECK)
+        return 1;
     
     // check for bombs
     if (isBombPresent(bombList, destX, destY))
