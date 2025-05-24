@@ -195,21 +195,21 @@ void drawBombs(Bomb_t *b, SDL_Texture *t)
             else if((currentTime - p->timer) > 2000 && (currentTime - p->timer) < 2200)
                 drawTile(t, p->imgIndex + 1, p->x, p->y, TILE_SCALE);
             else if((currentTime - p->timer) > 3000 && (currentTime - p->timer) < 3500)
-                drawTile(t, 8, p->x, p->y, TILE_SCALE);
+                drawTile(t, TILE_EXPLOSION_SMALL, p->x, p->y, TILE_SCALE);
             else
                 drawTile(t, p->imgIndex, p->x, p->y, TILE_SCALE); // fail-safe (shouldn't happen)
         }
         else if(p->state == EXPLODED)
         {
             if((currentTime - p->timer) < 3500)
-                drawTile(t, 8, p->x, p->y, TILE_SCALE);
+                drawTile(t, TILE_EXPLOSION_SMALL, p->x, p->y, TILE_SCALE);
             else if((currentTime - p->timer) < 4500)
             {
-                drawTile(t, 9, p->x, p->y, TILE_SCALE);
-                drawShockwave(t, 11, p->x, p->y, 0, -1);    // above
-                drawShockwave(t, 11, p->x, p->y, 0, 1);     // below
-                drawShockwave(t, 10, p->x, p->y, -1, 0);    // left
-                drawShockwave(t, 10, p->x, p->y, 1, 0);     // right
+                drawTile(t, TILE_EXPLOSION_LARGE, p->x, p->y, TILE_SCALE);
+                drawShockwave(t, TILE_EXPLOSION_VERT, p->x, p->y, 0, -1);   // above
+                drawShockwave(t, TILE_EXPLOSION_VERT, p->x, p->y, 0, 1);    // below
+                drawShockwave(t, TILE_EXPLOSION_HORIZ, p->x, p->y, -1, 0);  // left
+                drawShockwave(t, TILE_EXPLOSION_HORIZ, p->x, p->y, 1, 0);   // right
             }
             else if((currentTime - p->timer) < 5000)
                 drawTile(t, 8, p->x, p->y, TILE_SCALE);
@@ -233,7 +233,7 @@ void drawShockwave(SDL_Texture *tiles, int tileid, int startx, int starty, int d
 
         for (Bomb_t *thisBomb = bombList; thisBomb != NULL; thisBomb = thisBomb->next) {
             if ((thisBomb->x == x) && (thisBomb->y == y) && (thisBomb->state == EXPLODED)) {
-                drawTile(tiles, 9, x, y, TILE_SCALE); // draw a center tile if it's another bomb
+                drawTile(tiles, TILE_EXPLOSION_LARGE, x, y, TILE_SCALE); // draw a center tile if it's another bomb
                 return;
             }
         }
@@ -300,9 +300,9 @@ void drawPowerups(Powerup_t *list, SDL_Texture* tex)
     for (Powerup_t* thisPowerup = list; thisPowerup != NULL; thisPowerup = thisPowerup->next)
     {
         if (thisPowerup->type == BOMB)
-            tile = 24;
+            tile = TILE_POWERUP_BOMB;
         else if (thisPowerup->type == RANGE)
-            tile = 25;
+            tile = TILE_POWERUP_RANGE;
 
         drawTile(tex, tile, thisPowerup->x, thisPowerup->y, TILE_SCALE);
     }

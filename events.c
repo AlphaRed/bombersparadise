@@ -220,7 +220,7 @@ Bomb_t *placeBomb(Player_t *p, Bomb_t *b)
             return NULL;
         }
 
-        newBomb->imgIndex = 6;
+        newBomb->imgIndex = TILE_BOMB;
         newBomb->x = p->x;
         newBomb->y = p->y;
         newBomb->timer = SDL_GetTicks();

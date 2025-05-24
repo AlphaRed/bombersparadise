@@ -7,12 +7,6 @@
 
 // Bomb Functions
 
-void bombExplode(Bomb_t *b)
-{
-    b->state = EXPLODED;
-    b->imgIndex = 8;
-}
-
 void bombTimers(Bomb_t *list)
 {
     int currentTime = SDL_GetTicks();
@@ -272,7 +266,7 @@ Mob_t* addMob(Mob_t* list, int x, int y, int direction) {
         return NULL;
     }
 
-    newMob->imgIndex = 16;
+    newMob->imgIndex = TILE_MOB;
     newMob->x = x;
     newMob->y = y;
     newMob->dir = direction;
@@ -561,7 +555,7 @@ Wreck_t *checkWrecks(Wreck_t *list) {
 
 void initPlayer(Player_t *p)
 {
-    p->imgIndex = 5;
+    p->imgIndex = TILE_PLAYER;
     p->x = 1;
     p->y = 1;
     p->moveDir = 0;

@@ -2,7 +2,6 @@
 #define GAME_H
 
 // Bomb Functions
-void bombExplode(Bomb_t *b);
 void bombTimers(Bomb_t *list);
 void checkExplosions(Bomb_t* list);
 void bombShockwave(int startx, int starty, int dx, int dy);

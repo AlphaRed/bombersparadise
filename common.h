@@ -19,12 +19,25 @@
 #define ARENA_WIDTH     15
 #define ARENA_HEIGHT    13
 
-// map tiles
-#define TILE_EMPTY      0
-#define TILE_WALL       1
-#define TILE_BLOCK      2
-#define TILE_EXIT       3
-#define TILE_WRECK      32
+// tiles
+// map
+#define TILE_EMPTY              0
+#define TILE_WALL               1
+#define TILE_BLOCK              2
+#define TILE_WRECK              32
+#define TILE_EXIT               3
+// entities
+#define TILE_PLAYER             5
+#define TILE_BOMB               6
+#define TILE_MOB                16
+// explosions
+#define TILE_EXPLOSION_SMALL    8
+#define TILE_EXPLOSION_LARGE    9
+#define TILE_EXPLOSION_HORIZ    10
+#define TILE_EXPLOSION_VERT     11
+// powerups
+#define TILE_POWERUP_BOMB       24
+#define TILE_POWERUP_RANGE      25
 
 #define INVULNERABLE_TIME   1000 // ms of invulnerability (at start and when hit)
 
