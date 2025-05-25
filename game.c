@@ -244,10 +244,16 @@ int checkCollisionMob(Mob_t* mob, int destX, int destY)
 {
     int destTile = arena[destX][destY];
     // check for unpassable blocks
-    if (destTile == TILE_BLOCK)
-        return 1;
-    if (destTile == TILE_WALL)
-        return 1;
+    switch (destTile) {
+        // impassable blocks
+        case TILE_BLOCK:
+        case TILE_WALL:
+        case TILE_WRECK:
+            return 1;
+            break;
+        default:
+            break;
+    }
     // check for bombs
     if (isBombPresent(bombList, destX, destY))
         return 1;
