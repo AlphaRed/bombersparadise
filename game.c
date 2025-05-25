@@ -533,6 +533,15 @@ Wreck_t *checkWrecks(Wreck_t *list) {
         if (ticks - current->timer > 1000) {
             arena[current->x][current->y] = TILE_EMPTY;
 
+            // powerup drop?
+            if (rand() % 100 <= 5) {
+                if (rand() % 2 == 1)
+                    powerupList = addPowerup(powerupList, current->x, current->y, BOMB);
+                else
+                    powerupList = addPowerup(powerupList, current->x, current->y, RANGE);
+            }
+
+            // remove wreck
             if (previous == NULL) {
                 previous = current->next;
                 free(current);
