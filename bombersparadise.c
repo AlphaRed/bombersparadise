@@ -111,6 +111,7 @@ int main(int argc, char *args[])
             {
                 game.state = MENU;
                 game.level = 1;
+                initPlayer(&player);
                 resetplayer(&player);
                 bombList = deleteBombs(bombList);
                 powerupList = deletePowerups(powerupList);
