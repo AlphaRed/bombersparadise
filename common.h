@@ -12,12 +12,15 @@
 #define SCREEN_HEIGHT   240 * 2
 #define TILE_SIZE       16       // in px
 #define TILE_SCALE      2
-#define FONT_NUM        200
 #define MAX_FPS         60
-#define MAX_CHARS       30
 #define TILE_NUM        8 * 8
 #define ARENA_WIDTH     15
 #define ARENA_HEIGHT    13
+
+// font
+#define FONT_NUM        256
+#define FONT_HEIGHT     8
+#define FONT_WIDTH      8
 
 // tiles
 // map

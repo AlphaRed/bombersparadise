@@ -49,10 +49,10 @@ void drawLetter(char c, int x, int y, int s)
     SDL_FRect destRect;
     destRect.x = x;
     destRect.y = y;
-    destRect.w = 8 * s;
-    destRect.h = 12 * s;
+    destRect.w = FONT_WIDTH * s;
+    destRect.h = FONT_HEIGHT * s;
     
-    int fontIndex = c - 32; // ASCII starts at character #32
+    int fontIndex = c;
     blitTile(font, fontTiles[fontIndex].x, fontTiles[fontIndex].y, fontTiles[fontIndex].w, fontTiles[fontIndex].h, destRect);
 }
 
@@ -61,10 +61,10 @@ void setupFontTiles(SDL_Rect f[], int num)
 {
     for(int i = 0; i < num; i++)
     {
-        f[i].x = (i % 16) * 8;
-        f[i].y = (i / 16) * 12;
-        f[i].w = 8;
-        f[i].h = 12;
+        f[i].x = (i % 16) * FONT_WIDTH;
+        f[i].y = (i / 16) * FONT_HEIGHT;
+        f[i].w = FONT_WIDTH;
+        f[i].h = FONT_HEIGHT;
     }
 }
 
@@ -81,10 +81,7 @@ void drawString(char *string, int x, int y, int scale)
     for(int i = 0; i < len; i++)
     {
         drawLetter(string[i], x, y, scale);
-        if(string[i] == 'i')
-            x += ((FONT_WIDTH - 4) * scale); // more for i...maybe l?
-        else
-            x += ((FONT_WIDTH - 2) * scale); // Minus two for distancing...kerning(?)
+        x += (FONT_WIDTH * scale); // Minus two for distancing...kerning(?)
     }
 }
 
@@ -145,10 +142,10 @@ void drawArena(SDL_Texture *t)
 
 void drawMenu(SDL_Texture *t)
 {
-    drawString("Bomber's Paradise", 50, 20, 4);
-    drawString("Start", 50, 250, 4);
-    drawString("Exit", 50, 300, 4);
-    drawString("By Isaac", 50, 420, 4);
+    drawString("Bomber's Paradise", 50, 20, 3);
+    drawString("Start", 50, 250, 3);
+    drawString("Exit", 50, 300, 3);
+    drawString("By Isaac", 50, 420, 3);
     drawSprite(t, 12, 192, 160, TILE_SCALE * 2);
     drawSprite(t, 13, 256, 160, TILE_SCALE * 2);
     drawSprite(t, 14, 192, 96, TILE_SCALE * 2);
@@ -161,15 +158,15 @@ void drawCursor(Cursor_t c, SDL_Texture *t)
 
 void drawWin(int n)
 {
-    drawString("Good job!", 50, 40, 4);
-    drawString("Press enter to", 50, 150, 4);
-    drawString("continue.", 50, 200, 4);
+    drawString("Good job!", 50, 40, 3);
+    drawString("Press enter to", 50, 150, 3);
+    drawString("continue.", 50, 200, 3);
 }
 
 void drawGameOver()
 {
-    drawString("Game Over!", 50, 40, 4);
-    drawString("Press enter.", 50, 150, 4);
+    drawString("Game Over!", 50, 40, 3);
+    drawString("Press enter.", 50, 150, 3);
 }
 
 void drawPlayer(Player_t p, SDL_Texture *t)
@@ -261,19 +258,19 @@ void drawTimerBar(int lastSpawn) {
     SDL_RenderFillRect(renderer, &bar);
 }
 
-void drawScore(int s)
+void drawScore(int score)
 {
     char c;
     int x;
 
-    drawString("Score", 0, 10, 4);
+    drawString("Score", 0, 10, 3);
     
-    for (int i = 0; i < 8; i++)
-    {
-        c = (s % 10) + 48;
-        s = s / 10;
-        x = 386 - (i * 8 * 4);
-        drawLetter(c, x, 10, 4);
+    // draw digits from ones column first (right to left)
+    for (int i = 0; i < 8; i++) {
+        c = (score % 10) + 48;  // 48 = '0'
+        score = score / 10;
+        x = ((13 - i) * 8 * 3);
+        drawLetter(c, x, 10, 3);
     }
 }
 
@@ -283,7 +280,7 @@ void drawLives(int lives)
 
     // lives should really only be one digit
     c = (lives % 10) + 48;
-    drawLetter(c, 458, 10, 4);
+    drawLetter(c, 458, 10, 3);
 }
 
 void drawMobs(Mob_t *list, SDL_Texture* tex)
@@ -314,43 +311,43 @@ void drawLevelTitleCard(int levelNum)
     {
     case 1:
         SDL_RenderClear(renderer);
-        drawString("Level One", 150, 200, 4);
+        drawString("Level One", 150, 200, 3);
         break;
     case 2:
         SDL_RenderClear(renderer);
-        drawString("Level Two", 150, 200, 4);
+        drawString("Level Two", 150, 200, 3);
         break;
     case 3:
         SDL_RenderClear(renderer);
-        drawString("Level Three", 150, 200, 4);
+        drawString("Level Three", 150, 200, 3);
         break;
     case 4:
         SDL_RenderClear(renderer);
-        drawString("Level Four", 150, 200, 4);
+        drawString("Level Four", 150, 200, 3);
         break;
     case 5:
         SDL_RenderClear(renderer);
-        drawString("Level Five", 150, 200, 4);
+        drawString("Level Five", 150, 200, 3);
         break;
     case 6:
         SDL_RenderClear(renderer);
-        drawString("Level Six", 150, 200, 4);
+        drawString("Level Six", 150, 200, 3);
         break;
     case 7:
         SDL_RenderClear(renderer);
-        drawString("Level Seven", 150, 200, 4);
+        drawString("Level Seven", 150, 200, 3);
         break;
     case 8:
         SDL_RenderClear(renderer);
-        drawString("Level Eight", 150, 200, 4);
+        drawString("Level Eight", 150, 200, 3);
         break;
     case 9:
         SDL_RenderClear(renderer);
-        drawString("Level Nine", 150, 200, 4);
+        drawString("Level Nine", 150, 200, 3);
         break;
     case 10:
         SDL_RenderClear(renderer);
-        drawString("Level Ten", 150, 200, 4);
+        drawString("Level Ten", 150, 200, 3);
         break;
     default:
         break;
