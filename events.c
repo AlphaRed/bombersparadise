@@ -15,15 +15,19 @@ int checkGameEvents(SDL_Event e, Player_t *p)
                     return 0;
                     break;
                 case SDLK_W:
+                case SDLK_UP:
                     p->moveDir = 1;
                     break;
                 case SDLK_S:
+                case SDLK_DOWN:
                     p->moveDir = 3;
                     break;
                 case SDLK_A:
+                case SDLK_LEFT:
                     p->moveDir = 4;
                     break;
                 case SDLK_D:
+                case SDLK_RIGHT:
                     p->moveDir = 2;
                     break;
                 case SDLK_SPACE:
@@ -49,7 +53,10 @@ int checkMenuEvents(SDL_Event e, Cursor_t *c)
     {
         switch(e.key.key)
         {
+            case SDLK_ESCAPE:
+                return 0;
             case SDLK_RETURN:
+            case SDLK_SPACE:
                 if(c->y == 255) // Start
                     return 2;
                 else if(c->y == 305) // Exit
