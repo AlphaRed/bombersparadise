@@ -17,10 +17,27 @@
 #define ARENA_WIDTH     15
 #define ARENA_HEIGHT    13
 
+// palette
+#define PAL_0_R     5       // 0 -- dark blue
+#define PAL_0_G     26
+#define PAL_0_B     48
+#define PAL_1_R     59      // 1 -- light blue
+#define PAL_1_G     179
+#define PAL_1_B     231
+#define PAL_2_R     95      // 2 -- green
+#define PAL_2_G     177
+#define PAL_2_B     78
+#define PAL_3_R     243     // 3 -- eggshell white
+#define PAL_3_G     233
+#define PAL_3_B     197
+
 // font
 #define FONT_NUM        256
 #define FONT_HEIGHT     8
 #define FONT_WIDTH      8
+#define FONT_COLOR_R    PAL_3_R
+#define FONT_COLOR_G    PAL_3_G
+#define FONT_COLOR_B    PAL_3_B
 
 // tiles
 // map

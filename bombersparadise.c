@@ -42,6 +42,7 @@ int main(int argc, char *args[])
 
     // Load in images and tiles
     loadResources();
+    SDL_SetTextureColorMod(font, FONT_COLOR_R, FONT_COLOR_G, FONT_COLOR_B);
     setupFontTiles(fontTiles, FONT_NUM); // move this?
     setupTiles(tileIndex, TILE_NUM);
     loadMap(game.level);
