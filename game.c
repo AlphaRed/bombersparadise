@@ -585,7 +585,7 @@ void initCursor(Cursor_t* c)
 {
     c->imgIndex = 15;
     c->x = 5;
-    c->y = 255;
+    c->y = MENU_START_Y;
 }
 
 void initGame(Game_t* g)

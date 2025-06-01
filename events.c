@@ -57,9 +57,9 @@ int checkMenuEvents(SDL_Event e, Cursor_t *c)
                 return 0;
             case SDLK_RETURN:
             case SDLK_SPACE:
-                if(c->y == 255) // Start
+                if(c->y == MENU_START_Y) // Start
                     return 2;
-                else if(c->y == 305) // Exit
+                else if(c->y == MENU_EXIT_Y) // Exit
                     return 0;
                 break;
             case SDLK_DOWN:
@@ -119,13 +119,13 @@ int checkGameOverEvents(SDL_Event e)
 void checkMCursorBounds(Cursor_t *c)
 {
     // wraps the cursor around the menu
-    if(c->y > 305) // 305 + 50
+    if(c->y > MENU_EXIT_Y)
     {
-        c->y = 255;
+        c->y = MENU_START_Y;
     }   
-    else if(c->y < 255)
+    else if(c->y < MENU_START_Y)
     {
-        c->y = 305;
+        c->y = MENU_EXIT_Y;
     }
 }
 

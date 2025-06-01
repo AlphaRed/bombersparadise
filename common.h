@@ -16,6 +16,8 @@
 #define TILE_NUM        8 * 8
 #define ARENA_WIDTH     15
 #define ARENA_HEIGHT    13
+#define MENU_START_Y	245
+#define MENU_EXIT_Y     295
 
 // palette
 #define PAL_0_R     5       // 0 -- dark blue

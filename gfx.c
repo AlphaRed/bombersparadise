@@ -145,7 +145,7 @@ void drawMenu(SDL_Texture *t)
     drawString("Bomber's Paradise", 50, 20, 3);
     drawString("Start", 50, 250, 3);
     drawString("Exit", 50, 300, 3);
-    drawString("By Isaac", 50, 420, 3);
+    drawString("By Isaac and Sam", 50, 420, 3);
     drawSprite(t, 12, 192, 160, TILE_SCALE * 2);
     drawSprite(t, 13, 256, 160, TILE_SCALE * 2);
     drawSprite(t, 14, 192, 96, TILE_SCALE * 2);
