@@ -353,3 +353,10 @@ void drawLevelTitleCard(int levelNum)
         break;
     }
 }
+
+void drawNumBombs(SDL_Texture *tex) {
+    drawSprite(tex, TILE_BOMB, 0, 30, TILE_SCALE);
+    drawLetter('x', 40, 40, 3);
+    char c = (player.maxBombs % 10) + 48;
+    drawLetter(c, 70, 40, 3);
+}

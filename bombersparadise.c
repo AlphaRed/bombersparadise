@@ -166,6 +166,7 @@ int main(int argc, char *args[])
             drawTimerBar(blockTicks);
             drawScore(score);
             drawLives(player.lives);
+            drawNumBombs(tiles);
         }
         else if(game.state == MENU)
         {

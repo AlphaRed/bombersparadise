@@ -34,5 +34,6 @@ void drawLives(int lives);
 void drawMobs(Mob_t *list, SDL_Texture* tex);
 void drawPowerups(Powerup_t *list, SDL_Texture* tex);
 void drawLevelTitleCard(int levelNum);
+void drawNumBombs(SDL_Texture *tex);
 
 #endif
