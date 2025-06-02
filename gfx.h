@@ -30,7 +30,7 @@ void drawBombs(Bomb_t *b, SDL_Texture *t);
 void drawShockwave(SDL_Texture *tiles, int tileid, int startx, int starty, int dx, int dy);
 void drawTimerBar(int lastSpawn);
 void drawScore(int score);
-void drawLives(int lives);
+void drawLives(int lives, SDL_Texture *texture);
 void drawMobs(Mob_t *list, SDL_Texture* tex);
 void drawPowerups(Powerup_t *list, SDL_Texture* tex);
 void drawLevelTitleCard(int levelNum);

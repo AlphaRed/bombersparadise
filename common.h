@@ -8,14 +8,15 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define SCREEN_WIDTH    256 * 2
-#define SCREEN_HEIGHT   240 * 2
-#define TILE_SIZE       16       // in px
 #define TILE_SCALE      2
-#define MAX_FPS         60
-#define TILE_NUM        8 * 8
+#define TILE_SIZE       16       // in px
 #define ARENA_WIDTH     15
 #define ARENA_HEIGHT    13
+#define TIMERBAR_HEIGHT 8
+#define SCREEN_WIDTH    ARENA_WIDTH * TILE_SIZE * TILE_SCALE
+#define SCREEN_HEIGHT   (ARENA_HEIGHT + 2) * TILE_SIZE * TILE_SCALE + TIMERBAR_HEIGHT
+#define MAX_FPS         60
+#define TILE_NUM        8 * 8
 #define MENU_START_Y	245
 #define MENU_EXIT_Y     295
 

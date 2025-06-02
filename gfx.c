@@ -122,7 +122,7 @@ void drawTile(SDL_Texture *t, int index, int x, int y, int s)
 {
     SDL_FRect destRect;
     destRect.x = x * TILE_SCALE * TILE_SIZE;
-    destRect.y = (y+2) * TILE_SCALE * TILE_SIZE;
+    destRect.y = (y+2) * TILE_SCALE * TILE_SIZE + 8;
     destRect.w = TILE_SIZE * s;
     destRect.h = TILE_SIZE * s;
     
@@ -252,7 +252,7 @@ void drawTimerBar(int lastSpawn) {
 
     bar.x = 0;
     bar.y = 0;
-    bar.h = 8;
+    bar.h = TIMERBAR_HEIGHT;
     bar.w = width;
 
     SDL_RenderFillRect(renderer, &bar);
@@ -274,13 +274,15 @@ void drawScore(int score)
     }
 }
 
-void drawLives(int lives)
+void drawLives(int lives, SDL_Texture *texture)
 {
     char c;
 
+    drawSprite(texture, TILE_PLAYER, TILE_SIZE * 11 * TILE_SCALE, 38, TILE_SCALE);
+    drawLetter('x', 393, 44, 3);
     // lives should really only be one digit
     c = (lives % 10) + 48;
-    drawLetter(c, 458, 10, 3);
+    drawLetter(c, 423, 44, 3);
 }
 
 void drawMobs(Mob_t *list, SDL_Texture* tex)
@@ -355,8 +357,8 @@ void drawLevelTitleCard(int levelNum)
 }
 
 void drawNumBombs(SDL_Texture *tex) {
-    drawSprite(tex, TILE_BOMB, 0, 30, TILE_SCALE);
-    drawLetter('x', 40, 40, 3);
+    drawSprite(tex, TILE_BOMB, 0, 38, TILE_SCALE);
+    drawLetter('x', 40, 44, 3);
     char c = (player.maxBombs % 10) + 48;
-    drawLetter(c, 70, 40, 3);
+    drawLetter(c, 70, 44, 3);
 }
