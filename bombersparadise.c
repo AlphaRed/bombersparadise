@@ -132,6 +132,7 @@ int main(int argc, char *args[])
                 bombList = deleteBombs(bombList);
                 powerupList = deletePowerups(powerupList);
                 wreckingList = deleteWrecks(wreckingList);
+                killMobs(mobList);
                 loadMap(game.level);
                 loadMobs(game.level);
             }
