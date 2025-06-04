@@ -100,7 +100,22 @@ int main(int argc, char *args[])
                 resetplayer(&player);
                 bombList = deleteBombs(bombList);
                 powerupList = deletePowerups(powerupList);
-                addBlocks(30, &player);
+                switch (game.level) {
+                case 1:
+                case 2:
+                case 3:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                case 10:
+                    addBlocks(30, &player);
+                    break;
+                case 4:
+                    addBlocks(15, &player);
+                    break;
+                }
                 blockTicks = SDL_GetTicks();
                 clearSpawn();
             }
