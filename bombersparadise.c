@@ -183,6 +183,7 @@ int main(int argc, char *args[])
             drawScore(score);
             drawLives(player.lives, tiles);
             drawNumBombs(tiles);
+            drawRange(tiles);
         }
         else if(game.state == MENU)
         {

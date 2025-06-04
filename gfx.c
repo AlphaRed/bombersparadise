@@ -362,3 +362,12 @@ void drawNumBombs(SDL_Texture *tex) {
     char c = (player.maxBombs % 10) + 48;
     drawLetter(c, 70, 44, 3);
 }
+
+void drawRange(SDL_Texture *tex) {
+    char c;
+
+    drawSprite(tex, TILE_EXPLOSION_SMALL, 180, 38, TILE_SCALE);
+    drawLetter('x', 180+40, 44, 3);
+    c = (player.range % 10) + 48;
+    drawLetter(c, 180+70, 44, 3);
+}
