@@ -324,12 +324,14 @@ void loadMobs(int lvlNum) {
         mobList = addMob(mobList, 5, 2, 3);
         mobList = addMob(mobList, 5, 5, 2);
         mobList = addMob(mobList, 7, 11, 4);
+        break;
     case 8:
         mobList = addMob(mobList, 5, 1, 4);
         mobList = addMob(mobList, 5, 5, 2);
         mobList = addMob(mobList, 1, 11, 2);
         mobList = addMob(mobList, 9, 6, 1);
         mobList = addMob(mobList, 13, 1, 3);
+        break;
     case 9:
         mobList = addMob(mobList, 13, 1, 4);
         mobList = addMob(mobList, 2, 5, 2);
@@ -339,6 +341,7 @@ void loadMobs(int lvlNum) {
         mobList = addMob(mobList, 5, 2, 3);
         mobList = addMob(mobList, 9, 11, 1);
         mobList = addMob(mobList, 13, 11, 1);
+        break;
     case 10:
         mobList = addMob(mobList, 1, 3, 2);
         mobList = addMob(mobList, 7, 7, 2);
