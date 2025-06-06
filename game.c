@@ -467,6 +467,21 @@ int isPowerupPresent(Powerup_t *list, int x, int y)
     return 0;
 }
 
+// Randomly spawn a powerup
+Powerup_t *randPowerup(Powerup_t *list, int x, int y) {
+    if (rand() % 100 <= 5) {
+        int ptype = rand() % 3;
+        if (ptype == 2)
+            list = addPowerup(list, x, y, BOMB);
+        else if (ptype == 1)
+            list = addPowerup(list, x, y, RANGE);
+        else if (ptype == 0)
+            list = addPowerup(list, x, y, LIFE);
+    }
+
+    return list;
+}
+
 
 // Wreck Functions
 
@@ -540,15 +555,7 @@ Wreck_t *checkWrecks(Wreck_t *list) {
             arena[current->x][current->y] = TILE_EMPTY;
 
             // powerup drop?
-            if (rand() % 100 <= 5) {
-                int ptype = rand() % 3;
-                if (ptype == 2)
-                    powerupList = addPowerup(powerupList, current->x, current->y, BOMB);
-                else if (ptype == 1)
-                    powerupList = addPowerup(powerupList, current->x, current->y, RANGE);
-                else if (ptype == 0)    //
-                    powerupList = addPowerup(powerupList, current->x, current->y, LIFE);
-            }
+            powerupList = randPowerup(powerupList, current->x, current->y);
 
             // remove wreck
             if (previous == NULL) {
