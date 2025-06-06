@@ -61,13 +61,14 @@
 // powerups
 #define TILE_POWERUP_BOMB       24
 #define TILE_POWERUP_RANGE      25
+#define TILE_POWERUP_LIFE       26
 
 #define INVULNERABLE_TIME   1000 // ms of invulnerability (at start and when hit)
 
 typedef enum {MENU, GAME, WIN, GAMEOVER, TITLECARD} Gamestate;
 typedef enum {TICKING, EXPLODED, DEAD} Bombstate;
 typedef enum {ALIVE, KILLED} Mobstate;
-typedef enum {NOTYPE, BOMB, RANGE} Poweruptype;
+typedef enum {NOTYPE, BOMB, RANGE, LIFE} Poweruptype;
 
 typedef struct Cursor_t // could maybe make this a generic sprite/obj struct?
 {

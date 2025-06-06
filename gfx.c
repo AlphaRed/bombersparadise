@@ -298,10 +298,19 @@ void drawPowerups(Powerup_t *list, SDL_Texture* tex)
 
     for (Powerup_t* thisPowerup = list; thisPowerup != NULL; thisPowerup = thisPowerup->next)
     {
-        if (thisPowerup->type == BOMB)
-            tile = TILE_POWERUP_BOMB;
-        else if (thisPowerup->type == RANGE)
-            tile = TILE_POWERUP_RANGE;
+        switch (thisPowerup->type) {
+            case BOMB:
+                tile = TILE_POWERUP_BOMB;
+                break;
+            case RANGE:
+                tile = TILE_POWERUP_RANGE;
+                break;
+            case LIFE:
+                tile = TILE_POWERUP_LIFE;
+                break;
+            default:
+                break;
+        }
 
         drawTile(tex, tile, thisPowerup->x, thisPowerup->y, TILE_SCALE);
     }

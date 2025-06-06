@@ -541,10 +541,13 @@ Wreck_t *checkWrecks(Wreck_t *list) {
 
             // powerup drop?
             if (rand() % 100 <= 5) {
-                if (rand() % 2 == 1)
+                int ptype = rand() % 3;
+                if (ptype == 2)
                     powerupList = addPowerup(powerupList, current->x, current->y, BOMB);
-                else
+                else if (ptype == 1)
                     powerupList = addPowerup(powerupList, current->x, current->y, RANGE);
+                else if (ptype == 0)    //
+                    powerupList = addPowerup(powerupList, current->x, current->y, LIFE);
             }
 
             // remove wreck

@@ -170,12 +170,13 @@ void movePlayer(Player_t *player)
     // check for powerup
     type = isPowerupPresent(powerupList, player->x, player->y);
     if (type) {
-        if (type == BOMB) {
+        if (type == BOMB)
             player->maxBombs++;
-        }
-        else if (type == RANGE){
+        else if (type == RANGE)
             player->range++;
-        }
+        else if (type == LIFE)
+            player->lives++;
+            
         powerupList = removePowerup(powerupList, player->x, player->y);
     }
 }
