@@ -16,7 +16,6 @@ Bomb_t *bombList = NULL;
 Mob_t *mobList = NULL;
 Powerup_t *powerupList = NULL;
 Wreck_t *wreckingList = NULL;
-int score;
 
 SDL_Rect fontTiles[FONT_NUM];
 SDL_Rect tileIndex[TILE_NUM];
@@ -59,7 +58,7 @@ int main(int argc, char *args[])
     int current_ticks;
     int fps_counter = 0;
     int blockTicks = 0;
-    score = 0;
+    player.score = 0;
 
 
     // Game loop
@@ -153,7 +152,7 @@ int main(int argc, char *args[])
             if((SDL_GetTicks() - blockTicks) > 10000)
             {
                 addBlocks(5, &player);
-                score += 5;
+                player.score += 5;
                 blockTicks = SDL_GetTicks();
             }
             if (player.invulnerable > 0)
@@ -180,7 +179,7 @@ int main(int argc, char *args[])
             drawBombs(bombList, tiles);
             drawPlayer(player, tiles);
             drawTimerBar(blockTicks);
-            drawScore(score);
+            drawScore(player.score);
             drawLives(player.lives, tiles);
             drawNumBombs(tiles);
             drawRange(tiles);

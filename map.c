@@ -169,7 +169,7 @@ void checkDestructible(int x, int y, Bomb_t *bombList)
     if(arena[x][y] == TILE_BLOCK)
     {
         arena[x][y] = TILE_EMPTY;
-        score++;
+        player.score++;
     }
     else {
         for (Bomb_t* thisBomb = bombList; thisBomb != NULL; thisBomb = thisBomb->next)

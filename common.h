@@ -83,6 +83,7 @@ typedef struct Player_t
     int x;
     int y;
     int moveDir; // clockwise compass: 1 (N), 2 (E), 3 (S), 4 (W)
+    int score;
     int lives;
     int invulnerable;
     int maxBombs;
@@ -133,7 +134,6 @@ typedef struct Game_t {
 extern Game_t game;
 extern int arena[ARENA_WIDTH][ARENA_HEIGHT];
 extern Player_t player;
-extern int score;
 extern Bomb_t *bombList;
 extern Mob_t *mobList;
 extern Powerup_t *powerupList;

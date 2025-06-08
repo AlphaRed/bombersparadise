@@ -53,7 +53,7 @@ void bombShockwave(int startx, int starty, int dx, int dy) {
         if (arena[x][y] == TILE_BLOCK) {
             arena[x][y] = TILE_WRECK;
             wreckingList = addWreck(wreckingList, x, y, SDL_GetTicks());
-            score++;
+            player.score++;
             return; // dealing with shockwave ends
         }
 
@@ -75,7 +75,7 @@ void bombShockwave(int startx, int starty, int dx, int dy) {
         for (Mob_t *thisMob = mobList; thisMob != NULL; thisMob = thisMob->next) {
             if ((thisMob->x == x) && (thisMob->y == y)) {
                 thisMob->state = KILLED;
-                score += 2;
+                player.score += 2;
             }
         }
 
@@ -587,6 +587,7 @@ void initPlayer(Player_t *p)
     p->x = 1;
     p->y = 1;
     p->moveDir = 0;
+    p->score = 0;
     p->lives = 3;
     p->invulnerable = 0;
     p->maxBombs = 1;
