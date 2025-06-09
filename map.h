@@ -6,6 +6,7 @@ int loadMap(int levelNum);
 int pxToTileX(int n);
 int pxToTileY(int n);
 void resetplayer(Player_t *plyr);
+int isEmptyTile(int x, int y);
 int emptyTiles(Player_t player, Bomb_t *bombList);
 void clearArena();
 void addBlocks(int num, Player_t *p);

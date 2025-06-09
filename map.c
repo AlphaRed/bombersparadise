@@ -93,6 +93,28 @@ void resetplayer(Player_t *plyr)
     plyr->invulnerable = INVULNERABLE_TIME;
 }
 
+// Returns zero if tile is empty and one if non-empty.
+int isEmptyTile(int x, int y) {
+    // check if tile is empty
+    if (arena[x][y] != TILE_EMPTY)
+        return 1;
+
+    // check if player is present
+    if ((player.x == x) && (player.y == y))
+        return 1;
+
+    // check if bomb is present
+    if (isBombPresent(bombList, x, y) == 1)
+        return 1;
+
+    // check if mob is present
+    if (isMobPresent(mobList, x, y) == 1)
+        return 1;
+
+    return 0;
+}
+
+// Return number of empty tiles with no player or bombs present
 int emptyTiles(Player_t player, Bomb_t *bombList)
 {
     int count = 0;
@@ -102,16 +124,8 @@ int emptyTiles(Player_t player, Bomb_t *bombList)
         for (int x = 0; x < ARENA_WIDTH; x++)
         {
             // check if tile is empty
-            if (arena[x][y] == TILE_EMPTY)
-            {
-                // check if player is present
-                if ((player.x != x) && (player.y != y))
-                {
-                    // check if bomb present
-                    if (isBombPresent(bombList, x, y) == 0)
-                        count++;
-                }
-            }
+            if (isEmptyTile(x, y) == 0)
+                count++;
         }
     }
 
@@ -134,8 +148,8 @@ void addBlocks(int num, Player_t *p)
     int freetiles = emptyTiles(*p, bombList);
     
     int randX, randY;
-    int playerX = p->x;
-    int playerY = p->y;
+    //int playerX = p->x;
+    //int playerY = p->y;
 
     // check for empty tiles
     if (freetiles < num)
@@ -146,19 +160,9 @@ void addBlocks(int num, Player_t *p)
         randX = rand() % ARENA_WIDTH;
         randY = rand() % ARENA_HEIGHT;
 
-        if(arena[randX][randY] == TILE_EMPTY) // if it's an empty square!
-        {
-            if(!((randX == playerX) && (randY == playerY))) // make sure the player isn't there
-            {
-                if (isMobPresent(mobList, randX, randY) == 0) // make sure mobs aren't there
-                {
-                    if (isBombPresent(bombList, randX, randY) == 0) // make sure bombs aren't there
-                    {
-                        arena[randX][randY] = TILE_BLOCK;
-                        num--;
-                    }
-                }
-            }   
+        if (isEmptyTile(randX, randY) == 0) {
+            arena[randX][randY] = TILE_BLOCK;
+            num--;
         }
     }
 }
