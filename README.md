@@ -5,6 +5,8 @@ I never finished it in time and was left on an old computer only to be resurrect
 
 ![Oh baby](menu.png)
 
+![Yes you](level.png)
+
 ## Installation
 So far, no binaries are available but that should change once I get to a more complete state.
 
