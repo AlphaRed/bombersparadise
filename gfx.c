@@ -156,7 +156,7 @@ void drawCursor(Cursor_t c, SDL_Texture *t)
     drawSprite(t, c.imgIndex, c.x, c.y, TILE_SCALE);
 }
 
-void drawWin(int n)
+void drawWin()
 {
     drawString("Good job!", 50, 40, 3);
     drawString("Press enter to", 50, 150, 3);
