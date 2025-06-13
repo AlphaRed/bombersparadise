@@ -318,46 +318,37 @@ void drawPowerups(Powerup_t *list, SDL_Texture* tex)
 
 void drawLevelTitleCard(int levelNum)
 {
+    SDL_RenderClear(renderer);
     switch (levelNum)
     {
     case 1:
-        SDL_RenderClear(renderer);
         drawString("Level One", 120, 200, 3);
         break;
     case 2:
-        SDL_RenderClear(renderer);
         drawString("Level Two", 120, 200, 3);
         break;
     case 3:
-        SDL_RenderClear(renderer);
         drawString("Level Three", 110, 200, 3);
         break;
     case 4:
-        SDL_RenderClear(renderer);
         drawString("Level Four", 120, 200, 3);
         break;
     case 5:
-        SDL_RenderClear(renderer);
         drawString("Level Five", 120, 200, 3);
         break;
     case 6:
-        SDL_RenderClear(renderer);
         drawString("Level Six", 120, 200, 3);
         break;
     case 7:
-        SDL_RenderClear(renderer);
         drawString("Level Seven", 110, 200, 3);
         break;
     case 8:
-        SDL_RenderClear(renderer);
         drawString("Level Eight", 110, 200, 3);
         break;
     case 9:
-        SDL_RenderClear(renderer);
         drawString("Level Nine", 120, 200, 3);
         break;
     case 10:
-        SDL_RenderClear(renderer);
         drawString("Level Ten", 120, 200, 3);
         break;
     default:
