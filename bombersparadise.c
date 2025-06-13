@@ -6,7 +6,6 @@
 #include "system.h"
 
 // some things were meant to be global
-SDL_Window *window;
 SDL_Renderer *renderer;
 Game_t game;
 Cursor_t menuCursor;

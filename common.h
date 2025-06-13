@@ -129,6 +129,7 @@ typedef struct Game_t {
     Gamestate state;
     int level;
     Uint64 titleCardTimer;
+    SDL_Window *window;
 } Game_t;
 
 extern Game_t game;

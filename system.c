@@ -4,20 +4,20 @@
 
 int initWindow()
 {
-    window = NULL;
+    game.window = NULL;
     if(SDL_Init(SDL_INIT_VIDEO || SDL_INIT_AUDIO) <= 0)
     {
         printf("SDL failed to initialize: %s\n", SDL_GetError());
         return 1;
     }
     else
-        window = SDL_CreateWindow("Bombers Paradise", SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+        game.window = SDL_CreateWindow("Bombers Paradise", SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     return 0;
 }
 
 int initRenderer()
 {
-    renderer = SDL_CreateRenderer(window, NULL);
+    renderer = SDL_CreateRenderer(game.window, NULL);
     if(renderer == NULL)
     {
         printf("Renderer failed to be created: %s\n", SDL_GetError());
@@ -63,7 +63,7 @@ void cleanup()
 {
     //Mix_HaltMusic();
     SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
+    SDL_DestroyWindow(game.window);
     //Mix_Quit();
     SDL_Quit();
 }
