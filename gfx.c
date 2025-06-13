@@ -182,7 +182,7 @@ void drawPlayer(Player_t p, SDL_Texture *t)
 
 void drawBombs(Bomb_t *b, SDL_Texture *t)
 {
-    int currentTime = SDL_GetTicks();
+    Uint64 currentTime = SDL_GetTicks();
     for(Bomb_t *p = b; p != NULL; p = p->next)
     {
         if(p->state == TICKING)
@@ -243,10 +243,10 @@ void drawShockwave(SDL_Texture *tiles, int tileid, int startx, int starty, int d
     }
 }
 
-void drawTimerBar(int lastSpawn) {
+void drawTimerBar(Uint64 lastSpawn) {
     SDL_FRect bar;
 
-    float width = ((float)SDL_GetTicks() - (float)lastSpawn) / 10000.0 * (SCREEN_WIDTH);
+    float width = ((float)SDL_GetTicks() - (float)lastSpawn) / 10000.0f * (SCREEN_WIDTH);
 
     SDL_SetRenderDrawColor(renderer, 95, 177, 78, 255);
 
@@ -294,7 +294,7 @@ void drawMobs(Mob_t *list, SDL_Texture* tex)
 
 void drawPowerups(Powerup_t *list, SDL_Texture* tex)
 {
-    int tile;
+    int tile = 0; // empty tile, just in case
 
     for (Powerup_t* thisPowerup = list; thisPowerup != NULL; thisPowerup = thisPowerup->next)
     {

@@ -10,7 +10,7 @@ extern SDL_Texture  *font;
 int initSDL();
 void cleanup();
 SDL_Rect initTile(int x, int y, int w, int h);
-int calculateFPS(int currentTicks);
+int calculateFPS(Uint64 currentTicks);
 void loadResources();
 
 #endif

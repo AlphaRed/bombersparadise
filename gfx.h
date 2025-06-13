@@ -28,7 +28,7 @@ void drawGameOver();
 void drawPlayer(Player_t p, SDL_Texture *t);
 void drawBombs(Bomb_t *b, SDL_Texture *t);
 void drawShockwave(SDL_Texture *tiles, int tileid, int startx, int starty, int dx, int dy);
-void drawTimerBar(int lastSpawn);
+void drawTimerBar(Uint64 lastSpawn);
 void drawScore(int score);
 void drawLives(int lives, SDL_Texture *texture);
 void drawMobs(Mob_t *list, SDL_Texture* tex);

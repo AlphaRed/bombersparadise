@@ -55,9 +55,9 @@ int main(int argc, char *args[])
 
     int quit = 1;
     SDL_Event e;
-    int current_ticks;
+    Uint64 current_ticks;
     int fps_counter = 0;
-    int blockTicks = 0;
+    Uint64 blockTicks = 0;
     player.score = 0;
 
 

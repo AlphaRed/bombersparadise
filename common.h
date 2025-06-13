@@ -128,7 +128,7 @@ typedef struct Wreck_t {
 typedef struct Game_t {
     Gamestate state;
     int level;
-    int titleCardTimer;
+    Uint64 titleCardTimer;
 } Game_t;
 
 extern Game_t game;

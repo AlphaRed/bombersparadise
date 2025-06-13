@@ -79,10 +79,10 @@ SDL_Rect initTile(int x, int y, int w, int h)
     return tileRect;
 }
 
-int calculateFPS(int currentTicks)
+int calculateFPS(Uint64 currentTicks)
 {
     int fps = 0;
-    int deltaTicks = SDL_GetTicks() - currentTicks;
+    Uint64 deltaTicks = SDL_GetTicks() - currentTicks;
         
     if(deltaTicks > 0)
         fps = 1000 / deltaTicks;
