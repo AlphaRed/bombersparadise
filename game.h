@@ -28,7 +28,7 @@ Powerup_t *randPowerup(Powerup_t *list, int x, int y);
 
 
 // Wreck Functions
-Wreck_t *addWreck(Wreck_t *list, int x, int y, int timer);
+Wreck_t *addWreck(Wreck_t *list, int x, int y, Uint64 timer);
 Wreck_t *removeWreck(Wreck_t *list, int x, int y);
 Wreck_t *deleteWrecks(Wreck_t *list);
 Wreck_t *checkWrecks(Wreck_t *list);

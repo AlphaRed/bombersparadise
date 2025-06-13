@@ -9,7 +9,7 @@
 
 void bombTimers(Bomb_t *list)
 {
-    int currentTime = SDL_GetTicks();
+    Uint64 currentTime = SDL_GetTicks();
     for(Bomb_t *thisBomb = list; thisBomb != NULL; thisBomb = thisBomb->next)
     {
         if((thisBomb->state != EXPLODED) && (currentTime - thisBomb->timer > 3500)) // 3.5? seconds for now
@@ -26,7 +26,7 @@ void bombTimers(Bomb_t *list)
 
 void checkExplosions(Bomb_t *list)
 {
-    int ticks = SDL_GetTicks();
+    Uint64 ticks = SDL_GetTicks();
 
     for (Bomb_t* thisBomb = list; thisBomb != NULL; thisBomb = thisBomb->next) {
         if ((thisBomb->state == EXPLODED) && (ticks - thisBomb->timer < 4500)) {
@@ -165,7 +165,7 @@ void moveMobs(Mob_t *list)
     for (Mob_t *thisMob = list; thisMob != NULL; thisMob = thisMob->next) {
         int destX = thisMob->x;
         int destY = thisMob->y;
-        int deltaTime = SDL_GetTicks() - thisMob->lastMove;
+        Uint64 deltaTime = SDL_GetTicks() - thisMob->lastMove;
         int revX = thisMob->x;
         int revY = thisMob->y;
 
@@ -488,7 +488,7 @@ Powerup_t *randPowerup(Powerup_t *list, int x, int y) {
 
 // Wreck Functions
 
-Wreck_t *addWreck(Wreck_t *list, int x, int y, int timer) {
+Wreck_t *addWreck(Wreck_t *list, int x, int y, Uint64 timer) {
     Wreck_t *newWreck = malloc(sizeof(struct Wreck_t));
     if (newWreck == NULL) {
         printf("Error, malloc failed to create new wreck!\n");
@@ -548,7 +548,7 @@ Wreck_t *deleteWrecks(Wreck_t *list) {
 
 // checks if wrecks need to be removed entirely
 Wreck_t *checkWrecks(Wreck_t *list) {
-    int ticks = SDL_GetTicks();
+    Uint64 ticks = SDL_GetTicks();
 
     Wreck_t* current = list;
     Wreck_t* previous = NULL;
@@ -607,4 +607,5 @@ void initGame(Game_t* g)
     g->state = MENU;
     g->level = 1;
     g->titleCardTimer = SDL_GetTicks();
+    g->window = NULL;
 }

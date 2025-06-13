@@ -96,7 +96,7 @@ typedef struct Bomb_t
     int imgIndex;
     int x;
     int y;
-    int timer;
+    Uint64 timer;
     Bombstate state;
     struct Bomb_t *next;
 } Bomb_t;
@@ -106,7 +106,7 @@ typedef struct Mob_t {
     int x;
     int y;
     int dir;
-    int lastMove;
+    Uint64 lastMove;
     Mobstate state;
     struct Mob_t *next;
 } Mob_t;
@@ -121,7 +121,7 @@ typedef struct Powerup_t {
 typedef struct Wreck_t {
     int x;
     int y;
-    int timer;
+    Uint64 timer;
     struct Wreck_t *next;
 } Wreck_t;
 
