@@ -144,15 +144,30 @@ void drawMenu(SDL_Texture *t)
 {
     drawString("Bomber's Paradise", 50, 20, 3);
     drawString("Start", 50, 250, 3);
-    drawString("Exit", 50, 300, 3);
+    drawString("Highscores", 50, 300, 3);
+    drawString("Exit", 50, 350, 3);
     drawString("By Isaac and Sam", 50, 420, 3);
     drawSprite(t, 12, 192, 160, TILE_SCALE * 2);
     drawSprite(t, 13, 256, 160, TILE_SCALE * 2);
     drawSprite(t, 14, 192, 96, TILE_SCALE * 2);
 }
 
-void drawCursor(Cursor_t c, SDL_Texture *t)
+void drawCursor(Sprite_t c, int menuIndex, SDL_Texture *t)
 {
+    switch (menuIndex) {
+        case 0:
+            c.y = MENU_START_Y;
+            break;
+        case 1:
+            c.y = MENU_HSCORES_Y;
+            break;
+        case 2:
+            c.y = MENU_EXIT_Y;
+            break;
+        default:
+            break;
+    }
+
     drawSprite(t, c.imgIndex, c.x, c.y, TILE_SCALE);
 }
 
@@ -370,4 +385,21 @@ void drawRange(SDL_Texture *tex) {
     drawLetter('x', 180+40, 44, 3);
     c = (player.range % 10) + 48;
     drawLetter(c, 180+70, 44, 3);
+}
+
+void drawHighscores(Highscore_t *scores) {
+    char buffer[10];
+    int y = 2;
+
+    drawString("Highscores", 5*24, y++, 3);
+    // headers
+    drawString("Name", 4*24, y*24, 3);
+    drawString("Score", 12*24, y++*24, 3);
+    // body
+    for (int i = 0; i < HIGHSCORE_LIMIT; i++) {
+        drawString(scores[i].initials, 4*24, y*24, 3);
+        sprintf(buffer, "%8d", scores[i].score);
+        drawString(buffer, 8*24, y*24, 3);
+        y++;
+    }
 }

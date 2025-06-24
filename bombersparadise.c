@@ -8,7 +8,8 @@
 // some things were meant to be global
 SDL_Renderer *renderer;
 Game_t game;
-Cursor_t menuCursor;
+Highscore_t highscores[HIGHSCORE_LIMIT];
+Sprite_t menuCursor;
 int arena[ARENA_WIDTH][ARENA_HEIGHT];
 Player_t player;
 Bomb_t *bombList = NULL;
@@ -35,6 +36,7 @@ int main(int argc, char *args[])
     }
 
     initGame(&game);
+    initHighscores(highscores);
     initPlayer(&player);
     initCursor(&menuCursor);
 
@@ -57,6 +59,7 @@ int main(int argc, char *args[])
     Uint64 current_ticks;
     int fps_counter = 0;
     Uint64 blockTicks = 0;
+    int menuIndex = 0;  // 0 first item, 1 is second... etc
     player.score = 0;
 
 
@@ -73,7 +76,7 @@ int main(int argc, char *args[])
         }
         else if(game.state == MENU)
         {
-            quit = checkMenuEvents(e, &menuCursor);
+            quit = checkMenuEvents(e, &menuIndex);
             if(quit == 2) // menu, moving to game
             {
                 game.state = TITLECARD;
@@ -83,7 +86,10 @@ int main(int argc, char *args[])
                 addBlocks(30, &player);
                 blockTicks = SDL_GetTicks();
                 clearSpawn(); // give player some room at spawn to use a bomb
-            }     
+            }
+            else if (quit == 3) { // menu, moving to highscores
+                game.state = HIGHSCOREVIEW;
+            }
         }
         else if (game.state == WIN)
         {
@@ -135,6 +141,12 @@ int main(int argc, char *args[])
                 loadMobs(game.level);
             }
         }
+        else if (game.state == HIGHSCOREVIEW) {
+            quit = checkWinEvents(e); // I'm a bad man for reusing functions
+            if (quit == 2) {    // highscores, moving to menu
+                game.state = MENU;
+            }
+        }
 
         // Logic
         if(game.state == GAME)
@@ -159,7 +171,6 @@ int main(int argc, char *args[])
         }
         else if(game.state == MENU)
         {
-            checkMCursorBounds(&menuCursor);
         }
         else if (game.state == TITLECARD)
         {
@@ -186,7 +197,7 @@ int main(int argc, char *args[])
         else if(game.state == MENU)
         {
             drawMenu(tiles);
-            drawCursor(menuCursor, tiles);
+            drawCursor(menuCursor, menuIndex, tiles);
         }
         else if(game.state == WIN)
         {
@@ -200,6 +211,13 @@ int main(int argc, char *args[])
         else if (game.state == TITLECARD)
         {
             drawLevelTitleCard(game.level);
+        }
+        else if (game.state == HIGHSCORE) {
+            // TODO
+            // we'll do something here
+        }
+        else if (game.state == HIGHSCOREVIEW) {
+            drawHighscores(highscores);
         }
 
         drawFPS(fps_counter);

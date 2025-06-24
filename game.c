@@ -595,7 +595,7 @@ void initPlayer(Player_t *p)
     p->range = 1;
 }
 
-void initCursor(Cursor_t* c)
+void initCursor(Sprite_t* c)
 {
     c->imgIndex = 15;
     c->x = 5;
@@ -608,4 +608,48 @@ void initGame(Game_t* g)
     g->level = 1;
     g->titleCardTimer = SDL_GetTicks();
     g->window = NULL;
+}
+
+void initHighscores(Highscore_t *scores) {
+    int score = 100;
+
+    for (int i = 0; i < HIGHSCORE_LIMIT; i++) {
+        scores[i].initials = "ABC";
+        scores[i].score = score;
+        score -= 10;
+        scores[i].level = 1;
+    }
+}
+
+// Check if score is on the highscore list
+int isHighscore(Highscore_t *scores, int score) {
+    for (int i = 0; i < 10; i++) {
+        if (scores[i].score < score)
+            return i;
+    }
+
+    return -1;
+}
+
+// Add new score to highscore list and return 1 if score is on scoreboard
+int submitHighscore(Highscore_t *scores, Highscore_t newscore) {
+    int index = 0;
+
+    // find where score fits in (if at all)
+    for (int i = 0; i < 10; i++) {
+        index = i;
+        if (scores[i].score < newscore.score)
+            break;
+    }
+
+    if (index == 10) return 0; // not on scoreboard
+
+    // shift scores down to make room
+    for (int i = index + 1; i < 10; i++) {
+        scores[i].initials = scores[i-1].initials;
+        scores[i].level = scores[i-1].level;
+        scores[i].score = scores[i-1].score;
+    }
+
+    return 1;   // on scoreboard
 }

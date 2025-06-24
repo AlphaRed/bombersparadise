@@ -4,7 +4,7 @@
 extern int win;
 
 int checkGameEvents(SDL_Event e, Player_t *p);
-int checkMenuEvents(SDL_Event e, Cursor_t *c);
+int checkMenuEvents(SDL_Event e, int *menuIndex);
 int checkWinEvents(SDL_Event e);
 int checkGameOverEvents(SDL_Event e);
 

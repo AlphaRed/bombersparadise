@@ -18,7 +18,8 @@
 #define MAX_FPS         60
 #define TILE_NUM        8 * 8
 #define MENU_START_Y	245
-#define MENU_EXIT_Y     295
+#define MENU_HSCORES_Y  295
+#define MENU_EXIT_Y     345
 
 // palette
 #define PAL_0_R     5       // 0 -- dark blue
@@ -65,7 +66,9 @@
 
 #define INVULNERABLE_TIME   1000 // ms of invulnerability (at start and when hit)
 
-typedef enum {MENU, GAME, WIN, GAMEOVER, TITLECARD} Gamestate;
+#define HIGHSCORE_LIMIT     10
+
+typedef enum {MENU, GAME, WIN, GAMEOVER, TITLECARD, HIGHSCORE, HIGHSCOREVIEW} Gamestate;
 typedef enum {TICKING, EXPLODED, DEAD} Bombstate;
 typedef enum {ALIVE, KILLED} Mobstate;
 typedef enum {NOTYPE, BOMB, RANGE, LIFE} Poweruptype;
@@ -76,6 +79,13 @@ typedef struct Cursor_t // could maybe make this a generic sprite/obj struct?
     int x;
     int y;
 } Cursor_t;
+
+// Generic sprite
+typedef struct Sprite_t {
+    int imgIndex;
+    int x;
+    int y;
+} Sprite_t;
 
 typedef struct Player_t
 {
@@ -132,7 +142,14 @@ typedef struct Game_t {
     SDL_Window *window;
 } Game_t;
 
+typedef struct Highscore_t {
+    char *initials;
+    int level;
+    int score;
+} Highscore_t;
+
 extern Game_t game;
+extern Highscore_t highscores[HIGHSCORE_LIMIT];
 extern int arena[ARENA_WIDTH][ARENA_HEIGHT];
 extern Player_t player;
 extern Bomb_t *bombList;

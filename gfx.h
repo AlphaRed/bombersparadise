@@ -22,7 +22,7 @@ void drawSprite(SDL_Texture *sprite, int index, int x, int y, int scale);
 void drawTile(SDL_Texture *t, int index, int x, int y, int s);
 void drawArena(SDL_Texture *t);
 void drawMenu(SDL_Texture *t);
-void drawCursor(Cursor_t c, SDL_Texture *img);
+void drawCursor(Sprite_t c, int menuIndex, SDL_Texture *img);
 void drawWin();
 void drawGameOver();
 void drawPlayer(Player_t p, SDL_Texture *t);
@@ -36,5 +36,6 @@ void drawPowerups(Powerup_t *list, SDL_Texture* tex);
 void drawLevelTitleCard(int levelNum);
 void drawNumBombs(SDL_Texture *tex);
 void drawRange(SDL_Texture *tex);
+void drawHighscores(Highscore_t *scores);
 
 #endif

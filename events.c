@@ -45,7 +45,7 @@ int checkGameEvents(SDL_Event e, Player_t *p)
     return 1;
 }
 
-int checkMenuEvents(SDL_Event e, Cursor_t *c)
+int checkMenuEvents(SDL_Event e, int* menuIndex)
 {
     if(e.type == SDL_EVENT_QUIT)
         return 0;
@@ -57,23 +57,27 @@ int checkMenuEvents(SDL_Event e, Cursor_t *c)
                 return 0;
             case SDLK_RETURN:
             case SDLK_SPACE:
-                if(c->y == MENU_START_Y) // Start
+                if (*menuIndex == 0)        // Start
                     return 2;
-                else if(c->y == MENU_EXIT_Y) // Exit
+                else if (*menuIndex == 1)   // Highscores
+                    return 3;
+                else if (*menuIndex == 2)   // Exit
                     return 0;
                 break;
             case SDLK_DOWN:
             case SDLK_S:
-                c->y += 50;
+                *menuIndex += 1;
                 break;
             case SDLK_UP:
             case SDLK_W:
-                c->y -= 50;
+                *menuIndex -= 1;
                 break;
             default:
                 break;
         }
-        return 1;    
+        // keep index within bounds of menu (0-1)
+        if (*menuIndex < 0) *menuIndex = 2;
+        if (*menuIndex > 2) *menuIndex = 0;    
     }
     return 1;
 }

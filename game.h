@@ -33,9 +33,13 @@ Wreck_t *removeWreck(Wreck_t *list, int x, int y);
 Wreck_t *deleteWrecks(Wreck_t *list);
 Wreck_t *checkWrecks(Wreck_t *list);
 
+// Highscore Functions
+int submitHighscore(Highscore_t *highscore, Highscore_t newscore);
+
 // Initialization Functions
 void initPlayer(Player_t* p);
-void initCursor(Cursor_t* c);
+void initCursor(Sprite_t* c);
 void initGame(Game_t* g);
+void initHighscores(Highscore_t *scores);
 
 #endif
