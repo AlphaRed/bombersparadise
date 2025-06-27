@@ -34,6 +34,7 @@ Wreck_t *deleteWrecks(Wreck_t *list);
 Wreck_t *checkWrecks(Wreck_t *list);
 
 // Highscore Functions
+int isHighscore(Highscore_t *scores, int score);
 int submitHighscore(Highscore_t *highscore, Highscore_t newscore);
 
 // Initialization Functions

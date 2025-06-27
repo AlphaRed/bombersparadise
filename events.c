@@ -120,6 +120,36 @@ int checkGameOverEvents(SDL_Event e)
     return 1;
 }
 
+int checkHighscoreEntryEvents(SDL_Event e, HighscoreEntry_t *entry) {
+    if (e.type == SDL_EVENT_QUIT)
+        return 0;
+    else if (e.type == SDL_EVENT_KEY_DOWN) {
+        switch (e.key.key) {
+            case SDLK_A:
+            case SDLK_LEFT:
+                entry->cursor--;
+                break;
+            case SDLK_D:
+            case SDLK_RIGHT:
+                entry->cursor++;
+                break;
+            case SDLK_W:
+            case SDLK_UP:
+                entry->initials[entry->cursor]--;
+                break;
+            case SDLK_S:
+            case SDLK_DOWN:
+                entry->initials[entry->cursor]++;
+                break;
+
+            case SDLK_RETURN:
+                entry->confirmed = 1;
+                break;
+        }
+    }
+    return 1;
+}
+
 void checkMCursorBounds(Cursor_t *c)
 {
     // wraps the cursor around the menu

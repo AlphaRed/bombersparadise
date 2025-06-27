@@ -403,3 +403,13 @@ void drawHighscores(Highscore_t *scores) {
         y++;
     }
 }
+
+void drawHighscoreEntry(HighscoreEntry_t entry, int score) {
+    char buffer[10];
+
+    drawString("NEW HIGHSCORE!", 4*24, 4*24, 3);
+    sprintf(buffer, "%8d", score);
+    drawString(buffer, 8*24, 6*24, 3);
+    drawString(entry.initials, 4*24, 6*24, 3);
+    drawLetter('^', (4+entry.cursor)*24, 7*24, 3);
+}

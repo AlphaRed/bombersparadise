@@ -614,7 +614,7 @@ void initHighscores(Highscore_t *scores) {
     int score = 100;
 
     for (int i = 0; i < HIGHSCORE_LIMIT; i++) {
-        scores[i].initials = "ABC";
+        strcpy(scores[i].initials, "...");
         scores[i].score = score;
         score -= 10;
         scores[i].level = 1;
@@ -645,11 +645,16 @@ int submitHighscore(Highscore_t *scores, Highscore_t newscore) {
     if (index == 10) return 0; // not on scoreboard
 
     // shift scores down to make room
-    for (int i = index + 1; i < 10; i++) {
-        scores[i].initials = scores[i-1].initials;
+    for (int i = 10; i > index; i--) {
+        strcpy(scores[i].initials, scores[i-1].initials);
         scores[i].level = scores[i-1].level;
         scores[i].score = scores[i-1].score;
     }
+
+    // set new score
+    strcpy(scores[index].initials, newscore.initials);
+    scores[index].level = newscore.level;
+    scores[index].score = newscore.score;
 
     return 1;   // on scoreboard
 }

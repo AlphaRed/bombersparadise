@@ -37,5 +37,6 @@ void drawLevelTitleCard(int levelNum);
 void drawNumBombs(SDL_Texture *tex);
 void drawRange(SDL_Texture *tex);
 void drawHighscores(Highscore_t *scores);
+void drawHighscoreEntry(HighscoreEntry_t entry, int score);
 
 #endif

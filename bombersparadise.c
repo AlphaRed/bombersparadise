@@ -9,6 +9,7 @@
 SDL_Renderer *renderer;
 Game_t game;
 Highscore_t highscores[HIGHSCORE_LIMIT];
+HighscoreEntry_t highscoreEntry;
 Sprite_t menuCursor;
 int arena[ARENA_WIDTH][ARENA_HEIGHT];
 Player_t player;
@@ -82,6 +83,8 @@ int main(int argc, char *args[])
                 game.state = TITLECARD;
                 game.titleCardTimer = SDL_GetTicks();
                 //Mix_HaltMusic();
+                game.level = 1;
+                initPlayer(&player);
                 resetplayer(&player);
                 addBlocks(30, &player);
                 blockTicks = SDL_GetTicks();
@@ -127,18 +130,23 @@ int main(int argc, char *args[])
         else if (game.state == GAMEOVER)
         {
             quit = checkGameOverEvents(e);
-            if (quit == 2) // gameover, moving to start screen
+            if (quit == 2) // moving out of game over
             {
-                game.state = MENU;
-                game.level = 1;
-                initPlayer(&player);
-                resetplayer(&player);
                 bombList = deleteBombs(bombList);
                 powerupList = deletePowerups(powerupList);
                 wreckingList = deleteWrecks(wreckingList);
                 killMobs(mobList);
                 loadMap(game.level);
                 loadMobs(game.level);
+
+                if (isHighscore(highscores, player.score) > -1) {
+                    game.state = HIGHSCORE;
+                    highscoreEntry.cursor = 0;
+                    strcpy(highscoreEntry.initials, "AAA");
+                    highscoreEntry.confirmed = 0;
+                }
+                else
+                    game.state = MENU;
             }
         }
         else if (game.state == HIGHSCOREVIEW) {
@@ -146,6 +154,11 @@ int main(int argc, char *args[])
             if (quit == 2) {    // highscores, moving to menu
                 game.state = MENU;
             }
+        }
+        else if (game.state == HIGHSCORE) {
+            quit = checkHighscoreEntryEvents(e, &highscoreEntry);
+            if (quit == 2)      // finished entering highscore, moving to menu
+                game.state = MENU;
         }
 
         // Logic
@@ -176,6 +189,25 @@ int main(int argc, char *args[])
         {
             if (SDL_GetTicks() - game.titleCardTimer > 1000)
                 game.state = GAME;
+        }
+        else if (game.state == HIGHSCORE) {
+            // clamp cursor to 0-2
+            if (highscoreEntry.cursor < 0) highscoreEntry.cursor = 2;
+            if (highscoreEntry.cursor > 2) highscoreEntry.cursor = 0;
+            // clamp current character to 20h-5Fh
+            if (highscoreEntry.initials[highscoreEntry.cursor] < 32)
+                highscoreEntry.initials[highscoreEntry.cursor] = 95;
+            if (highscoreEntry.initials[highscoreEntry.cursor] > 95)
+                highscoreEntry.initials[highscoreEntry.cursor] = 32;
+
+            if (highscoreEntry.confirmed == 1) {
+                Highscore_t score;
+                strcpy(score.initials, highscoreEntry.initials);
+                score.score = player.score;
+                score.level = 3;
+                if (submitHighscore(highscores, score))
+                    game.state = HIGHSCOREVIEW;
+            }
         }
 
         // Render
@@ -213,8 +245,7 @@ int main(int argc, char *args[])
             drawLevelTitleCard(game.level);
         }
         else if (game.state == HIGHSCORE) {
-            // TODO
-            // we'll do something here
+            drawHighscoreEntry(highscoreEntry, player.score);
         }
         else if (game.state == HIGHSCOREVIEW) {
             drawHighscores(highscores);

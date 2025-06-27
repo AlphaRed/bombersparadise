@@ -143,13 +143,20 @@ typedef struct Game_t {
 } Game_t;
 
 typedef struct Highscore_t {
-    char *initials;
+    char initials[4];
     int level;
     int score;
 } Highscore_t;
 
+typedef struct HighscoreEntry_t {
+    char initials[4];
+    int cursor;
+    int confirmed;
+} HighscoreEntry_t;
+
 extern Game_t game;
 extern Highscore_t highscores[HIGHSCORE_LIMIT];
+extern HighscoreEntry_t highscoreEntry;
 extern int arena[ARENA_WIDTH][ARENA_HEIGHT];
 extern Player_t player;
 extern Bomb_t *bombList;
