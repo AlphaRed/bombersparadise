@@ -291,13 +291,12 @@ void drawScore(int score)
 
 void drawLives(int lives, SDL_Texture *texture)
 {
-    char c;
+    char buffer[3];
 
     drawSprite(texture, TILE_PLAYER, TILE_SIZE * 11 * TILE_SCALE, 38, TILE_SCALE);
     drawLetter('x', 393, 44, 3);
-    // lives should really only be one digit
-    c = (lives % 10) + 48;
-    drawLetter(c, 423, 44, 3);
+    sprintf(buffer, "%d", lives);
+    drawString(buffer, 423, 44, 3);
 }
 
 void drawMobs(Mob_t *list, SDL_Texture* tex)
@@ -372,19 +371,21 @@ void drawLevelTitleCard(int levelNum)
 }
 
 void drawNumBombs(SDL_Texture *tex) {
+    char buffer[3];
+
     drawSprite(tex, TILE_BOMB, 0, 38, TILE_SCALE);
     drawLetter('x', 40, 44, 3);
-    char c = (player.maxBombs % 10) + 48;
-    drawLetter(c, 70, 44, 3);
+    sprintf(buffer, "%d", player.maxBombs);
+    drawString(buffer, 70, 44, 3);
 }
 
 void drawRange(SDL_Texture *tex) {
-    char c;
+    char buffer[3];
 
     drawSprite(tex, TILE_EXPLOSION_SMALL, 180, 38, TILE_SCALE);
     drawLetter('x', 180+40, 44, 3);
-    c = (player.range % 10) + 48;
-    drawLetter(c, 180+70, 44, 3);
+    sprintf(buffer, "%d", player.range);
+    drawString(buffer, 180+70, 44, 3);
 }
 
 void drawHighscores(Highscore_t *scores) {
